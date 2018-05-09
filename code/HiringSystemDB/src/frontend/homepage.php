@@ -1,7 +1,6 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Portakal</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -32,38 +31,70 @@
     </ul>
   </div>
 </nav>
-  
-
 <div class="container">
   <h1>Welcome</h1>
-  <div class="btn-group btn-group-justified">
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary">Apple</button>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary">Samsung</button>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary">Sony</button>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary">Sony</button>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary">Sony</button>
-    </div>        
-  </div>
-<form>
-  <div class="input-group">
-    <input type="text" class="form-control" placeholder="Search">
-    <div class="input-group-btn">
-      <button class="btn btn-default" type="submit">
-        <i class="glyphicon glyphicon-search"></i>
-      </button>
-    </div>
-  </div>
-</form>
+  <span class="label label-danger">Repair</span>
+  <span class="label label-primary">Cleaning</span>
+  <span class="label label-success">Painting</span>
+  <span class="label label-info">Moving</span>
+  <span class="label label-warning">Private Lesson</span>
+  <br/> <br/>
+  <form  action="" method = "post">
+      <div class="form-group">
+        <input type="text" name = "service_type" class="form-control" placeholder="Search">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
 </div>
-
 </body>
 </html>
+<?php
+   include ('config.php');
+   session_start();
+   if($_SERVER["REQUEST_METHOD"] == "POST")
+   {
+      $server_service_type = $_POST['service_type'];
+      $results = array();
+      $result_query = "";
+      $lower_service_type = strtolower($server_service_type);
+      if($lower_service_type == "repair")
+      {
+           $result_query = mysqli_query($db, "SELECT service_type_ID, custom_service_name, base_material_price, item_type FROM repair_service");
+           echo "<div align = 'center'> <h2> SERVICES </h2> <table border = '1'> ";
+           echo "<th>ID</th><th>name</th><th>base material price</th><th>material type </th><br>";
+           while($row = mysqli_fetch_array($result_query))
+           {
+              $results[] = $row;
+              echo "<tr>";
+              echo "<td align = 'center'> $row[0] </td>    ";
+              echo "<td align = 'center'> $row[1] </td>    ";
+              echo "<td align = 'center'> $row[2] </td>    ";
+              echo "<td align = 'center'> $row[3] </td>    ";
+              echo "</tr>";
+              echo "<br>";
+          }
+        echo "</table> </div>";
+      }
+      elseif($lower_service_type == "cleaning")
+      {
+           $result_query = mysqli_query($db, "SELECT service_type_ID, custom_service_name, base_room_price, base_bathroom_price, worker_rate, frequency FROM cleaning_service");
+           echo "<div align = 'center'> <h2> SERVICES </h2> <table border = '1'> ";
+           echo "<th>ID</th><th>name</th><th>base room price</th><th>base bathroom price </th><th>worker rate</th> <th>frequency</th><br>";
+           while($row = mysqli_fetch_array($result_query))
+           {
+              $results[] = $row;
+              echo "<tr>";
+              echo "<td align = 'center'> $row[0] </td>    ";
+              echo "<td align = 'center'> $row[1] </td>    ";
+              echo "<td align = 'center'> $row[2] </td>    ";
+              echo "<td align = 'center'> $row[3] </td>    ";
+              echo "<td align = 'center'> $row[4] </td>    ";
+              echo "<td align = 'center'> $row[5] </td>    ";
+              echo "</tr>";
+              echo "<br>";
+          }
+          echo "</table> </div>";
+      }
+
+    }
+?>

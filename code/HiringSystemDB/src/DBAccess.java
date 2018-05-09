@@ -323,6 +323,26 @@ public class DBAccess {
                     "street_number INT" +
                     ")engine=InnoDB;"
             );
+            statement.executeUpdate("INSERT INTO services(service_type_ID, service_type_name)" +
+                    "values('00001','repair')," +
+                    "('00002', 'repair')," +
+                    "('00003', 'repair')"
+            );
+            statement.executeUpdate("INSERT INTO proposed_services(proposal_ID, service_type_ID, start_date, end_date, proposed_price)" +
+                    "values('1','00001', '1985.09.08', '1985.09.09', '40' )," +
+                    "('2','00002','1985.02.08', '1985.06.08', '50')," +
+                    "('3','00003','1985.01.08', '1985.03.08', '60')"
+            );
+            statement.executeUpdate("INSERT INTO provided_services(service_type_ID, custom_service_name, service_rating, service_starting_date, service_ending_date)" +
+                    "values('00001', 'anan_repair', '5', '1985.09.08', '1985.09.09' )," +
+                    "('00002', 'baban_repair', '6', '1985.02.08', '1985.06.08')," +
+                    "('00003', 'dayın_repair', '3', '1985.01.08', '1985.03.08')"
+            );
+            statement.executeUpdate("INSERT INTO repair_service(service_type_ID, custom_service_name, base_material_price, item_type)" +
+                    "values('00001', 'anan_repair','10', 'anan')," +
+                    "('00002', 'baban_repair', '20', 'baban')," +
+                    "('00003', 'dayın_repair', '20', 'dayın')"
+            );
         }catch (SQLException e)
         {
             e.printStackTrace();
