@@ -52,6 +52,12 @@ public class DBAccess {
             statement.executeUpdate("drop table if exists professional_users;");
             statement.executeUpdate("drop table if exists regular_users;");
             statement.executeUpdate("drop table if exists users;");
+            statement.executeUpdate("drop table if exists private_lesson");
+            statement.executeUpdate("drop table if exists repair_service");
+            statement.executeUpdate("drop table if exists painting_service");
+            statement.executeUpdate("drop table if exists cleaning_service");
+            statement.executeUpdate("drop table if exists moving_service");
+
 
             statement.executeUpdate("CREATE TABLE users"+
                     "(user_ID INT PRIMARY KEY AUTO_INCREMENT,"+
@@ -250,6 +256,71 @@ public class DBAccess {
                     "FOREIGN KEY (provider_ID) REFERENCES professional_users( user_ID)" +
                     "ON DELETE CASCADE\n" +
                     "ON UPDATE CASCADE" +
+                    ")engine=InnoDB;"
+            );
+            statement.executeUpdate("CREATE TABLE private_lesson" +
+                    "(PRIMARY KEY (service_type_ID),"+
+                    "service_type_ID INT," +
+                    "custom_service_name VARCHAR(32)," +
+                    "FOREIGN KEY (service_type_ID, custom_service_name)  REFERENCES provided_services(service_type_ID, custom_service_name)" +
+                    "ON DELETE CASCADE\n" +
+                    "ON UPDATE CASCADE," +
+                    "course_type VARCHAR(32)," +
+                    "hourly_rate INT," +
+                    "frequency VARCHAR(32)" +
+                    ")engine=InnoDB;"
+            );
+            statement.executeUpdate("CREATE TABLE repair_service" +
+                    "(PRIMARY KEY (service_type_ID),"+
+                    "service_type_ID INT," +
+                    "custom_service_name VARCHAR(32)," +
+                    "FOREIGN KEY (service_type_ID, custom_service_name)  REFERENCES provided_services(service_type_ID, custom_service_name)" +
+                    "ON DELETE CASCADE\n" +
+                    "ON UPDATE CASCADE," +
+                    "base_material_price INT," +
+                    "item_type VARCHAR(32)" +
+                    ")engine=InnoDB;"
+            );
+            statement.executeUpdate("CREATE TABLE cleaning_service" +
+                    "(PRIMARY KEY (service_type_ID)" +
+                    "service_type_ID INT," +
+                    "custom_service_name VARCHAR(32)," +
+                    "FOREIGN KEY (service_type_ID, custom_service_name)  REFERENCES provided_services(service_type_ID, custom_service_name)" +
+                    "ON DELETE CASCADE\n" +
+                    "ON UPDATE CASCADE," +
+                    "base_room_price INT," +
+                    "base_bathroom_price INT," +
+                    "worker_rate INT," +
+                    "frequency VARCHAR(32)" +
+                    ")engine=InnoDB;"
+            );
+            statement.executeUpdate("CREATE TABLE painting_service" +
+                    "(PRIMARY KEY (service_type_ID)," +
+                    "service_type_ID INT," +
+                    "custom_service_name VARCHAR(32)," +
+                    "FOREIGN KEY (service_type_ID, custom_service_name)  REFERENCES provided_services(service_type_ID, custom_service_name)" +
+                    "ON DELETE CASCADE\n" +
+                    "ON UPDATE CASCADE," +
+                    "total_volume INT," +
+                    "color_type VARCHAR(32)," +
+                    "total_volume INT" +
+                    ")engine=InnoDB;"
+            );
+            statement.executeUpdate("CREATE TABLE moving_service" +
+                    "(PRIMARY KEY (service_type_ID)," +
+                    "service_type_ID INT," +
+                    "custom_service_name VARCHAR(32)," +
+                    "FOREIGN KEY (service_type_ID, custom_service_name)  REFERENCES provided_services(service_type_ID, custom_service_name)" +
+                    "ON DELETE CASCADE\n" +
+                    "ON UPDATE CASCADE," +
+                    "new_city_name VARCHAR(32)," +
+                    "new_zip_code INT," +
+                    "new_apt_name VARCHAR(32)," +
+                    "new_street_number INT," +
+                    "city_name VARCHAR(32)," +
+                    "zip_code INT," +
+                    "apt_name VARCHAR(32)," +
+                    "street_number INT," +
                     ")engine=InnoDB;"
             );
         }catch (SQLException e)
