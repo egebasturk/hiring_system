@@ -60,21 +60,6 @@
       </div>  
 
       <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" class="form-control" id="name">
-      </div>  
-
-      <div class="form-group">
-        <label for="surname">Surname:</label>
-        <input type="text" class="form-control" id="surname">
-      </div>   
-
-      <div class="form-group">
-        <label for="dob">Date of birth:</label>
-        <input type="date" class="form-control" id="dob">
-      </div>   
-
-      <div class="form-group">
         <label for="city">City:</label>
         <input type="text" class="form-control" id="city">
       </div>   
@@ -93,6 +78,32 @@
         <label for="zip">Zip code:</label>
         <input type="number" min="0" class="form-control" id="zip">
       </div>   
+
+      <div class="form-group">
+        <label for="exp">Experience</label>
+        <input type="number" min="0" class="form-control" id="exp">
+      </div>  
+
+      <div class="form-group">
+      <label for="service">Service Type:</label>
+        <div class="radio-group">
+          <label class="radio-inline">
+            <input type="radio" name="radio">Repair
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="radio">Cleaning
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="radio">Painting
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="radio">Moving
+          </label> 
+          <label class="radio-inline">
+            <input type="radio" name="radio">Private Lesson
+          </label>          
+        </div>
+      </div>
 
       <div class="form-group">        
         <div class="col-sm-offset-0 col-sm-0">
