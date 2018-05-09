@@ -27,7 +27,7 @@
       <li><a href="#">Page 2</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="signup_reg.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
   </div>
@@ -36,23 +36,11 @@
 
 <div class="container">
   <h1>Welcome</h1>
-  <div class="btn-group btn-group-justified">
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary">Apple</button>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary">Samsung</button>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary">Sony</button>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary">Sony</button>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary">Sony</button>
-    </div>        
-  </div>
+  <span class="label label-danger">Repair</span>
+  <span class="label label-primary">Cleaning</span>
+  <span class="label label-success">Painting</span>
+  <span class="label label-info">Moving</span>
+  <span class="label label-warning">Private Lesson</span>
 <form>
   <div class="input-group">
     <input type="text" class="form-control" placeholder="Search">
