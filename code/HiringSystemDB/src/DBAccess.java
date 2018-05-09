@@ -35,6 +35,12 @@ public class DBAccess {
     {
         try {
             // Order of Drops is IMPORTANT
+
+            statement.executeUpdate("drop table if exists private_lesson;");
+            statement.executeUpdate("drop table if exists repair_service;");
+            statement.executeUpdate("drop table if exists painting_service;");
+            statement.executeUpdate("drop table if exists cleaning_service;");
+            statement.executeUpdate("drop table if exists moving_service;");
             statement.executeUpdate("drop table if exists has_taken;");
             statement.executeUpdate("drop table if exists collaborators;");
             statement.executeUpdate("drop table if exists service_ratings_evaluations;");
@@ -52,12 +58,6 @@ public class DBAccess {
             statement.executeUpdate("drop table if exists professional_users;");
             statement.executeUpdate("drop table if exists regular_users;");
             statement.executeUpdate("drop table if exists users;");
-            statement.executeUpdate("drop table if exists private_lesson");
-            statement.executeUpdate("drop table if exists repair_service");
-            statement.executeUpdate("drop table if exists painting_service");
-            statement.executeUpdate("drop table if exists cleaning_service");
-            statement.executeUpdate("drop table if exists moving_service");
-
 
             statement.executeUpdate("CREATE TABLE users"+
                     "(user_ID INT PRIMARY KEY AUTO_INCREMENT,"+
@@ -262,7 +262,7 @@ public class DBAccess {
                     "(PRIMARY KEY (service_type_ID),"+
                     "service_type_ID INT," +
                     "custom_service_name VARCHAR(32)," +
-                    "FOREIGN KEY (service_type_ID, custom_service_name)  REFERENCES provided_services(service_type_ID, custom_service_name)" +
+                    "FOREIGN KEY (service_type_ID, custom_service_name) REFERENCES provided_services(service_type_ID, custom_service_name)\n" +
                     "ON DELETE CASCADE\n" +
                     "ON UPDATE CASCADE," +
                     "course_type VARCHAR(32)," +
@@ -274,7 +274,7 @@ public class DBAccess {
                     "(PRIMARY KEY (service_type_ID),"+
                     "service_type_ID INT," +
                     "custom_service_name VARCHAR(32)," +
-                    "FOREIGN KEY (service_type_ID, custom_service_name)  REFERENCES provided_services(service_type_ID, custom_service_name)" +
+                    "FOREIGN KEY (service_type_ID, custom_service_name) REFERENCES provided_services(service_type_ID, custom_service_name)\n" +
                     "ON DELETE CASCADE\n" +
                     "ON UPDATE CASCADE," +
                     "base_material_price INT," +
@@ -282,10 +282,10 @@ public class DBAccess {
                     ")engine=InnoDB;"
             );
             statement.executeUpdate("CREATE TABLE cleaning_service" +
-                    "(PRIMARY KEY (service_type_ID)" +
+                    "(PRIMARY KEY (service_type_ID)," +
                     "service_type_ID INT," +
                     "custom_service_name VARCHAR(32)," +
-                    "FOREIGN KEY (service_type_ID, custom_service_name)  REFERENCES provided_services(service_type_ID, custom_service_name)" +
+                    "FOREIGN KEY (service_type_ID, custom_service_name) REFERENCES provided_services(service_type_ID, custom_service_name)\n" +
                     "ON DELETE CASCADE\n" +
                     "ON UPDATE CASCADE," +
                     "base_room_price INT," +
@@ -298,19 +298,19 @@ public class DBAccess {
                     "(PRIMARY KEY (service_type_ID)," +
                     "service_type_ID INT," +
                     "custom_service_name VARCHAR(32)," +
-                    "FOREIGN KEY (service_type_ID, custom_service_name)  REFERENCES provided_services(service_type_ID, custom_service_name)" +
+                    "FOREIGN KEY (service_type_ID, custom_service_name) REFERENCES provided_services(service_type_ID, custom_service_name)\n" +
                     "ON DELETE CASCADE\n" +
                     "ON UPDATE CASCADE," +
                     "total_volume INT," +
                     "color_type VARCHAR(32)," +
-                    "total_volume INT" +
+                    "number_of_rooms INT" +
                     ")engine=InnoDB;"
             );
             statement.executeUpdate("CREATE TABLE moving_service" +
-                    "(PRIMARY KEY (service_type_ID)," +
+                    "(PRIMARY KEY (service_type_ID, custom_service_name)," +
                     "service_type_ID INT," +
                     "custom_service_name VARCHAR(32)," +
-                    "FOREIGN KEY (service_type_ID, custom_service_name)  REFERENCES provided_services(service_type_ID, custom_service_name)" +
+                    "FOREIGN KEY (service_type_ID, custom_service_name) REFERENCES provided_services(service_type_ID, custom_service_name)\n" +
                     "ON DELETE CASCADE\n" +
                     "ON UPDATE CASCADE," +
                     "new_city_name VARCHAR(32)," +
@@ -320,7 +320,7 @@ public class DBAccess {
                     "city_name VARCHAR(32)," +
                     "zip_code INT," +
                     "apt_name VARCHAR(32)," +
-                    "street_number INT," +
+                    "street_number INT" +
                     ")engine=InnoDB;"
             );
         }catch (SQLException e)
