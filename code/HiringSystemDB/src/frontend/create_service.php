@@ -27,61 +27,23 @@
       <li><a href="#">Page 2</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
   </div>
 </nav>
-
+  
 
 <div class="container">
-  <h1>Welcome</h1>
-    <div class="btn-group btn-group-justified">
-      <div class="btn-group">
-        <a class="btn btn-primary" href="signup_pro.php" role="button">Professional User</a>
-      </div>
-      <div class="btn-group">
-        <a class="btn btn-primary" href="signup_reg.php" role="button">Regular User</a>
-      </div>       
-    </div>
+  <h1>Create Request</h1>
     <form class="form-horizontal" action="/action_page.php" method="POST">
       <div class="form-group">
-        <label for="usr">Username:</label>
-        <input type="text" class="form-control" id="usr">
-      </div>
-
-      <div class="form-group">
-        <label for="pwd">Password:</label>
-        <input type="password" class="form-control" id="pwd">
-      </div>
-
-      <div class="form-group">
-        <label for="mail">E-mail:</label>
-        <input type="email" class="form-control" id="mail">
-      </div>  
-
-      <div class="form-group">
-        <label for="city">City:</label>
-        <input type="text" class="form-control" id="city">
+        <label for="start">Start date:</label>
+        <input type="date" class="form-control" id="start">
       </div>   
 
       <div class="form-group">
-        <label for="street">Street no:</label>
-        <input type="number" min="0" class="form-control" id="street">
-      </div>  
-
-      <div class="form-group">
-        <label for="apt">Apartment name:</label>
-        <input type="text" class="form-control" id="apt">
-      </div>  
-
-      <div class="form-group">
-        <label for="zip">Zip code:</label>
-        <input type="number" min="0" class="form-control" id="zip">
-      </div>   
-
-      <div class="form-group">
-        <label for="exp">Experience</label>
-        <input type="number" min="0" class="form-control" id="exp">
+        <label for="end">End</label>
+        <input type="date" class="form-control" id="end">
       </div>  
 
       <div class="form-group">
@@ -107,10 +69,11 @@
 
       <div class="form-group">        
         <div class="col-sm-offset-0 col-sm-0">
-          <button type="submit" class="btn btn-warning">Submit</button>
+          <button type="submit" class="btn btn-warning">Create</button>
         </div>
       </div>
   </form>
   </div>
+
 </body>
 </html>
