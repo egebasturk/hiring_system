@@ -1,13 +1,5 @@
 <?php
 $error = ""; // Default value
-$localHost =  "localhost";
-$localUser =  "root";
-$localDBName = "project";
-$bugraHost = "dijkstra.ug.bcc.bilkent.edu.tr";
-$bugraName = "bugra.aydin";
-$bugraPassword = "5okn15mlz";
-$bugraDBName = "bugra_aydin";
-
 if(isset($_POST['submit'])){
 	if(empty($_POST['username']) || empty($_POST['password'])){
 		$error = "Fields can't be left blank";
@@ -15,10 +7,9 @@ if(isset($_POST['submit'])){
 	else{
 		$username=$_POST['username'];
 		$password=$_POST['password'];
-	    //$conn = mysqli_connect("$bugraHost", "$bugraName", "bugraPassword");
-        $conn = mysqli_connect("$localHost", "$localUser", "");
-	    //$db = mysqli_select_db($conn, "$bugraDBName");
-        $db = mysqli_select_db($conn, "$localDBName");
+		
+	$conn = mysqli_connect("dijkstra.ug.bcc.bilkent.edu.tr", "bugra.aydin", "5okn15mlz");
+	$db = mysqli_select_db($conn, "bugra_aydin");
 	
 	
 	$query = mysqli_query($conn, "SELECT * FROM users WHERE username='$username' OR email='$username' AND password='$password'");
@@ -26,7 +17,16 @@ if(isset($_POST['submit'])){
 	if($rows == 1){
 		//session_start(); KEYI BI SONRAKI SAYFAYA AKTARMA OLAYI
 		//$_SESSION
-		header("Location: homepage.php");
+		$user = mysqli_fetch_object($query);
+		$id = $user->user_ID;
+		$query = mysqli_query($conn, "SELECT user_ID FROM professional_users WHERE user_ID='$id'");
+		$isProf = mysqli_num_rows($query);
+		if($isProf == 1){
+			header("Location: logon_pro.php");
+		}
+		else{
+			header("Location: logon_reg.php");
+		}
 	}
 	else{
 		$error = "No user was found";
