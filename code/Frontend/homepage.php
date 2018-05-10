@@ -26,7 +26,7 @@
       <li><a href="#">Page 2</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href=""><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
   </div>
@@ -50,8 +50,8 @@
 </html>
 <?php
    include ('config.php');
-   session_start();
-   if($_SERVER["REQUEST_METHOD"] == "POST")
+   $method_value = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : null;
+   if($method_value== 'POST')
    {
       $server_service_type = $_POST['service_type'];
       $results = array();
@@ -95,6 +95,41 @@
           }
           echo "</table> </div>";
       }
-
+      elseif($lower_service_type == "painting")
+      {
+          $result_query = mysqli_query($db, "SELECT service_type_ID, custom_service_name, total_volume, color_type FROM painting_service");
+          echo "<div align = 'center'> <h2> SERVICES </h2> <table border = '1'> ";
+          echo "<th>ID</th><th>name</th><th>total volume</th><th>color type</th><th>number of rooms</th><br>";
+          while($row = mysqli_fetch_array($result_query))
+          {
+              $results[] = $row;
+              echo "<tr>";
+              echo "<td align = 'center'> $row[0] </td>    ";
+              echo "<td align = 'center'> $row[1] </td>    ";
+              echo "<td align = 'center'> $row[2] </td>    ";
+              echo "<td align = 'center'> $row[3] </td>    ";
+              echo "</tr>";
+              echo "<br>";
+          }
+          echo "</table> </div>";
+      }
+      elseif($lower_service_type == "moving")
+      {
+          $result_query = mysqli_query($db, "SELECT service_type_ID, custom_service_name, city_name, new_city_name FROM moving_service");
+          echo "<div align = 'center'> <h2> SERVICES </h2> <table border = '1'> ";
+          echo "<th>ID</th><th>name</th><th>total volume</th><th>color type</th><th>number of rooms</th><br>";
+          while($row = mysqli_fetch_array($result_query))
+          {
+              $results[] = $row;
+              echo "<tr>";
+              echo "<td align = 'center'> $row[0] </td>    ";
+              echo "<td align = 'center'> $row[1] </td>    ";
+              echo "<td align = 'center'> $row[2] </td>    ";
+              echo "<td align = 'center'> $row[3] </td>    ";
+              echo "</tr>";
+              echo "<br>";
+          }
+          echo "</table> </div>";
+      }
     }
 ?>
