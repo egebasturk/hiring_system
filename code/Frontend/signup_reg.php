@@ -156,15 +156,15 @@
       <label for="zip">Zip code:</label>
       <input type="text" min="0" class="form-control" id="zip" name="zip">
     </div>   
-	<div class="form-group">
-		<div class="col-sm-10">
-			<span><?php echo $error; ?></span>
-		</div>
-	</div>
-    <div class="form-group">        
+    <div class="form-group">
       <div class="col-sm-offset-0 col-sm-0">
         <button type="submit" name="submit" class="btn btn-warning">Submit</button>
       </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <span><?php echo $error; ?></span>
+        </div>
     </div>
   </form>
   </div>
