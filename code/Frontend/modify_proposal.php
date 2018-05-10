@@ -33,7 +33,7 @@
 </nav>
 
 <div class="container">
-    <h1>Past Services</h1>
+    <h1>Modify Proposal</h1>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -41,7 +41,6 @@
             <th>Starting Date</th>
             <th>Ending Date</th>
             <th>Price</th>
-            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -51,19 +50,32 @@
             <td>01.01.1970</td>
             <td>01.01.2010</td>
             <td>100</td>
-            <td>
-                <form action="modify_proposal.php" method="post">
-                    <div class="form-group">
-                        <div class="col-sm-offset-0 col-sm-0">
-                            <button type="submit" name="submit" class="btn btn-warning">Edit</button>
-                        </div>
-                    </div>
-                </form>
-            </td>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
         </tbody>
     </table>
+    <form class="form-horizontal" action="" method="POST">
+        <div class="form-group">
+            <label for="start">Start date:</label>
+            <input type="date" class="form-control" id="start">
+        </div>
+
+        <div class="form-group">
+            <label for="end">End date:</label>
+            <input type="date" class="form-control" id="end">
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" min="0" class="form-control" id="price">
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-0 col-sm-0">
+                <button type="submit" class="btn btn-warning">Modify</button>
+            </div>
+        </div>
+    </form>
 </div>
 </body>
 </html>
