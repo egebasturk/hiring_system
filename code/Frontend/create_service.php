@@ -42,7 +42,7 @@
       </div>   
 
       <div class="form-group">
-        <label for="end">End</label>
+        <label for="end">End date:</label>
         <input type="date" class="form-control" id="end">
       </div>  
 
