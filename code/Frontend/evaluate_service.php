@@ -56,22 +56,23 @@
       </tr>
     </tbody>
   </table>
+    <div class="container">
+        <form class="form-horizontal" action="/action_page.php" method="POST">
+            <div class="form-group">
+                <label for="eval">Please evaluate your service</label>
+                <input type="number" min="0" max="10" class="form-control" id="eval">
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-0 col-sm-0">
+                    <button type="submit" class="btn btn-warning">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
-<div class="container">
-    <form class="form-horizontal" action="/action_page.php" method="POST">
-      <div class="form-group">
-        <label for="eval">Please evaluate your service</label>
-        <input type="number" min="0" max="10" class="form-control" id="eval">
-      </div>   
 
-      <div class="form-group">        
-        <div class="col-sm-offset-0 col-sm-0">
-          <button type="submit" class="btn btn-warning">Send</button>
-        </div>
-      </div>
-  </form>
-  </div>
 
 </body>
 </html>

@@ -56,22 +56,23 @@
       </tr>
     </tbody>
   </table>
+    <div class="container">
+        <form class="form-horizontal" action="/action_page.php" method="POST">
+            <div class="form-group">
+                <label for="comment">Comment:</label>
+                <textarea class="form-control" rows="5" id="comment"></textarea>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-0 col-sm-0">
+                    <button type="submit" class="btn btn-warning">Make Comment</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
-<div class="container">
-    <form class="form-horizontal" action="/action_page.php" method="POST">
-      <div class="form-group">
-        <label for="comment">Comment:</label>
-        <textarea class="form-control" rows="5" id="comment"></textarea>
-      </div> 
 
-      <div class="form-group">        
-        <div class="col-sm-offset-0 col-sm-0">
-          <button type="submit" class="btn btn-warning">Make Comment</button>
-        </div>
-      </div>
-  </form>
-  </div>
 
 </body>
 </html>
