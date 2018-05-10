@@ -46,15 +46,6 @@
     </thead>
     <tbody>
       <tr>
-          <?php
-               include('config.php');
-               if(isset($_GET['logon_user_id']))
-               {
-                   $user_ID = $_GET['logon_user_id'];
-                   echo $user_ID;
-               }
-
-          ?>
         <!--BURALARA PHP SERPİŞTİRİLECEK-->
         <td>Buğra</td>
         <td>Ankara</td>

@@ -48,26 +48,43 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <!--BURALARA PHP SERPİŞTİRİLECEK-->
-            <td>Buğra</td>
-            <td>Ankara</td>
-            <td>5 years</td>
-            <td>House cleaning</td>
-            <td>6/10</td>
-            <td>Zaa</td>
-            <td>XD</td>
-            <td>
-                <form action="evaluate_service.php" method="post">
-                    <div class="form-group">
-                        <div class="col-sm-offset-0 col-sm-0">
-                            <button type="submit" name="submit" class="btn btn-warning">Edit</button>
-                        </div>
-                    </div>
-                </form>
-            </td>
-            <!--BURALARA PHP SERPİŞTİRİLECEK-->
-        </tr>
+            <?php
+                include('config.php');
+                $error = '';
+                session_start();
+                $user_ID = $_SESSION['user_ID'];
+                $results = array();
+                $result_query = mysqli_query($db, "SELECT provider_ID FROM regular_users NATURAL JOIN has_taken WHERE user_ID = $user_ID");
+                while($row = mysqli_fetch_array($result_query))
+                {
+                    $provider_query = mysqli_query($db, "SELECT email, city_name, experience, expertise_field FROM professional_users NATURAL JOIN users WHERE user_ID = $row[0]");
+                    $rating_query = mysqli_query($db, "SELECT rating, evaluation FROM service_ratings_evaluations WHERE user_ID = $user_ID AND provider_ID = $row[0]");
+                    echo "<tr>";
+                    while($print_row = mysqli_fetch_array($provider_query))
+                    {
+                            echo "<td>$print_row[0]</td>";
+                            echo "<td>$print_row[1]</td>";
+                            echo "<td>$print_row[2]</td>";
+                            echo "<td>$print_row[3]</td>";
+                    }
+                    while($rating_print = mysqli_fetch_array($rating_query))
+                    {
+                        echo "<td>$rating_print[0]</td>";
+                        echo "<td>$rating_print[1]</td>";
+                    }
+                    echo "<td> bu ne ak? </td>";
+                    echo "<td>";
+                    echo "<form action=\"evaluate_service.php?provider=$provider_query\" method=\"post\">";
+                    echo"<div class=\"form-group\">";
+                    echo "<div class=\"col-sm-offset-0 col-sm-0\">";
+                    echo"<button type=\"submit\"name=\"submit\" class=\"btn btn-warning\">Edit</button>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</form>";
+                    echo"</td>";
+                    echo "</tr>";
+                }
+            ?>
         </tbody>
     </table>
 </div>

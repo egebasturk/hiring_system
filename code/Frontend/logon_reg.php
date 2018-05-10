@@ -39,7 +39,7 @@
     <a href="manage_reg.php" class="btn btn-warning">Manage Account</a>
     <a href="#" class="btn btn-warning">Service Requests</a>
     <a href="#" class="btn btn-warning">View Proposals</a>
-    <a href="#" class="btn btn-warning">View Past Services</a>
+    <a href="past_services.php" class="btn btn-warning">View Past Services</a>
   </div>
 </div>
 
