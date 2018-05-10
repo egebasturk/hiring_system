@@ -1,4 +1,5 @@
 <?php
+include('config.php');
 $error = ""; // Default value
 if(isset($_POST['submit'])){
 	if(empty($_POST['username']) || empty($_POST['password'])){
@@ -7,19 +8,15 @@ if(isset($_POST['submit'])){
 	else{
 		$username=$_POST['username'];
 		$password=$_POST['password'];
-		
-	$conn = mysqli_connect("dijkstra.ug.bcc.bilkent.edu.tr", "bugra.aydin", "5okn15mlz");
-	$db = mysqli_select_db($conn, "bugra_aydin");
-	
-	
-	$query = mysqli_query($conn, "SELECT * FROM users WHERE username='$username' OR email='$username' AND password='$password'");
+
+	$query = mysqli_query($db, "SELECT * FROM users WHERE username='$username' OR email='$username' AND password='$password'");
 	$rows = mysqli_num_rows($query);
 	if($rows == 1){
 		//session_start(); KEYI BI SONRAKI SAYFAYA AKTARMA OLAYI
 		//$_SESSION
 		$user = mysqli_fetch_object($query);
 		$id = $user->user_ID;
-		$query = mysqli_query($conn, "SELECT user_ID FROM professional_users WHERE user_ID='$id'");
+		$query = mysqli_query($db, "SELECT user_ID FROM professional_users WHERE user_ID='$id'");
 		$isProf = mysqli_num_rows($query);
 		session_start();
 		$_SESSION['user_ID'] = $id;
@@ -33,7 +30,7 @@ if(isset($_POST['submit'])){
 	else{
 		$error = "No user was found";
 	}
-	mysqli_close($conn);
+	mysqli_close($db);
 	}
 }
 ?>

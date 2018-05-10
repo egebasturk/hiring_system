@@ -1,4 +1,5 @@
 <?php
+    include('config.php');
 	$error = '';
 	if(isset($_POST['submit'])){
 		session_start();
@@ -28,29 +29,25 @@
 				$street = $_POST['street'];
 				$apt = $_POST['apt'];
 				$zip = $_POST['zip'];
-				$servername = "dijkstra.ug.bcc.bilkent.edu.tr";
-				$dbusername = "bugra.aydin";
-				$dbpassword = "5okn15mlz";
-				$dbname = "bugra_aydin";
-				$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-				if($conn->connect_error){
-					die("Connection failed: " . $conn->connect_error);
+
+				if($db->connect_error){
+					die("Connection failed: " . $db->connect_error);
 				}
 				
-				$sql = "UPDATE users SET username='$username', password='$password', email='$mail', city_name='city', street_number='$street', apt_name='$apt', zip_code='$zip_code' WHERE user_ID='$id'";
-				if($conn->query($sql) === TRUE){
+				$sql = "UPDATE users SET username='$username', password='$password', email='$mail', city_name=$city, street_number='$street', apt_name='$apt', zip_code='$zip_code' WHERE user_ID='$id'";
+				if($db->query($sql) === TRUE){
 					$error = "Record updated succesfully";
 					$sql = "UPDATE regular_users SET name='$name', surname='$surname', date_of_birth='$dob' WHERE user_ID='$id'";
-					if($conn->query($sql) === TRUE){
+					if($db->query($sql) === TRUE){
 						$error = "done";
 						header('Location: logon_reg.php');
 					}
 					else{
-						$error = "Error update: " . $sql . "<br> . $conn->error";
+						$error = "Error update: " . $sql . "<br> . $db->error";
 					}
 				}
 				else{
-					$error = "Error update: " . $sql . "<br> . $conn->error";
+					$error = "Error update: " . $sql . "<br> . $db->error";
 				}
 		}
 	}

@@ -1,7 +1,3 @@
-<?php
-	session_start();
-	$id = $_SESSION['user_ID'];
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,9 +35,8 @@
 <div class="container">
   <h1>Welcome</h1>
   <p>List of actions for regular users</p>
-  <form action="" method="post" style="text-align:center;">
   <div class="btn-group btn-group-justified">
-    <a name="manage" class="btn btn-warning" href="manage_reg.php "role="button">Manage Account</a>
+    <a href="manage_reg.php" class="btn btn-warning">Manage Account</a>
     <a href="#" class="btn btn-warning">Service Requests</a>
     <a href="#" class="btn btn-warning">View Proposals</a>
     <a href="#" class="btn btn-warning">View Past Services</a>

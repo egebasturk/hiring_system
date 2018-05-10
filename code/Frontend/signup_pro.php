@@ -1,4 +1,6 @@
 <?php
+
+    include('config.php');
 	$error = '';
 	if(isset($_POST['pro'])){
 		header('Location: signup_pro.php');
@@ -29,36 +31,31 @@
 				$zip = $_POST['zip'];
 				$exp = $_POST['exp'];
 				$radio = $_POST['radio'];
-				$servername = "dijkstra.ug.bcc.bilkent.edu.tr";
-				$dbusername = "bugra.aydin";
-				$dbpassword = "5okn15mlz";
-				$dbname = "bugra_aydin";
-				$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
-				if($conn->connect_error){
-					die("Connection failed: " . $conn->connect_error);
+				if($db->connect_error){
+					die("Connection failed: " . $db->connect_error);
 				}
 				
 				$sql = "INSERT IGNORE INTO users (password, email, username, city_name, street_number, apt_name, zip_code) VALUES('$password', '$mail', '$username', '$city', '$street', '$apt', '$zip')";
-				if($conn->query($sql) === TRUE){
+				if($db->query($sql) === TRUE){
 					$error = "Record created succesfully";
 				}
 				else{
-					$error = "Error during sign up: " . $sql . "<br> . $conn->error";
+					$error = "Error during sign up: " . $sql . "<br> . $db->error";
 				}
 				$sql = "INSERT IGNORE INTO professional_users(user_ID, experience, expertise_field) VALUES(LAST_INSERT_ID(), '$exp', '$radio')";
-				if($conn->query($sql) === TRUE){
+				if($db->query($sql) === TRUE){
 					$error = "done";
 				}
 				else{
-					$error = "Error during sign up: " . $sql . "<br> . $conn->error";
+					$error = "Error during sign up: " . $sql . "<br> . $db->error";
 				}
 				
 				/*
 				$userID = mysqli_query("SELECT 'AUTO_INCREMENT' FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = bugra_aydin AND TABLE_NAME = users");
-				$query = mysqli_query($conn, "INSERT IGNORE INTO regular_users(user_ID, name, surname, date_of_birth)
+				$query = mysqli_query($db, "INSERT IGNORE INTO regular_users(user_ID, name, surname, date_of_birth)
 												VALUES('$userID', '$name', '$surname', '$dob')");
 				*/
-				$conn->close();
+				$db->close();
 				
 		}
 	}
