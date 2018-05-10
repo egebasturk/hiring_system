@@ -1,3 +1,59 @@
+<?php
+	$error = '';
+	if(isset($_POST['submit'])){
+		session_start();
+		$id = $_SESSION['user_ID'];	
+		if(empty($_POST['username']) ||
+								empty($_POST['password']) ||
+								empty($_POST['mail']) ||
+								empty($_POST['city']) ||
+								empty($_POST['street']) ||
+								empty($_POST['apt']) ||  
+								empty($_POST['zip']) ||
+								empty($_POST['exp']) ||
+								empty($_POST['radio']))
+			{
+				$error = "Fields can't be left blank!";
+			} 
+		
+		else{
+				$username = $_POST['username'];
+				$password = $_POST['password'];
+				$mail = $_POST['mail'];
+				$city = $_POST['city'];
+				$street = $_POST['street'];
+				$apt = $_POST['apt'];
+				$zip = $_POST['zip'];
+				$exp = $_POST['exp'];
+				$radio = $_POST['radio'];
+				$servername = "dijkstra.ug.bcc.bilkent.edu.tr";
+				$dbusername = "bugra.aydin";
+				$dbpassword = "5okn15mlz";
+				$dbname = "bugra_aydin";
+				$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+				if($conn->connect_error){
+					die("Connection failed: " . $conn->connect_error);
+				}
+				
+				$sql = "UPDATE users SET username='$username', password='$password', email='$mail', city_name='city', street_number='$street', apt_name='$apt', zip_code='$zip' WHERE user_ID='$id'";
+				if($conn->query($sql) === TRUE){
+					$error = "Record updated succesfully";
+					$sql = "UPDATE professional_users SET experience='$exp', expertise_field='$radio' WHERE user_ID='$id'";
+					if($conn->query($sql) === TRUE){
+						$error = "done";
+						header('Location: logon_pro.php');
+					}
+					else{
+						$error = "Error update: " . $sql . "<br> . $conn->error";
+					}
+				}
+				else{
+					$error = "Error update: " . $sql . "<br> . $conn->error";
+				}
+		}
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,74 +89,79 @@
 </nav>
 
 <div class="container">
-    <form class="form-horizontal" action="/action_page.php" method="POST">
+	  <form action="" method="post" style="text-align:left;">
       <div class="form-group">
         <h1>Manage account</h1>
         <label for="usr">Username:</label>
-        <input type="text" class="form-control" id="usr">
+        <input type="text" class="form-control" id="usr" name="username">
       </div>
 
       <div class="form-group">
         <label for="pwd">Password:</label>
-        <input type="password" class="form-control" id="pwd">
+        <input type="password" class="form-control" id="pwd" name="password">
       </div>
 
       <div class="form-group">
         <label for="mail">E-mail:</label>
-        <input type="email" class="form-control" id="mail">
+        <input type="email" class="form-control" id="mail" name="mail">
       </div>  
 
       <div class="form-group">
         <label for="city">City:</label>
-        <input type="text" class="form-control" id="city">
+        <input type="text" class="form-control" id="city" name="city">
       </div>   
 
       <div class="form-group">
         <label for="street">Street no:</label>
-        <input type="number" min="0" class="form-control" id="street">
+        <input type="number" min="0" class="form-control" id="street" name="street">
       </div>  
 
       <div class="form-group">
         <label for="apt">Apartment name:</label>
-        <input type="text" class="form-control" id="apt">
+        <input type="text" class="form-control" id="apt" name="apt">
       </div>  
 
       <div class="form-group">
         <label for="zip">Zip code:</label>
-        <input type="number" min="0" class="form-control" id="zip">
+        <input type="number" min="0" class="form-control" id="zip" name="zip">
       </div>   
 
       <div class="form-group">
         <label for="exp">Experience</label>
-        <input type="number" min="0" class="form-control" id="exp">
+        <input type="number" min="0" class="form-control" id="exp" name="exp">
       </div>  
 
       <div class="form-group">
       <label for="service">Service Type:</label>
         <div class="radio-group">
           <label class="radio-inline">
-            <input type="radio" name="radio">Repair
+            <input type="radio" value="repair" name="radio">Repair
           </label>
           <label class="radio-inline">
-            <input type="radio" name="radio">Cleaning
+            <input type="radio" value="cleaning" name="radio">Cleaning
           </label>
           <label class="radio-inline">
-            <input type="radio" name="radio">Painting
+            <input type="radio" value="painting" name="radio">Painting
           </label>
           <label class="radio-inline">
-            <input type="radio" name="radio">Moving
+            <input type="radio" value="moving" name="radio">Moving
           </label> 
           <label class="radio-inline">
-            <input type="radio" name="radio">Private Lesson
+            <input type="radio" value="private_lesson" name="radio">Private Lesson
           </label>          
         </div>
       </div>
 
       <div class="form-group">        
         <div class="col-sm-offset-0 col-sm-0">
-          <button type="submit" class="btn btn-warning">Update</button>
+          <button type="submit" name="submit" class="btn btn-warning">Update</button>
         </div>
       </div>
+	  	  <div class="form-group">
+		<div class="col-sm-10">
+			<span><?php echo $error; ?></span>
+		</div>
+	  </div>
   </form>
   </div>
 </body>
