@@ -1,3 +1,12 @@
+<?php
+include('config.php');
+session_start();
+$error = ""; // Default value
+//echo $_SESSION["user_ID"]; DEBUG
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,8 +46,8 @@
   <p>List of actions for regular users</p>
   <div class="btn-group btn-group-justified">
     <a href="manage_reg.php" class="btn btn-warning">Manage Account</a>
-    <a href="#" class="btn btn-warning">Service Requests</a>
-    <a href="#" class="btn btn-warning">View Proposals</a>
+    <a href="view_service_requests_reg.php" class="btn btn-warning">Service Requests</a>
+    <a href="view_proposals.php" class="btn btn-warning">View Proposals</a>
     <a href="past_services.php" class="btn btn-warning">View Past Services</a>
   </div>
 </div>
