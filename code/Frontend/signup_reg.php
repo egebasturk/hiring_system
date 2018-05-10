@@ -1,4 +1,5 @@
 <?php
+	$error = '';
 	if(isset($_POST['submit'])){
 		if(empty($_POST['username']) || empty($_POST['password']) || empty($_POST['mail']) || empty($_POST['name']) ||
 								empty($_POST['surname']) || empty($_POST['dob']) || empty($_POST['city']) ||
