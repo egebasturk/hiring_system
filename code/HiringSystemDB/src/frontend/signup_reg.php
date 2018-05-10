@@ -49,7 +49,7 @@
 											VALUES('$userID', '$name', '$surname', '$dob')");
 			*/
 			$conn->close();
-		//}
+		}
 	}
 	if(isset($_POST['pro'])){
 		header('Location: signup_pro.php'); 
