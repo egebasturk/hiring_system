@@ -1,4 +1,5 @@
 <?php
+$error = ""; // Default value
 if(isset($_POST['submit'])){
 	if(empty($_POST['username']) || empty($_POST['password'])){
 		$error = "Fields can't be left blank";
