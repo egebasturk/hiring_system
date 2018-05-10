@@ -1,3 +1,61 @@
+<?php
+	$error = '';
+	if(isset($_POST['submit'])){
+		session_start();
+		$id = $_SESSION['user_ID'];	
+		if(empty($_POST['username']) ||
+								empty($_POST['password']) ||
+								empty($_POST['mail']) ||
+								empty($_POST['name']) ||
+								empty($_POST['surname']) ||
+								empty($_POST['dob']) ||
+								empty($_POST['city']) ||
+								empty($_POST['street']) ||
+								empty($_POST['apt']) ||  
+								empty($_POST['zip']))
+			{
+				$error = "Fields can't be left blank!";
+			} 
+		
+		else{
+				$username = $_POST['username'];
+				$password = $_POST['password'];
+				$mail = $_POST['mail'];
+				$name = $_POST['name'];
+				$surname = $_POST['surname'];
+				$dob = $_POST['dob'];
+				$city = $_POST['city'];
+				$street = $_POST['street'];
+				$apt = $_POST['apt'];
+				$zip = $_POST['zip'];
+				$servername = "dijkstra.ug.bcc.bilkent.edu.tr";
+				$dbusername = "bugra.aydin";
+				$dbpassword = "5okn15mlz";
+				$dbname = "bugra_aydin";
+				$conn = new mysqli($servername, $dbusername, $dbpassword, $dbname);
+				if($conn->connect_error){
+					die("Connection failed: " . $conn->connect_error);
+				}
+				
+				$sql = "UPDATE users SET username='$username', password='$password', email='$mail', city_name='city', street_number='$street', apt_name='$apt', zip_code='$zip_code' WHERE user_ID='$id'";
+				if($conn->query($sql) === TRUE){
+					$error = "Record updated succesfully";
+					$sql = "UPDATE regular_users SET name='$name', surname='$surname', date_of_birth='$dob' WHERE user_ID='$id'";
+					if($conn->query($sql) === TRUE){
+						$error = "done";
+						header('Location: logon_reg.php');
+					}
+					else{
+						$error = "Error update: " . $sql . "<br> . $conn->error";
+					}
+				}
+				else{
+					$error = "Error update: " . $sql . "<br> . $conn->error";
+				}
+		}
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
