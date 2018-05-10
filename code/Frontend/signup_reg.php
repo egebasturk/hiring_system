@@ -98,7 +98,7 @@
 
 <div class="container">
   <h1>Welcome</h1>
-    <form action="" method="post" style="text-align:center;">
+    <form action="" method="post"">
     <div class="btn-group btn-group-justified">
       <div class="btn-group">
         <button type="submit" name="pro" class="btn btn-primary">Professional User</button>
