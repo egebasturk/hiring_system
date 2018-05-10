@@ -15,18 +15,28 @@ if(isset($_POST['submit'])){
 	else{
 		$username=$_POST['username'];
 		$password=$_POST['password'];
-	    //$conn = mysqli_connect("$bugraHost", "$bugraName", "bugraPassword");
+
+        //$conn = mysqli_connect("$bugraHost", "$bugraName", "bugraPassword");
         $conn = mysqli_connect("$localHost", "$localUser", "");
-	    //$db = mysqli_select_db($conn, "$bugraDBName");
+        //$db = mysqli_select_db($conn, "$bugraDBName");
         $db = mysqli_select_db($conn, "$localDBName");
-	
-	
+
+
 	$query = mysqli_query($conn, "SELECT * FROM users WHERE username='$username' OR email='$username' AND password='$password'");
 	$rows = mysqli_num_rows($query);
 	if($rows == 1){
 		//session_start(); KEYI BI SONRAKI SAYFAYA AKTARMA OLAYI
 		//$_SESSION
-		header("Location: homepage.php");
+		$user = mysqli_fetch_object($query);
+		$id = $user->user_ID;
+		$query = mysqli_query($conn, "SELECT user_ID FROM professional_users WHERE user_ID='$id'");
+		$isProf = mysqli_num_rows($query);
+		if($isProf == 1){
+			header("Location: logon_pro.php");
+		}
+		else{
+			header("Location: logon_reg.php");
+		}
 	}
 	else{
 		$error = "No user was found";
