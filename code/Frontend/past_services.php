@@ -44,6 +44,7 @@
             <th>Rating</th>
             <th>Comment</th>
             <th>Evaluate</th>
+            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
@@ -56,14 +57,19 @@
             <td>6/10</td>
             <td>Zaa</td>
             <td>XD</td>
+            <td>
+                <form action="evaluate_service.php" method="post">
+                    <div class="form-group">
+                        <div class="col-sm-offset-0 col-sm-0">
+                            <button type="submit" name="submit" class="btn btn-warning">Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </td>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
         </tbody>
     </table>
-    <div class="btn-group btn-group-justified">
-        <a href="comment_service.php" class="btn btn-warning">Comment</a>
-        <a href="evaluate_service.php" class="btn btn-warning">Evaluate</a>
-    </div>
 </div>
 </body>
 </html>
