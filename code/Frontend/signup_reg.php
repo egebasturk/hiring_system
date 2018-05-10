@@ -98,7 +98,7 @@
 
 <div class="container">
   <h1>Welcome</h1>
-    <form action="" method="post"">
+    <form action="" method="post" style="text-align:center;">
     <div class="btn-group btn-group-justified">
       <div class="btn-group">
         <button type="submit" name="pro" class="btn btn-primary">Professional User</button>
@@ -144,7 +144,7 @@
 
     <div class="form-group">
       <label for="street">Street no:</label>
-      <input type="text" min="0" class="form-control" id="street" name="street">
+      <input type="number" min="0" class="form-control" id="street" name="street">
     </div>  
 
     <div class="form-group">
@@ -154,17 +154,17 @@
 
     <div class="form-group">
       <label for="zip">Zip code:</label>
-      <input type="text" min="0" class="form-control" id="zip" name="zip">
+      <input type="number" min="0" class="form-control" id="zip" name="zip">
     </div>   
-    <div class="form-group">
+	<div class="form-group">
+		<div class="col-sm-10">
+			<span><?php echo $error; ?></span>
+		</div>
+	</div>
+    <div class="form-group">        
       <div class="col-sm-offset-0 col-sm-0">
         <button type="submit" name="submit" class="btn btn-warning">Submit</button>
       </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-10">
-            <span><?php echo $error; ?></span>
-        </div>
     </div>
   </form>
   </div>
