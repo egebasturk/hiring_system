@@ -74,7 +74,7 @@
                     }
                     echo "<td> bu ne ak? </td>";
                     echo "<td>";
-                    echo "<form action=\"evaluate_service.php?provider=$provider_query\" method=\"post\">";
+                    echo "<form action=\"evaluate_service.php\" method=\"post\">";
                     echo"<div class=\"form-group\">";
                     echo "<div class=\"col-sm-offset-0 col-sm-0\">";
                     echo"<button type=\"submit\"name=\"submit\" class=\"btn btn-warning\">Edit</button>";
