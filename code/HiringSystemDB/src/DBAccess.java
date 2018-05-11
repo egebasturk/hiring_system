@@ -42,8 +42,8 @@ public class DBAccess {
             );
             statement.executeUpdate("INSERT INTO `users` (`user_ID`, `password`, `email`, `username`, `city_name`, `street_number`, `apt_name`, `zip_code`) VALUES ('1', 'admin', 'admin@portakal.com', 'admin', 'xion', '666', 'heckapt', '404');");
             statement.executeUpdate("INSERT INTO `regular_users` (`user_ID`, `name`, `surname`, `date_of_birth`) VALUES ('1', 'adm', 'madm', '2018-05-01');");
-            statement.executeUpdate("INSERT INTO `service_orders` (`order_ID`, `service_type_ID`, `order_details`) VALUES ('1', '1', 'first repair');");
-            statement.executeUpdate("INSERT INTO `has` (`order_ID`, `user_ID`) VALUES ('1', '1');");
+            statement.executeUpdate("INSERT INTO `service_orders` (`requester_ID`, `service_type_ID`, `order_details`) VALUES ('1', '1', 'first repair');");
+            //statement.executeUpdate("INSERT INTO `has` (`order_ID`, `user_ID`) VALUES ('1', '1');");
 
         }catch (SQLException e)
         {
@@ -65,7 +65,7 @@ public class DBAccess {
             statement.executeUpdate("drop table if exists service_ratings_evaluations;");
             statement.executeUpdate("drop table if exists provided;");
             statement.executeUpdate("drop table if exists past_services;");
-            statement.executeUpdate("drop table if exists has;");
+            //statement.executeUpdate("drop table if exists has;");
             statement.executeUpdate("drop table if exists matches;");
             statement.executeUpdate("drop table if exists service_orders;");
             statement.executeUpdate("drop table if exists provides;");
@@ -128,6 +128,7 @@ public class DBAccess {
             );
             statement.executeUpdate("CREATE TABLE service_orders" +
                     "(order_ID INT PRIMARY KEY AUTO_INCREMENT," +
+                    "requester_ID INT," +
                     "service_type_ID INT," +
                     "FOREIGN KEY (service_type_ID) REFERENCES services( service_type_ID)\n" +
                     "ON DELETE CASCADE\n" +
@@ -135,6 +136,14 @@ public class DBAccess {
                     "order_details VARCHAR(128)" +
                     ")engine=InnoDB;"
             );
+            /*statement.executeUpdate("CREATE TRIGGER service_trigger " +
+                    "AFTER INSERT ON service_orders" +
+                    "FOR EACH ROW " +
+                    "BEGIN\n" +
+                    "INSERT INTO `has` (`order_ID`, `user_ID`)" +
+                    " VALUES ( IF(ISNULL(NEW.thread_id), 0, NEW.thread_id, ), NEW.);" +
+                    "END;"
+            );*/
             statement.executeUpdate("CREATE TABLE proposed_services" +
                     "(proposal_ID INT PRIMARY KEY," +
                     "service_type_ID INT," +
@@ -225,7 +234,7 @@ public class DBAccess {
                     "ON UPDATE CASCADE" +
                     ")engine=InnoDB;"
             );
-            statement.executeUpdate("CREATE TABLE has" +
+            /*statement.executeUpdate("CREATE TABLE has" +
                     "(PRIMARY KEY (order_ID, user_ID)," +
                     "order_ID INT," +
                     "FOREIGN KEY (order_ID) REFERENCES service_orders (order_ID)" +
@@ -236,7 +245,7 @@ public class DBAccess {
                     "ON DELETE CASCADE\n" +
                     "ON UPDATE CASCADE" +
                     ")engine=InnoDB;"
-            );
+            );*/
             statement.executeUpdate("CREATE TABLE provides" +
                     "(PRIMARY KEY (user_ID, service_type_ID)," +
                     "user_ID INT," +
