@@ -10,10 +10,11 @@ if($db->connect_error){
 }
 if (isset($_POST['create']))
 {
-    echo "sth";
-    // Buradaki olayı triggerlarla fln yapmamız gerekecek.
-    // Auto increment vs. çok karıştı, fikri olan varsa bir baksın
+    //echo "sth"; DEBUG
     $serviceType = 1; // Bunu bir şekilde radio buttonlardan almak gerek
+    if(isset($_POST['radio']))
+        $serviceType = $_POST['radio'];
+    echo "$serviceType";
     $sql = "INSERT INTO service_orders (requester_ID, service_type_ID, order_details)
 	VALUES ('$user_ID','$serviceType', 'second repair');";
     $result = mysqli_query($db, "$sql");
@@ -81,26 +82,26 @@ else
       <label for="service">Service Type:</label>
         <div class="radio-group">
           <label class="radio-inline">
-            <input type="radio" name="radio">Repair
+            <input type="radio" name="radio" value="1">Repair
           </label>
           <label class="radio-inline">
-            <input type="radio" name="radio">Cleaning
+            <input type="radio" name="radio" value="2">Cleaning
           </label>
           <label class="radio-inline">
-            <input type="radio" name="radio">Painting
+            <input type="radio" name="radio" value="3">Painting
           </label>
           <label class="radio-inline">
-            <input type="radio" name="radio">Moving
+            <input type="radio" name="radio" value="4">Moving
           </label> 
           <label class="radio-inline">
-            <input type="radio" name="radio">Private Lesson
+            <input type="radio" name="radio" value="5">Private Lesson
           </label>          
         </div>
       </div>
 
       <div class="form-group">
         <div class="col-sm-offset-0 col-sm-0">
-          <button type="submit" class="btn btn-warning" name="create" value="Create">Create</button>
+          <button type="submit" class="btn btn-warning" name="create">Create</button>
         </div>
       </div>
   </form>

@@ -11,7 +11,7 @@ if($db->connect_error){
 
 if (isset($_POST['cancel']))
 {
-    echo "sth";
+    //echo "sth";DEBUG
     $oid = $_POST['var'];
     echo $oid; // Can take this but cannot delete
     $sql = "DELETE FROM `service_orders` WHERE `service_orders`.`order_ID` = '$oid'";
@@ -25,7 +25,7 @@ if (isset($_POST['cancel']))
     //header("Location: view_service_requests_reg.php");
 }
 else
-    echo "no";
+    echo "";//DEBUG
 
 
 
@@ -78,7 +78,7 @@ if ($result == false) {
                         <form action=\"modify_service_request.php\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
-                                    <a href=\"create_service.php\" type=\"button\" class=\"btn btn-primary\">Modify</a>
+                                    <a href=\"create_service.php\" type=\"button\" class=\"btn btn-warning\">Modify</a>
                                 </div>
                             </div>
                         </form>
@@ -101,7 +101,7 @@ if ($result == false) {
         </tbody>
     </table>
 </div>
-<a href="create_service.php" type="button" class="btn btn-primary">Create Service Request</a>
+<a href="create_service.php" type="button" class="btn btn-warning">Create Service Request</a>
 
 </body>
 </html>
