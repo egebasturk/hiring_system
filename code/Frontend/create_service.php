@@ -1,3 +1,34 @@
+<?php
+include('config.php');
+session_start();
+$error = "";
+//global $user_ID;
+$user_ID= $_SESSION["user_ID"];
+
+if($db->connect_error){
+    die("Connection failed: " . $db->connect_error);
+}
+if (isset($_POST['create']))
+{
+    echo "sth";
+    // Buradaki olayı triggerlarla fln yapmamız gerekecek.
+    // Auto increment vs. çok karıştı, fikri olan varsa bir baksın
+    $sql = "INSERT INTO `service_orders` (`order_ID`, `service_type_ID`, `order_details`) VALUES ('2','1', 'second repair');";
+    $result = mysqli_query($db, "$sql");
+    $sql = "INSERT INTO `has` (`order_ID`, `user_ID`) VALUES ('2', '1');";
+    $result = mysqli_query($db, "$sql");
+    $error = $db->error;
+    if ($result == false) {
+        $error = $db->error;
+        echo "$error";
+        return false;
+    }
+    header("Location: view_service_requests_reg.php");
+}
+else
+    echo "no";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,8 +66,8 @@
 
 <div class="container">
   <h1>Create Request</h1>
-    <form class="form-horizontal" action="/action_page.php" method="POST">
-      <div class="form-group">
+    <form class="form-horizontal" action="create_service.php" method="POST">
+        <div class="form-group">
         <label for="start">Start date:</label>
         <input type="date" class="form-control" id="start">
       </div>   
@@ -67,9 +98,9 @@
         </div>
       </div>
 
-      <div class="form-group">        
+      <div class="form-group">
         <div class="col-sm-offset-0 col-sm-0">
-          <button type="submit" class="btn btn-warning">Create</button>
+          <button type="submit" class="btn btn-warning" name="create" value="Create">Create</button>
         </div>
       </div>
   </form>
