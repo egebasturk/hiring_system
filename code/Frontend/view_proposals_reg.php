@@ -33,7 +33,27 @@
 </nav>
 
 <div class="container">
-    <h1>Past Services</h1>
+    <h1>Service Proposals</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Type</th>
+            <th>Starting Date</th>
+            <th>Ending Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <!--BURALARA PHP SERPİŞTİRİLECEK-->
+            <td>9000</td>
+            <td>Moving</td>
+            <td>01.01.1970</td>
+            <td>01.01.2010</td>
+            <!--BURALARA PHP SERPİŞTİRİLECEK-->
+        </tr>
+        </tbody>
+    </table>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -41,7 +61,8 @@
             <th>Starting Date</th>
             <th>Ending Date</th>
             <th>Price</th>
-            <th>Edit</th>
+            <th>Add</th>
+            <th>Remove</th>
         </tr>
         </thead>
         <tbody>
@@ -50,12 +71,21 @@
             <td>9000</td>
             <td>01.01.1970</td>
             <td>01.01.2010</td>
-            <td>100</td>
+            <td>300</td>
             <td>
-                <form action="modify_proposal.php" method="post">
+                <form action="" method="post">
                     <div class="form-group">
                         <div class="col-sm-offset-0 col-sm-0">
-                            <button type="submit" name="submit" class="btn btn-warning">Edit</button>
+                            <button type="submit" name="add" class="btn btn-warning">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </td>
+            <td>
+                <form action="" method="post">
+                    <div class="form-group">
+                        <div class="col-sm-offset-0 col-sm-0">
+                            <button type="submit" name="remove" class="btn btn-danger">Remove</button>
                         </div>
                     </div>
                 </form>
