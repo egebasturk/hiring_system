@@ -13,9 +13,9 @@ if (isset($_POST['create']))
     echo "sth";
     // Buradaki olayı triggerlarla fln yapmamız gerekecek.
     // Auto increment vs. çok karıştı, fikri olan varsa bir baksın
-    $sql = "INSERT INTO `service_orders` (`order_ID`, `service_type_ID`, `order_details`) VALUES ('2','1', 'second repair');";
-    $result = mysqli_query($db, "$sql");
-    $sql = "INSERT INTO `has` (`order_ID`, `user_ID`) VALUES ('2', '1');";
+    $serviceType = 1; // Bunu bir şekilde radio buttonlardan almak gerek
+    $sql = "INSERT INTO service_orders (requester_ID, service_type_ID, order_details)
+	VALUES ('$user_ID','$serviceType', 'second repair');";
     $result = mysqli_query($db, "$sql");
     $error = $db->error;
     if ($result == false) {

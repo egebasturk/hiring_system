@@ -9,8 +9,8 @@ if($db->connect_error){
     die("Connection failed: " . $db->connect_error);
 }
 $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
-FROM regular_users rus NATURAL JOIN has hs NATURAL JOIN service_orders sos
-WHERE user_ID=$user_ID;";
+FROM regular_users rus JOIN service_orders sos
+WHERE rus.user_ID=$user_ID AND sos.requester_ID=$user_ID;";
 $result = mysqli_query($db, "$sql");
 $error = $db->error;
 if ($result == false) {
