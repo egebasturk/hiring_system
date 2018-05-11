@@ -33,7 +33,7 @@
 </nav>
 
 <div class="container">
-    <h1>Past Services</h1>
+    <h1>View Proposals</h1>
     <table class="table table-bordered">
         <thead>
         <tr>

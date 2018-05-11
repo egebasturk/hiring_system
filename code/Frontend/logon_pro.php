@@ -37,11 +37,11 @@
   <p>List of actions for professional users</p>
   <form action="" method="post" style="text-align:center;">
   <div class="btn-group btn-group-justified">
-    <a name="manage" class="btn btn-warning" href="manage_pro.php "role="button">Manage Account</a>
-    <a class="btn btn-warning">View Proposals</a>
-    <a class="btn btn-warning">View Request</a>
-    <a class="btn btn-warning">View Services</a>
-    <a class="btn btn-warning">Service Registration</a>
+    <a name="manage" class="btn btn-warning" href="manage_pro.php" role="button">Manage Account</a>
+    <a class="btn btn-warning" href="view_proposals_pro.php" role="button">View Proposals</a>
+    <a class="btn btn-warning" href="view_service_requests_pro.php" role="button">View Request</a>
+    <a class="btn btn-warning" href="" role="button">View Services</a>
+    <a class="btn btn-warning" href="register_service.php" role="button">Service Registration</a>
   </div>
 </div>
 
