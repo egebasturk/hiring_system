@@ -66,11 +66,11 @@ else
   
 
 <div class="container">
-  <h1>Create Request</h1>
     <form class="form-horizontal" action="create_service.php" method="POST">
         <div class="form-group">
-        <label for="start">Start date:</label>
-        <input type="date" class="form-control" id="start">
+            <h1>Create Request</h1>
+            <label for="start">Start date:</label>
+            <input type="date" class="form-control" id="start">
       </div>   
 
       <div class="form-group">
