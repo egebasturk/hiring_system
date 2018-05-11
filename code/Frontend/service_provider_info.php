@@ -33,47 +33,51 @@
 </nav>
 
 <div class="container">
-    <h1>Past Services</h1>
-    <table class="table table-bordered">
+    <h1>Service Provider Information</h1>
+    <span class="label label-danger">Repair</span>
+    <span class="label label-primary">Cleaning</span>
+    <span class="label label-success">Painting</span>
+    <span class="label label-info">Moving</span>
+    <span class="label label-warning">Private Lesson</span>
+    <br/> <br/>
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+    <table class="table table-bordered table-striped">
         <thead>
         <tr>
-            <th>Proposal ID</th>
-            <th>Starting Date</th>
-            <th>Ending Date</th>
-            <th>Price</th>
-            <th>Edit</th>
-            <th>Cancel</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Experience</th>
+            <th>Expertise Field</th>
+            <th>Rating</th>
+            <th>Comment</th>
+            <th>Evaluation</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="myTable">
         <tr>
-            <!--BURALARA PHP SERPİŞTİRİLECEK-->
-            <td>9000</td>
-            <td>01.01.1970</td>
-            <td>01.01.2010</td>
-            <td>100</td>
-            <td>
-                <form action="modify_proposal.php" method="post">
-                    <div class="form-group">
-                        <div class="col-sm-offset-0 col-sm-0">
-                            <button type="submit" name="submit" class="btn btn-warning">Edit</button>
-                        </div>
-                    </div>
-                </form>
-            </td>
-            <td>
-                <form action="" method="post">
-                    <div class="form-group">
-                        <div class="col-sm-offset-0 col-sm-0">
-                            <button type="submit" name="submit" class="btn btn-danger">Cancel</button>
-                        </div>
-                    </div>
-                </form>
-            </td>
-            <!--BURALARA PHP SERPİŞTİRİLECEK-->
+            <td>Buğra</td>
+            <td>Ankara</td>
+            <td>5 years</td>
+            <td>Car repair</td>
+            <td>6/10</td>
+            <td>N/A</td>
+            <td>N/A</td>
         </tr>
         </tbody>
     </table>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 </body>
 </html>
+
