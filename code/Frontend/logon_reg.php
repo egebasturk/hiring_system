@@ -47,7 +47,7 @@ $error = ""; // Default value
   <div class="btn-group btn-group-justified">
     <a href="manage_reg.php" class="btn btn-warning">Manage Account</a>
     <a href="view_service_requests_reg.php" class="btn btn-warning">Service Requests</a>
-    <a href="view_proposals.php" class="btn btn-warning">View Proposals</a>
+    <a href="view_proposals_pro.php" class="btn btn-warning">View Proposals</a>
     <a href="past_services.php" class="btn btn-warning">View Past Services</a>
   </div>
 </div>

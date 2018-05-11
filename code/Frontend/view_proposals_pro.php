@@ -42,6 +42,7 @@
             <th>Ending Date</th>
             <th>Price</th>
             <th>Edit</th>
+            <th>Cancel</th>
         </tr>
         </thead>
         <tbody>
@@ -56,6 +57,15 @@
                     <div class="form-group">
                         <div class="col-sm-offset-0 col-sm-0">
                             <button type="submit" name="submit" class="btn btn-warning">Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </td>
+            <td>
+                <form action="" method="post">
+                    <div class="form-group">
+                        <div class="col-sm-offset-0 col-sm-0">
+                            <button type="submit" name="submit" class="btn btn-danger">Cancel</button>
                         </div>
                     </div>
                 </form>
