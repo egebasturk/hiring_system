@@ -88,5 +88,6 @@
         </tbody>
     </table>
 </div>
+<a href="logon_reg.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </body>
 </html>

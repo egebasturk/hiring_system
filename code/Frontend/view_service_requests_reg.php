@@ -101,6 +101,7 @@ if ($result == false) {
         </tbody>
     </table>
 </div>
+<a href="logon_reg.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 <a href="create_service.php" type="button" class="btn btn-warning">Create Service Request</a>
 
 </body>
