@@ -8,6 +8,27 @@ $user_ID= $_SESSION["user_ID"];
 if($db->connect_error){
     die("Connection failed: " . $db->connect_error);
 }
+
+if (isset($_POST['cancel']))
+{
+    echo "sth";
+    $oid = $_POST['var'];
+    echo $oid; // Can take this but cannot delete
+    $sql = "DELETE FROM `service_orders` WHERE `service_orders`.`order_ID` = '$oid'";
+    $result = mysqli_query($db, "$sql");
+    $error = $db->error;
+    if ($result == false) {
+        $error = $db->error;
+        echo "$error";
+        return false;
+    }
+    //header("Location: view_service_requests_reg.php");
+}
+else
+    echo "no";
+
+
+
 $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
 FROM regular_users rus JOIN service_orders sos
 WHERE rus.user_ID=$user_ID AND sos.requester_ID=$user_ID;";
@@ -57,16 +78,17 @@ if ($result == false) {
                         <form action=\"modify_service_request.php\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
-                                    <button type=\"submit\" name=\"submit\" class=\"btn btn-warning\">Edit</button>
+                                    <a href=\"create_service.php\" type=\"button\" class=\"btn btn-primary\">Modify</a>
                                 </div>
                             </div>
                         </form>
                     </th>
                     <th>
-                        <form action=\"#\" method=\"post\">
+                        <form action=\"view_service_requests_reg.php\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
-                                    <button type=\"submit\" name=\"submit\" class=\"btn btn-warning\">Edit</button>
+                                    <button type=\"submit\" class=\"btn btn-warning\" name='cancel' value='Cancel'>Cancel</button>
+                                    <input type=\"hidden\" name='var' value='$row[0]'>Cancel</input>
                                 </div>
                             </div>
                         </form>
