@@ -37,8 +37,10 @@ public class DBAccess {
         try {
             statement.executeUpdate("INSERT INTO services(service_type_ID, service_type_name)" +
                     "values('00001','repair')," +
-                    "('00002', 'repair')," +
-                    "('00003', 'repair')"
+                    "('00002', 'cleaning')," +
+                    "('00003', 'painting')," +
+                    "('00004', 'moving')," +
+                    "('00005', 'private_lesson')"
             );
             statement.executeUpdate("INSERT INTO `users` (`user_ID`, `password`, `email`, `username`, `city_name`, `street_number`, `apt_name`, `zip_code`) VALUES ('1', 'admin', 'admin@portakal.com', 'admin', 'xion', '666', 'heckapt', '404');");
             statement.executeUpdate("INSERT INTO `regular_users` (`user_ID`, `name`, `surname`, `date_of_birth`) VALUES ('1', 'adm', 'madm', '2018-05-01');");
