@@ -32,42 +32,38 @@
     </div>
 </nav>
 
-
 <div class="container">
-    <form class="form-horizontal" action="/action_page.php" method="POST">
-        <div class="form-group">
-            <h1>Service Registration</h1>
-            <label for="service">Service Type:</label>
-            <div class="radio-group">
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Repair
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Cleaning
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Painting
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Moving
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Private Lesson
-                </label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="price">Price:</label>
-            <input type="number" min="0" class="form-control" id="price">
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-0 col-sm-0">
-                <button type="submit" class="btn btn-warning">Send Registration</button>
-            </div>
-        </div>
-    </form>
+    <h1>Service Requests</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Type</th>
+            <th>Starting Date</th>
+            <th>Ending Date</th>
+            <th>Proposals</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <!--BURALARA PHP SERPİŞTİRİLECEK-->
+            <td>9000</td>
+            <td>Moving</td>
+            <td>01.01.1970</td>
+            <td>01.01.2010</td>
+            <td>
+                <form action="create_proposal_pro.php" method="post">
+                    <div class="form-group">
+                        <div class="col-sm-offset-0 col-sm-0">
+                            <button type="submit" name="create" class="btn btn-warning">Create</button>
+                        </div>
+                    </div>
+                </form>
+            </td>
+            <!--BURALARA PHP SERPİŞTİRİLECEK-->
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

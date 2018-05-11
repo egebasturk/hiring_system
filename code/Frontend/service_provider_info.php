@@ -32,42 +32,52 @@
     </div>
 </nav>
 
-
 <div class="container">
-    <form class="form-horizontal" action="/action_page.php" method="POST">
-        <div class="form-group">
-            <h1>Service Registration</h1>
-            <label for="service">Service Type:</label>
-            <div class="radio-group">
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Repair
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Cleaning
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Painting
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Moving
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Private Lesson
-                </label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="price">Price:</label>
-            <input type="number" min="0" class="form-control" id="price">
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-0 col-sm-0">
-                <button type="submit" class="btn btn-warning">Send Registration</button>
-            </div>
-        </div>
-    </form>
+    <h1>Service Provider Information</h1>
+    <span class="label label-danger">Repair</span>
+    <span class="label label-primary">Cleaning</span>
+    <span class="label label-success">Painting</span>
+    <span class="label label-info">Moving</span>
+    <span class="label label-warning">Private Lesson</span>
+    <br/> <br/>
+    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+    <br>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Experience</th>
+            <th>Expertise Field</th>
+            <th>Rating</th>
+            <th>Comment</th>
+            <th>Evaluation</th>
+        </tr>
+        </thead>
+        <tbody id="myTable">
+        <tr>
+            <td>Buğra</td>
+            <td>Ankara</td>
+            <td>5 years</td>
+            <td>Car repair</td>
+            <td>6/10</td>
+            <td>N/A</td>
+            <td>N/A</td>
+        </tr>
+        </tbody>
+    </table>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 </body>
 </html>
+

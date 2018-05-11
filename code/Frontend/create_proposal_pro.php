@@ -32,29 +32,38 @@
     </div>
 </nav>
 
-
 <div class="container">
-    <form class="form-horizontal" action="/action_page.php" method="POST">
+    <h1>Service Request</h1>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Type</th>
+            <th>Starting Date</th>
+            <th>Ending Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <!--BURALARA PHP SERPİŞTİRİLECEK-->
+            <td>9000</td>
+            <td>Moving</td>
+            <td>01.01.1970</td>
+            <td>01.01.2010</td>
+            <!--BURALARA PHP SERPİŞTİRİLECEK-->
+        </tr>
+        </tbody>
+    </table>
+
+    <form class="form-horizontal" action="" method="POST">
         <div class="form-group">
-            <h1>Service Registration</h1>
-            <label for="service">Service Type:</label>
-            <div class="radio-group">
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Repair
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Cleaning
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Painting
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Moving
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio">Private Lesson
-                </label>
-            </div>
+            <label for="start">Start date:</label>
+            <input type="date" class="form-control" id="start">
+        </div>
+
+        <div class="form-group">
+            <label for="end">End date:</label>
+            <input type="date" class="form-control" id="end">
         </div>
 
         <div class="form-group">
@@ -64,7 +73,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-0 col-sm-0">
-                <button type="submit" class="btn btn-warning">Send Registration</button>
+                <button type="submit" class="btn btn-warning" name="create" value="Create">Create Proposal</button>
             </div>
         </div>
     </form>
