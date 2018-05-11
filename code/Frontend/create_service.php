@@ -12,11 +12,14 @@ if (isset($_POST['create']))
 {
     //echo "sth"; DEBUG
     $serviceType = 1; // Bunu bir şekilde radio buttonlardan almak gerek
+    $orderDetails = "";
     if(isset($_POST['radio']))
         $serviceType = $_POST['radio'];
+    if(isset($_POST['odetails']))
+        $orderDetails = $_POST['odetails'];
     echo "$serviceType";
     $sql = "INSERT INTO service_orders (requester_ID, service_type_ID, order_details)
-	VALUES ('$user_ID','$serviceType', 'second repair');";
+	VALUES ('$user_ID','$serviceType', '$orderDetails');";
     $result = mysqli_query($db, "$sql");
     $error = $db->error;
     if ($result == false) {
@@ -98,8 +101,12 @@ else
           </label>          
         </div>
       </div>
+        <div class="form-group">
+            <label for="odetails">Order Details:</label>
+            <textarea class="form-control" rows="5" name="odetails"></textarea>
+        </div>
 
-      <div class="form-group">
+        <div class="form-group">
         <div class="col-sm-offset-0 col-sm-0">
           <button type="submit" class="btn btn-warning" name="create">Create</button>
         </div>
