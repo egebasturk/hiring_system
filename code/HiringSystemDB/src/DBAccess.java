@@ -30,6 +30,25 @@ public class DBAccess {
     private static void initializeTables()
     {
         createTables();
+        insertDummyData();
+    }
+    public static void insertDummyData()
+    {
+        try {
+            statement.executeUpdate("INSERT INTO services(service_type_ID, service_type_name)" +
+                    "values('00001','repair')," +
+                    "('00002', 'repair')," +
+                    "('00003', 'repair')"
+            );
+            statement.executeUpdate("INSERT INTO `users` (`user_ID`, `password`, `email`, `username`, `city_name`, `street_number`, `apt_name`, `zip_code`) VALUES ('1', 'admin', 'admin@portakal.com', 'admin', 'xion', '666', 'heckapt', '404');");
+            statement.executeUpdate("INSERT INTO `regular_users` (`user_ID`, `name`, `surname`, `date_of_birth`) VALUES ('1', 'adm', 'madm', '2018-05-01');");
+            statement.executeUpdate("INSERT INTO `service_orders` (`order_ID`, `service_type_ID`, `order_details`) VALUES ('1', '1', 'first repair');");
+            statement.executeUpdate("INSERT INTO `has` (`order_ID`, `user_ID`) VALUES ('1', '1');");
+
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
     private static void createTables()
     {
@@ -108,7 +127,7 @@ public class DBAccess {
                     ")engine=InnoDB;"
             );
             statement.executeUpdate("CREATE TABLE service_orders" +
-                    "(order_ID INT PRIMARY KEY," +
+                    "(order_ID INT PRIMARY KEY AUTO_INCREMENT," +
                     "service_type_ID INT," +
                     "FOREIGN KEY (service_type_ID) REFERENCES services( service_type_ID)\n" +
                     "ON DELETE CASCADE\n" +
@@ -323,6 +342,7 @@ public class DBAccess {
                     "street_number INT" +
                     ")engine=InnoDB;"
             );
+            /*
             statement.executeUpdate("INSERT INTO services(service_type_ID, service_type_name)" +
                     "values('00001','repair')," +
                     "('00002', 'repair')," +
@@ -342,7 +362,7 @@ public class DBAccess {
                     "values('00001', 'anan_repair','10', 'anan')," +
                     "('00002', 'baban_repair', '20', 'baban')," +
                     "('00003', 'dayın_repair', '20', 'dayın')"
-            );
+            );*/
         }catch (SQLException e)
         {
             e.printStackTrace();
