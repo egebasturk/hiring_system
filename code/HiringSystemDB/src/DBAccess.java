@@ -44,7 +44,13 @@ public class DBAccess {
             );
             statement.executeUpdate("INSERT INTO `users` (`user_ID`, `password`, `email`, `username`, `city_name`, `street_number`, `apt_name`, `zip_code`) VALUES ('1', 'admin', 'admin@portakal.com', 'admin', 'xion', '666', 'heckapt', '404');");
             statement.executeUpdate("INSERT INTO `regular_users` (`user_ID`, `name`, `surname`, `date_of_birth`) VALUES ('1', 'adm', 'madm', '2018-05-01');");
+            statement.executeUpdate("INSERT INTO `users` (`user_ID`, `password`, `email`, `username`, `city_name`, `street_number`, `apt_name`, `zip_code`) VALUES ('2', 'admin', 'admin_pro@portakal.com', 'admin_pro', 'xion', '666', 'heckapt', '404');");
+            statement.executeUpdate("INSERT INTO `professional_users` (`user_ID`, `experience`, `expertise_field`) VALUES ('2', '5', 'network repair');");
             statement.executeUpdate("INSERT INTO `service_orders` (`requester_ID`, `service_type_ID`, `order_details`) VALUES ('1', '1', 'first repair');");
+            statement.executeUpdate("INSERT INTO `proposed_services` (`proposal_ID`, `service_type_ID`, `start_date`, `end_date`, `proposed_price`) VALUES ('1', '1', '2018-05-01', '2018-05-23', '100');");
+            statement.executeUpdate("INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', '1');");
+
+
             //statement.executeUpdate("INSERT INTO `has` (`order_ID`, `user_ID`) VALUES ('1', '1');");
 
         }catch (SQLException e)
@@ -147,7 +153,7 @@ public class DBAccess {
                     "END;"
             );*/
             statement.executeUpdate("CREATE TABLE proposed_services" +
-                    "(proposal_ID INT PRIMARY KEY," +
+                    "(proposal_ID INT PRIMARY KEY AUTO_INCREMENT," +
                     "service_type_ID INT," +
                     "FOREIGN KEY (service_type_ID) REFERENCES services( service_type_ID)" +
                     "ON DELETE CASCADE\n" +
