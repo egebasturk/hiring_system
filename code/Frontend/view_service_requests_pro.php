@@ -1,3 +1,26 @@
+<?php
+include('config.php');
+session_start();
+$error = "";
+//global $user_ID;
+$user_ID= $_SESSION["user_ID"];
+
+if($db->connect_error){
+    die("Connection failed: " . $db->connect_error);
+}
+
+
+
+$sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
+FROM regular_users rus JOIN service_orders sos;";
+$result = mysqli_query($db, "$sql");
+$error = $db->error;
+if ($result == false) {
+    $error = $db->error;
+    echo "$error";
+    return false;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,31 +62,39 @@
         <tr>
             <th>Order ID</th>
             <th>Order Type</th>
-            <th>Starting Date</th>
-            <th>Ending Date</th>
+            <th>Order Details</th>
             <th>Proposals</th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
-            <td>9000</td>
-            <td>Moving</td>
-            <td>01.01.1970</td>
-            <td>01.01.2010</td>
-            <td>
-                <form action="create_proposal_pro.php" method="post">
-                    <div class="form-group">
-                        <div class="col-sm-offset-0 col-sm-0">
-                            <button type="submit" name="create" class="btn btn-warning">Create</button>
-                        </div>
-                    </div>
-                </form>
-            </td>
+            <?php
+            while($row = mysqli_fetch_array($result))
+            {
+                echo "<tr>";
+                echo "<th>" . $row[0] . "</th>";
+                echo "<th>" . $row[1] . "</th>";
+                echo "<th>" . $row[2] . "</th>";
+                echo "<th>
+                        <form action=\"create_proposal_pro.php\" method=\"post\">
+                            <div class=\"form-group\">
+                                <div class=\"col-sm-offset-0 col-sm-0\">
+                                    <button type=\"submit\" class=\"btn btn-warning\" name='propose' value='Propose'>Propose</button>
+                                    <input type=\"hidden\" name='oid' value='$row[0]'></input>
+                                    <input type=\"hidden\" name='servicetype' value='$row[1]'></input>
+                                </div>
+                            </div>
+                        </form>
+                    </th>";
+                echo "</tr>";
+            }
+            ?>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
         </tbody>
     </table>
 </div>
+<a href="logon_pro.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </body>
 </html>

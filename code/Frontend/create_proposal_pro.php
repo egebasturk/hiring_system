@@ -1,3 +1,47 @@
+<?php
+include('config.php');
+session_start();
+$error = "";
+//global $user_ID;
+$user_ID= $_SESSION["user_ID"];
+
+if($db->connect_error){
+    die("Connection failed: " . $db->connect_error);
+}
+if (isset($_POST['create']))
+{
+    echo "sth"; //DEBUG
+    $servicetype = $_SESSION['servicetype'];
+    if(isset($_POST['price']))
+        $price = $_POST['price'];
+    $sql = "INSERT INTO proposed_services (service_type_ID, start_date, end_date, proposed_price) 
+            VALUES ( '1', '2018-05-01', '2018-05-23', '99');
+            SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;
+            INSERT INTO proposals (professional_ID, proposal_ID) VALUES ('2', @autoInc);";
+    $result = mysqli_query($db, "$sql");
+    $error = $db->error;
+    if ($result == false) {
+        $error = $db->error;
+        echo "$error";
+        return false;
+    }
+    header("Location: view_proposals_pro.php");
+}
+else
+{
+    $servicetype = $_POST['servicetype'];
+    $_SESSION['servicetype'] = $servicetype;
+    $oid = $_POST['oid'];
+}
+
+/* Insert query
+ * INSERT INTO `proposed_services` (`service_type_ID`, `start_date`, `end_date`, `proposed_price`) VALUES ( '1', '2018-05-01', '2018-05-23', '100');
+SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;
+INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc);
+ * */
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,23 +83,36 @@
         <tr>
             <th>Order ID</th>
             <th>Order Type</th>
-            <th>Starting Date</th>
-            <th>Ending Date</th>
+            <th>Order Details</th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
-            <td>9000</td>
-            <td>Moving</td>
-            <td>01.01.1970</td>
-            <td>01.01.2010</td>
+            <?php
+            $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
+                    FROM service_orders sos
+                    WHERE sos.order_ID ='$oid';";
+            $result = mysqli_query($db, "$sql");
+            $error = $db->error;
+            if ($result == false) {
+                $error = $db->error;
+                echo "$error";
+                return false;
+            }
+            $row = mysqli_fetch_array($result);
+            echo "<tr>";
+            echo "<th>" . $row[0] . "</th>";
+            echo "<th>" . $row[1] . "</th>";
+            echo "<th>" . $row[2] . "</th>";
+            echo "</tr>";
+            ?>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
         </tbody>
     </table>
 
-    <form class="form-horizontal" action="" method="POST">
+    <form class="form-horizontal" action="create_proposal_pro.php" method="POST">
         <div class="form-group">
             <label for="start">Start date:</label>
             <input type="date" class="form-control" id="start">
@@ -68,7 +125,7 @@
 
         <div class="form-group">
             <label for="price">Price:</label>
-            <input type="number" min="0" class="form-control" id="price">
+            <input type="number" min="0" class="form-control" name="price">
         </div>
 
         <div class="form-group">
@@ -78,5 +135,6 @@
         </div>
     </form>
 </div>
+<a href="view_service_requests_pro.php" type="button" class="btn btn-warning">Go Back</a>
 </body>
 </html>

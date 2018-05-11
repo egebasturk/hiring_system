@@ -109,6 +109,7 @@ else
         <div class="form-group">
         <div class="col-sm-offset-0 col-sm-0">
           <button type="submit" class="btn btn-warning" name="create">Create</button>
+          <button href="logon_reg.php" type="submit" class="btn btn-warning" name="goback">Go Back To Home Page</button>
         </div>
       </div>
   </form>
