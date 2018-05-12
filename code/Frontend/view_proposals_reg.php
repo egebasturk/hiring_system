@@ -119,35 +119,84 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
             <?php
+                if($order_id == 0)
+                {
+                    $sql = "SELECT ps.proposal_ID, ps.start_date, ps.end_date, ps.proposed_price FROM proposed_services ps NATURAL JOIN (SELECT order_ID FROM service_orders WHERE requester_ID = $user_ID) os;";
+                    $result = mysqli_query($db, $sql);
+                    $error = $db->error;
+                    if ($result == false) {
+                        echo "$error";
+                        return false;
+                    }
 
+                    while($row = mysqli_fetch_array($result)) {
+                        echo "<tr>";
+                        echo "<th>" . $row[0] . "</th>";
+                        echo "<th>" . $row[1] . "</th>";
+                        echo "<th>" . $row[2] . "</th>";
+                        echo "<th>" . $row[3] . "</th>";
+                        echo "<td>
+                                <form action=\"\" method=\"post\">
+                                    <div class=\"form-group\">
+                                        <div class=\"col-sm-offset-0 col-sm-0\">
+                                            <button type=\"submit\" name=\"add\" class=\"btn btn-warning\">Add</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>";
+                        echo "<td>
+                                <form action=\"\" method=\"post\">
+                                    <div class=\"form-group\">
+                                        <div class=\"col-sm-offset-0 col-sm-0\">
+                                            <button type=\"submit\" name=\"remove\" class=\"btn btn-danger\">Remove</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>";
+                        echo "</tr>";
+                    }
+                }
+                else
+                {
+                    $sql = "SELECT proposal_ID, start_date, end_date, proposed_price FROM proposed_services WHERE order_ID = $order_id;";
+                    $result = mysqli_query($db, $sql);
+                    $error = $db->error;
+                    if ($result == false) {
+                        echo "$error";
+                        return false;
+                    }
+
+                    while($row = mysqli_fetch_array($result)) {
+                        echo "<tr>";
+                        echo "<th>" . $row[0] . "</th>";
+                        echo "<th>" . $row[1] . "</th>";
+                        echo "<th>" . $row[2] . "</th>";
+                        echo "<th>" . $row[3] . "</th>";
+                        echo "<td>
+                                <form action=\"\" method=\"post\">
+                                    <div class=\"form-group\">
+                                        <div class=\"col-sm-offset-0 col-sm-0\">
+                                            <button type=\"submit\" name=\"add\" class=\"btn btn-warning\">Add</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>";
+                        echo "<td>
+                                <form action=\"\" method=\"post\">
+                                    <div class=\"form-group\">
+                                        <div class=\"col-sm-offset-0 col-sm-0\">
+                                            <button type=\"submit\" name=\"remove\" class=\"btn btn-danger\">Remove</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>";
+                        echo "</tr>";
+
+                    }
+                }
             ?>
-
-
-            <td>9000</td>
-            <td>01.01.1970</td>
-            <td>01.01.2010</td>
-            <td>300</td>
-            <td>
-                <form action="" method="post">
-                    <div class="form-group">
-                        <div class="col-sm-offset-0 col-sm-0">
-                            <button type="submit" name="add" class="btn btn-warning">Add</button>
-                        </div>
-                    </div>
-                </form>
-            </td>
-            <td>
-                <form action="" method="post">
-                    <div class="form-group">
-                        <div class="col-sm-offset-0 col-sm-0">
-                            <button type="submit" name="remove" class="btn btn-danger">Remove</button>
-                        </div>
-                    </div>
-                </form>
-            </td>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
         </tbody>
