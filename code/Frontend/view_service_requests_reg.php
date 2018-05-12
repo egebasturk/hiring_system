@@ -75,7 +75,7 @@
                 echo "<th>
                         <form action=\"\" method=\"post\">
                            <div class=\"radio-group\">
-                            <button type=\"submit\" name=\"select\" value=\"$row[0]\">
+                            <button style='height: 25px;width: 25px' type=\"submit\" name=\"select\" value=\"$row[0]\">
                           </div>
                         </form>
                       </th>";
