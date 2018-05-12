@@ -136,7 +136,7 @@
                 if(isset($_POST['match']))
                 {
                     $target  = 'Location: match.php?order_id=';
-                    $target .= $order_id;
+                    $target .= $_POST['match'];
                     header($target);
                 }
             }
