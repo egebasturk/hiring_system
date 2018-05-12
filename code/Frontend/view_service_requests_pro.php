@@ -34,7 +34,7 @@ if ($result == false) {
 </head>
 <body>
 <style>
-    body {background-color: rgb(255, 165, 0);}
+    body {background-color: rgb(256, 256, 256);}
     input[class=form-control]{
         width:100%;
         background-color:#FFF;

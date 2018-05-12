@@ -53,7 +53,7 @@ if(isset($_POST['submit'])){
 </head>
 
 <style>
-	body {background-color: rgb(255, 165, 0);}
+	body {background-color: rgb(256, 256, 256);}
     input[type=text]:focus {
         border: 3px solid #555;
     }
@@ -102,7 +102,7 @@ if(isset($_POST['submit'])){
                  alt="Portakal logo"
                  style="width:271px;height:47px;border:0;">
         </a>
-        </div>>
+        </div>
     </div>
 
     <div class="form-group">

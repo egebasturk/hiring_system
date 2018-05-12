@@ -71,7 +71,7 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style>
-    body {background-color: rgb(255, 165, 0);}
+    body {background-color: rgb(256, 256, 256);}
     input[class=form-control]{
         width:100%;
         background-color:#FFF;

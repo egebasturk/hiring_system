@@ -9,7 +9,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style>
-    body {background-color: rgb(255, 165, 0);}
+    body {background-color: rgb(256, 256, 256);}
     input[class=form-control]{
         width:100%;
         background-color:#FFF;
@@ -29,17 +29,6 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="homepage.php">Portakal</a>
         </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="homepage.php">Home</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Page 1-1</a></li>
-                    <li><a href="#">Page 1-2</a></li>
-                    <li><a href="#">Page 1-3</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Page 2</a></li>
-        </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
