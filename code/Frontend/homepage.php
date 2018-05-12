@@ -46,7 +46,7 @@ session_start();
                     echo "<li><a href=\"login.php\"><span class=\"glyphicon glyphicon-log-in\"></span> Login</a></li>";
                 }
                 else{
-                    echo "<li><a href=\"homepage.php\"><span class=\"glyphicon glyphicon-log-out\"></span> Logout</a></li>";
+                    echo "<li><a href=\"login.php\"><span class=\"glyphicon glyphicon-log-out\"></span> Logout</a></li>";
                 }
       ?>
 

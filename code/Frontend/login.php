@@ -1,7 +1,9 @@
 <?php
 include('config.php');
 $error = ""; // Default value
-
+session_start();
+$_SESSION = array();
+session_destroy();
 if(isset($_POST['submit'])){
 	if(empty($_POST['username']) || empty($_POST['password'])){
 		$error = "Fields can't be left blank";
