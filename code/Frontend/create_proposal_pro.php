@@ -14,16 +14,30 @@ if (isset($_POST['create']))
     $servicetype = $_SESSION['servicetype'];
     if(isset($_POST['price']))
         $price = $_POST['price'];
-    $sql = "INSERT INTO proposed_services (service_type_ID, start_date, end_date, proposed_price) 
-            VALUES ( '1', '2018-05-01', '2018-05-23', '99');
-            SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;
-            INSERT INTO proposals (professional_ID, proposal_ID) VALUES ('2', @autoInc);";
-    $result = mysqli_query($db, "$sql");
+    mysqli_query($db, "BEGIN");
+    $sql_query1 = "INSERT INTO proposed_services (service_type_ID, start_date, end_date, proposed_price)
+                            VALUES ( '$servicetype', '2018-05-01', '2018-05-23', '$price');";
+    $sql_query2 = "SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;";
+    $sql_query3 = "INSERT INTO proposals (professional_ID, proposal_ID) VALUES ('$user_ID', @autoInc);";
+
+
+    $result1 = mysqli_query($db, $sql_query1);
+    $result2 = mysqli_query($db, $sql_query2);
+    $result3 = mysqli_query($db, $sql_query3);
+    $result = $result1 && $result2 && $result3;
+
+    //$result = mysqli_query($db, "$sql");
     $error = $db->error;
     if ($result == false) {
-        $error = $db->error;
         echo "$error";
+        mysqli_query($db,"ROLLBACK");
+        echo "Rolled back";
         return false;
+    }
+    else
+    {
+        mysqli_query($db, "COMMIT;");
+        echo "Committed";
     }
     header("Location: view_proposals_pro.php");
 }
