@@ -74,6 +74,15 @@
                         echo "<th>" . $row[2] . "</th>";
                         echo "<th>" . $row[3] . "</th>";
                         echo "<th>" . $row[4] . "</th>";
+                        echo "<td>
+                                <form action=\"\" method=\"post\">
+                                    <div class=\"form-group\">
+                                        <div class=\"col-sm-offset-0 col-sm-0\">
+                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\">match</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>";
                         echo "</tr>";
                     }
                 }
@@ -97,9 +106,24 @@
                         echo "<th>" . $row[2] . "</th>";
                         echo "<th>" . $row[3] . "</th>";
                         echo "<th>" . $row[4] . "</th>";
+                        echo "<td>
+                                <form action=\"\" method=\"post\">
+                                    <div class=\"form-group\">
+                                        <div class=\"col-sm-offset-0 col-sm-0\">
+                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\">match</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </td>";
                         echo "</tr>";
-
                     }
+                }
+
+                if(isset($_POST['match']))
+                {
+                    $target  = 'Location: match.php?order_id=';
+                    $target .= $order_id;
+                    header($target);
                 }
             }
 
@@ -193,6 +217,7 @@
                                 </form>
                             </td>";
                         echo "</tr>";
+
 
                     }
                 }
