@@ -12,7 +12,8 @@ if($db->connect_error){
 
 
 $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
-FROM regular_users rus JOIN service_orders sos;";
+FROM regular_users rus JOIN service_orders sos
+WHERE rus.user_ID=sos.requester_ID;";
 $result = mysqli_query($db, "$sql");
 $error = $db->error;
 if ($result == false) {
@@ -31,6 +32,7 @@ if ($result == false) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<body>
 <style>
     body {background-color: rgb(255, 165, 0);}
     input[class=form-control]{
@@ -45,8 +47,6 @@ if ($result == false) {
         margin-bottom:15px;
     }
 </style>
-<body>
-
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
