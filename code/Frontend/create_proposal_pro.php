@@ -5,18 +5,20 @@ $error = "";
 //global $user_ID;
 $user_ID= $_SESSION["user_ID"];
 
-if($db->connect_error){
-    die("Connection failed: " . $db->connect_error);
-}
 if (isset($_POST['create']))
 {
     echo "sth"; //DEBUG
     $servicetype = $_SESSION['servicetype'];
     if(isset($_POST['price']))
         $price = $_POST['price'];
-    mysqli_query($db, "BEGIN");
+    if(isset($_POST['start']))
+        $start_date = $_POST['start'];
+    if(isset($_POST['end']))
+        $end_date = $_POST['end'];
+
+    mysqli_query($db, "START TRANSACTION;");
     $sql_query1 = "INSERT INTO proposed_services (service_type_ID, start_date, end_date, proposed_price)
-                            VALUES ( '$servicetype', '2018-05-01', '2018-05-23', '$price');";
+                            VALUES ( '$servicetype', '$start_date', '$end_date', '$price');";
     $sql_query2 = "SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;";
     $sql_query3 = "INSERT INTO proposals (professional_ID, proposal_ID) VALUES ('$user_ID', @autoInc);";
 
@@ -129,12 +131,12 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
     <form class="form-horizontal" action="create_proposal_pro.php" method="POST">
         <div class="form-group">
             <label for="start">Start date:</label>
-            <input type="date" class="form-control" id="start">
+            <input type="date" class="form-control" name="start">
         </div>
 
         <div class="form-group">
             <label for="end">End date:</label>
-            <input type="date" class="form-control" id="end">
+            <input type="date" class="form-control" name="end">
         </div>
 
         <div class="form-group">
