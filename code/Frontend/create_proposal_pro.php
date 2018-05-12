@@ -14,7 +14,7 @@ if (isset($_POST['create']))
     $servicetype = $_SESSION['servicetype'];
     if(isset($_POST['price']))
         $price = $_POST['price'];
-    mysqli_query($db, "BEGIN");
+    mysqli_query($db, "START TRANSACTION;");
     $sql_query1 = "INSERT INTO proposed_services (service_type_ID, start_date, end_date, proposed_price)
                             VALUES ( '$servicetype', '2018-05-01', '2018-05-23', '$price');";
     $sql_query2 = "SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;";
