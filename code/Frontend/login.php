@@ -1,6 +1,7 @@
 <?php
 include('config.php');
 $error = ""; // Default value
+
 if(isset($_POST['submit'])){
 	if(empty($_POST['username']) || empty($_POST['password'])){
 		$error = "Fields can't be left blank";
@@ -52,37 +53,58 @@ if(isset($_POST['submit'])){
 </head>
 
 <style>
-	body {background-color: rgb(200, 120, 0);}
-	input[class=form-control]{
-	width:100%;
-	background-color:#253;
-	color:#fff;
-	border:2px solid #06F;
-	padding:10px;
-	font-size:20px;
-	cursor:pointer;
-	border-radius:5px;
-	margin-bottom:15px; 
-}
+	body {background-color: rgb(255, 165, 0);}
+    input[type=text]:focus {
+        border: 3px solid #555;
+    }
+    input[type=password]:focus {
+        border: 3px solid #555;
+    }
+    input[class=form-control]{
+        width:100%;
+        background-color:#FFF;
+        color:#000;
+        border:2px solid #FFF;
+        padding:10px;
+        font-size:20px;
+        cursor:pointer;
+        border-radius:5px;
+        margin-bottom:15px;
+    }
+    input[class=btn btn-default]{
+        width:100%;
+        background-color:#FFF;
+        color:#000;
+        border:2px solid #FFF;
+        padding:10px;
+        font-size:20px;
+        cursor:pointer;
+        border-radius:5px;
+        margin-bottom:15px;
+    }
 </style>
 
+
 <body>
-<form action="" method="post" style="text-align:center;">
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="homepage.php">Home Page</a></li>
-    </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="signup_reg.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
     </ul>
   </div>
 </nav>
-  
+<form action="" method="post"">
 <div class="container">
-  <h1>Portakal</h1>
-  <form action="" method="post" style="text-align:center;">
-  <form class="form-horizontal" action="/action_page.php">
+    <form action="" method="post" style="text-align:center;">
+  <div class=""form-group">
+        <div class="col-sm-10">
+        <a href="homepage.php">
+            <img src="logo.png"
+                 alt="Portakal logo"
+                 style="width:271px;height:47px;border:0;">
+        </a>
+        </div>>
+    </div>
+
     <div class="form-group">
       <div class="col-sm-10">
         <input type="text" class="form-control" id="username" placeholder="Username/E-mail" name="username">
@@ -100,11 +122,11 @@ if(isset($_POST['submit'])){
 	</div>
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" name="submit" class="btn btn-default">Submit</button>
+        <button type="submit" name="submit" style="text-align:center;" class="btn btn-default">Login</button>
       </div>
     </div>
-  </form>
 </div>
+</form>
 
 </body>
 </html>
