@@ -201,17 +201,38 @@
         }
         */
 
-            $sql = "SELECT ps.proposal_ID, ps.start_date, ps.end_date, ps.proposed_price, os.start_date, os.end_date, os.order_ID FROM  
-                    (SELECT order_ID, start_date, end_date FROM service_orders WHERE order_ID = $order_id) os INNER JOIN proposed_services ps ON ps.order_ID = os.order_ID WHERE ps.order_ID = $order_id;";
-            $result = mysqli_query($db, $sql);
+            /*$sql = "SELECT ps.proposal_ID, ps.start_date, ps.end_date, ps.proposed_price, os.start_date, os.end_date, os.order_ID
+                    FROM  (SELECT order_ID, start_date, end_date 
+                          FROM service_orders 
+                          WHERE order_ID = $order_id) os INNER JOIN proposed_services ps ON ps.order_ID = os.order_ID 
+                          WHERE ps.order_ID = $order_id;";*/
+            $sql_init = "SELECT DATEDIFF('2018-05-01','2018-05-25') as requestersDDiff INTO @requestersDDiff;
+                        SELECT DATEDIFF('2018-05-01','2018-05-26') as proposersDDiff INTO @proposersDDiff;
+                        
+                        INSERT INTO matches (order_ID, proposal_ID) 
+                        SELECT  os.order_ID , ps.proposal_ID
+                        FROM  (SELECT order_ID, start_date, end_date 
+                            FROM service_orders 
+                            WHERE order_ID = '1') os INNER JOIN proposed_services ps ON ps.order_ID = os.order_ID 
+                        WHERE ps.order_ID = '1' AND @requestersDDiff > @proposersDDiff;";
+            $result = mysqli_query($db, $sql_init);
             $error = $db->error;
             if ($result == false) {
                 echo "$error";
                 return false;
             }
 
+            $sql_show = "SELECT proposal_ID, pservs.start_date, pservs.end_date, pservs.proposed_price
+                        FROM matches ms NATURAL JOIN proposed_services pservs
+                        WHERE ms.proposal_ID=pservs.proposal_ID;";
+            $result = mysqli_query($db, $sql_show);
+            $error = $db->error;
+            if ($result == false) {
+                echo "$error";
+                return false;
+            }
             while($row = mysqli_fetch_array($result)) {
-                $start_service = $row[1];
+                /*$start_service = $row[1];
                 $end_service = $row[2];
                 $start_proposal = $row[4];
                 $end_proposal = $row[4];
@@ -228,11 +249,12 @@
                 $starts_diff = $starts_diff->format('%d');
                 $ends_diff = $ends_diff->format('%d');
                 $service_total = $service_total->format('%d');
-                $proposed_total = $proposed_total->format('%d');
+                $proposed_total = $proposed_total->format('%d');*/
 
-                if(($starts_diff < 3 && $ends_diff < 3) || ($service_total > $proposed_total)) {
+                /*if(($starts_diff < 3 && $ends_diff < 3) || ($service_total > $proposed_total)) {
                     $sql_ins = "INSERT INTO matches(order_ID, proposal_ID) VALUES ('$row[6]', '$row[0]');";
-                    $insert_res = mysqli_query($db, $sql_ins);
+                    $insert_res = mysqli_query($db, $sql_ins);*/
+
 
                     echo "<tr>";
                     echo "<th>" . $row[0] . "</th>";
@@ -258,8 +280,19 @@
                                     </form>
                                 </td>";
                     echo "</tr>";
-                }
+                //}
             }
+        $sql_exit = "DELETE
+                  FROM matches
+                  WHERE proposal_ID IN (SELECT proposal_ID
+                                        FROM proposed_services AS pservs JOIN service_orders AS sos USING(order_ID)
+                                        WHERE sos.requester_ID='$user_ID')";
+        $result = mysqli_query($db, $sql_exit);
+        $error = $db->error;
+        if ($result == false) {
+            echo "$error";
+            return false;
+        }
         ?>
         <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
