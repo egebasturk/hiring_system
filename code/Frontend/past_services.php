@@ -59,27 +59,39 @@
                 {
                     $provider_query = mysqli_query($db, "SELECT email, city_name, experience, expertise_field FROM professional_users NATURAL JOIN users WHERE user_ID = $row[0]");
                     $rating_query = mysqli_query($db, "SELECT rating, evaluation FROM service_ratings_evaluations WHERE user_ID = $user_ID AND provider_ID = $row[0]");
+                    $email = "";
+                    $city = "";
+                    $exp = "";
+                    $expertise = "";
+                    $rating = "";
+                    $eval = "";
                     echo "<tr>";
                     while($print_row = mysqli_fetch_array($provider_query))
                     {
-                            echo "<td>$print_row[0]</td>";
+                        $email = $print_row[0];
+                        $city = $print_row[1];
+                        $exp = $print_row[2];
+                        $expertise = $print_row[3];
+                        echo "<td>$print_row[0]</td>";
                             echo "<td>$print_row[1]</td>";
                             echo "<td>$print_row[2]</td>";
                             echo "<td>$print_row[3]</td>";
                     }
                     while($rating_print = mysqli_fetch_array($rating_query))
                     {
+                        $rating = $rating_print[0];
+                        $eval = $rating_print[1];
                         echo "<td>$rating_print[0]</td>";
                         echo "<td>$rating_print[1]</td>";
                     }
                     echo "<td> bu ne ak? </td>";
                     echo "<td>";
-                    echo "<form action=\"evaluate_service.php\" method=\"post\">";
-                    echo"<div class=\"form-group\">";
-                    echo "<div class=\"col-sm-offset-0 col-sm-0\">";
-                    echo"<button type=\"submit\"name=\"submit\" class=\"btn btn-warning\">Edit</button>";
-                    echo "</div>";
-                    echo "</div>";
+                    echo "<form action=\"evaluate_service.php?email=$email&city=$city&exp=$exp&expertise=$expertise&rating=$rating&eval=$eval&provider=$row[0]\" method=\"post\">";
+                        echo"<div class=\"form-group\">";
+                            echo "<div class=\"col-sm-offset-0 col-sm-0\">";
+                                echo"<button type=\"submit\"name=\"submit\" class=\"btn btn-warning\">Edit</button>";
+                            echo "</div>";
+                        echo "</div>";
                     echo "</form>";
                     echo"</td>";
                     echo "</tr>";
