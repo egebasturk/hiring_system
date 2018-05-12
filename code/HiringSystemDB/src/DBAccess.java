@@ -49,7 +49,9 @@ public class DBAccess {
             statement.executeUpdate("INSERT INTO `service_orders` (`requester_ID`, `service_type_ID`, `order_details`, `start_date`, `end_date`) VALUES ('1', '1', 'first repair', '2018-05-23', '2019-05-23');");
             statement.executeUpdate("INSERT INTO `proposed_services` (`proposal_ID`, `service_type_ID`, `start_date`, `end_date`, `proposed_price`) VALUES ('1', '1', '2018-05-01', '2018-05-23', '100');");
             statement.executeUpdate("INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', '1');");
-
+            statement.executeUpdate("INSERT INTO `past_services` (`service_type_ID`, `order_date`, `provider_ID`) VALUES ('1', '1985.09.08', '2');");
+            statement.executeUpdate("INSERT INTO `has_taken` (`user_ID`, `service_type_ID`, `order_date`, `provider_ID`) VALUES ('1', '1', '1985.09.08', '2');");
+            statement.executeUpdate("INSERT INTO `service_ratings_evaluations` (`user_ID`, `service_type_ID`, `order_date`, `provider_ID`, `rating`, `evaluation`) VALUES ('1', '1', '1985.09.08', '2', '3', 'anan');");
 
             //statement.executeUpdate("INSERT INTO `has` (`order_ID`, `user_ID`) VALUES ('1', '1');");
 
