@@ -45,34 +45,83 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <!--BURALARA PHP SERPİŞTİRİLECEK-->
-        <td>Buğra</td>
-        <td>Ankara</td>
-        <td>5 years</td>
-        <td>House cleaning</td>
-        <td>6/10</td>
-        <!--BURALARA PHP SERPİŞTİRİLECEK-->
-      </tr>
+      <?php
+            include('config.php');
+            session_start();
+            if(isset($_GET['email']))
+            {
+                $provider = $_GET['email'];
+                $provider_city = $_GET['city'];
+                $provider_experience = $_GET['exp'];
+                $provider_expertise = $_GET['expertise'];
+                $service_rating = $_GET['rating'];
+                $service_eval = $_GET['eval'];
+                echo "<tr>";
+                echo "<td> $provider </td>";
+                echo "<td> $provider_city </td>";
+                echo "<td> $provider_experience </td>";
+                echo "<td> $provider_expertise </td>";
+                echo "<td> $service_rating/10</td>";
+                echo "</tr>";
+                $provider_ID = $_GET['provider'];
+                $user_ID = $_SESSION['user_ID'];
+                if(isset($_POST['send']))
+                {
+                    $comment = "" ;
+                    $rating = 0;
+
+                    if(empty($_POST['comment']))
+                    {
+                        $comment = $service_eval ;
+
+                    }
+                    else
+                    {
+                        $comment = $_POST['comment'];
+                    }
+
+                    if(empty($_POST['rating']))
+                    {
+                        $rating = $service_rating;
+                    }
+                    else
+                    {
+                        $rating = $_POST['rating'];
+                    }
+                    $sql = mysqli_query($db, "UPDATE service_ratings_evaluations SET rating='$rating', evaluation='$comment' WHERE user_ID = $user_ID AND provider_ID = $provider_ID");
+                    header('Location: evaluate_service.php?email='.$provider.'&city='.$provider_city.'&exp='.$provider_experience.'&expertise='.$provider_expertise.'&rating='.$rating.'&eval='.$comment.'&provider='.$provider_ID);
+                }
+                if(isset($_POST['back']))
+                {
+                    header('Location: past_services.php');
+                }
+            }
+      ?>
     </tbody>
   </table>
     <div class="container">
-        <form class="form-horizontal" action="/action_page.php" method="POST">
+        <form class="form-horizontal" action="" method="post">
             <div class="form-group">
                 <label for="eval">Please evaluate your service</label>
-                <input type="number" min="0" max="10" class="form-control" id="eval">
+                <input type="number" min="0" max="10" class="form-control" name="rating">
             </div>
 
             <div class="form-group">
                 <label for="comment">Comment:</label>
-                <textarea class="form-control" rows="5" id="comment"></textarea>
+                <textarea class="form-control" rows="5" name="comment"><?php echo $service_eval;?></textarea>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-0 col-sm-0">
-                    <button type="submit" class="btn btn-warning">Send</button>
+                    <button type="submit" class="btn btn-warning" name="send">Send</button>
                 </div>
             </div>
+            <div class="form-group">
+                <div class="col-sm-offset-0 col-sm-0">
+                    <button type="submit" class="btn btn-warning" name="back">Back</button>
+                </div>
+            </div>
+
         </form>
     </div>
 </div>

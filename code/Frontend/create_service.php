@@ -5,21 +5,23 @@ $error = "";
 //global $user_ID;
 $user_ID= $_SESSION["user_ID"];
 
-if($db->connect_error){
-    die("Connection failed: " . $db->connect_error);
-}
 if (isset($_POST['create']))
 {
     //echo "sth"; DEBUG
     $serviceType = 1; // Bunu bir şekilde radio buttonlardan almak gerek
     $orderDetails = "";
+    $start_date = "";
+    $end_date = "";
     if(isset($_POST['radio']))
         $serviceType = $_POST['radio'];
     if(isset($_POST['odetails']))
         $orderDetails = $_POST['odetails'];
-    echo "$serviceType";
-    $sql = "INSERT INTO service_orders (requester_ID, service_type_ID, order_details)
-	VALUES ('$user_ID','$serviceType', '$orderDetails');";
+    if(isset($_POST['start']))
+        $start_date = $_POST['start'];
+    if(isset($_POST['end']))
+        $end_date = $_POST['end'];
+    $sql = "INSERT INTO service_orders (requester_ID, service_type_ID, order_details, start_date, end_date)
+	VALUES ('$user_ID','$serviceType', '$orderDetails', '$start_date', '$end_date');";
     $result = mysqli_query($db, "$sql");
     $error = $db->error;
     if ($result == false) {
@@ -73,12 +75,12 @@ else
         <div class="form-group">
             <h1>Create Request</h1>
             <label for="start">Start date:</label>
-            <input type="date" class="form-control" id="start">
+            <input type="date" class="form-control" name="start">
       </div>   
 
       <div class="form-group">
         <label for="end">End date:</label>
-        <input type="date" class="form-control" id="end">
+        <input type="date" class="form-control" name="end">
       </div>  
 
       <div class="form-group">
@@ -109,7 +111,7 @@ else
         <div class="form-group">
         <div class="col-sm-offset-0 col-sm-0">
           <button type="submit" class="btn btn-warning" name="create">Create</button>
-          <button href="logon_reg.php" type="submit" class="btn btn-warning" name="goback">Go Back To Home Page</button>
+            <a href="view_service_requests_reg.php" type="button" class="btn btn-warning">Back</a>
         </div>
       </div>
   </form>
