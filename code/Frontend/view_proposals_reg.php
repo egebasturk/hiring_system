@@ -92,7 +92,7 @@
                                 <form action=\"\" method=\"post\">
                                     <div class=\"form-group\">
                                         <div class=\"col-sm-offset-0 col-sm-0\">
-                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\">match</button>
+                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\" value=\"$row[0]\">match</button>
                                         </div>
                                     </div>
                                 </form>

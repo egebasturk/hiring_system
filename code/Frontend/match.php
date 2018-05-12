@@ -134,6 +134,7 @@
         <tbody>
         <!--BURALARA PHP SERPİŞTİRİLECEK-->
         <?php
+        /*
         if($order_id == 0)
         {
             $sql = "SELECT ps.proposal_ID, ps.start_date, ps.end_date, ps.proposed_price, os.start_date, os.end_date, os.order_ID FROM  
@@ -198,8 +199,8 @@
 
             }
         }
-        else
-        {
+        */
+
             $sql = "SELECT ps.proposal_ID, ps.start_date, ps.end_date, ps.proposed_price, os.start_date, os.end_date, os.order_ID FROM  
                     (SELECT order_ID, start_date, end_date FROM service_orders WHERE order_ID = $order_id) os INNER JOIN proposed_services ps ON ps.order_ID = os.order_ID WHERE ps.order_ID = $order_id;";
             $result = mysqli_query($db, $sql);
@@ -259,7 +260,6 @@
                     echo "</tr>";
                 }
             }
-        }
         ?>
         <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
