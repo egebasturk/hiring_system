@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html lang="en">
 <head>
   <title>Portakal</title>
@@ -8,7 +11,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style>
-    body {background-color: rgb(256, 256, 256);}
     input[class=form-control]{
         width:100%;
         background-color:#FFF;
@@ -25,39 +27,61 @@
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="homepage.php">Portakal</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="homepage.php">Home</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Page 1-1</a></li>
-          <li><a href="#">Page 1-2</a></li>
-          <li><a href="#">Page 1-3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Page 2</a></li>
-    </ul>
+      <ul class="nav navbar-nav">
+          <li class="active"><a><?php
+            if(!empty($_SESSION["user_ID"])) {
+                $id = $_SESSION["user_ID"];
+                echo "User ID: $id";
+            }
+            else{
+                echo "Currently not logged in!";
+            }
+                  ?></a></li>
+
+      </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="signup_reg.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <?php
+                if(empty($_SESSION["user_ID"])) {
+                    echo "<li><a href=\"signup_reg.php\"><span class=\"glyphicon glyphicon-user\"></span> Sign Up</a></li>";
+                    echo "<li><a href=\"login.php\"><span class=\"glyphicon glyphicon-log-in\"></span> Login</a></li>";
+                }
+                else{
+                    echo "<li><a href=\"homepage.php\"><span class=\"glyphicon glyphicon-log-out\"></span> Logout</a></li>";
+                }
+      ?>
+
     </ul>
   </div>
 </nav>
 <div class="container">
-  <h1>Welcome</h1>
+    <h1>
+            <div class=""form-group">
+            <div class="col-sm-10">
+                <a href="homepage.php">
+                    <img src="logo.png"
+                         alt="Portakal logo"
+                         style="width:271px;height:47px;border:0;">
+                </a>
+            </div>
+</div>
+</h1>
+<br/> <br/>
+<br/> <br/>
+<div class=""form-group">
+<div class="col-sm-10">
   <span class="label label-danger">Repair</span>
   <span class="label label-primary">Cleaning</span>
   <span class="label label-success">Painting</span>
   <span class="label label-info">Moving</span>
   <span class="label label-warning">Private Lesson</span>
+</div>
+</div>
   <br/> <br/>
   <form  action="" method = "post">
       <div class="form-group">
         <input type="text" name = "service_type" class="form-control" placeholder="Search">
       </div>
-      <button type="submit" class="btn btn-default">Submit</button>
+      <button type="submit" class="btn btn-default">Search</button>
     </form>
 </div>
 </body>

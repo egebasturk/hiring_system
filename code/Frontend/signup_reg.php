@@ -89,21 +89,6 @@
 <body>
 
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="homepage.php">Portakal</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="homepage.php">Home</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Page 1-1</a></li>
-          <li><a href="#">Page 1-2</a></li>
-          <li><a href="#">Page 1-3</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Page 2</a></li>
-    </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
@@ -112,7 +97,18 @@
 
 
 <div class="container">
-  <h1>Welcome</h1>
+    <h1>
+        <form action="" method="post" style="text-align:center;">
+            <div class=""form-group">
+            <div class="col-sm-10">
+                <a href="homepage.php">
+                    <img src="logo.png"
+                         alt="Portakal logo"
+                         style="width:271px;height:47px;border:0;">
+                </a>
+            </div>
+</div>
+</h1>
     <form action="" method="post" style="text-align:center;">
     <div class="btn-group btn-group-justified">
       <div class="btn-group">

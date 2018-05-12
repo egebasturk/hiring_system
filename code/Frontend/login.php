@@ -21,6 +21,7 @@ if(isset($_POST['submit'])){
 		$isProf = mysqli_num_rows($query);
 		session_start();
 		$_SESSION['user_ID'] = $id;
+		$_SESSION['is_prof'] = $isProf;
 		if($isProf == 1){
 			header("Location: logon_pro.php");
 		}
