@@ -39,19 +39,72 @@
         <tr>
             <th>Order ID</th>
             <th>Order Type</th>
+            <th>Order Details</th>
             <th>Starting Date</th>
             <th>Ending Date</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <!--BURALARA PHP SERPİŞTİRİLECEK-->
-            <td>9000</td>
-            <td>Moving</td>
-            <td>01.01.1970</td>
-            <td>01.01.2010</td>
-            <!--BURALARA PHP SERPİŞTİRİLECEK-->
-        </tr>
+        <?php
+            include('config.php');
+            session_start();
+            $user_ID = $_SESSION['user_ID'];
+            if(isset($_GET['order_id']))
+            {
+                $order_id = $_GET['order_id'];
+                if($order_id == 0) //entered the page from logon menu, view all services
+                {
+                    $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details, sos.start_date, sos.end_date
+                            FROM regular_users rus JOIN service_orders sos
+                            WHERE rus.user_ID=$user_ID AND sos.requester_ID=$user_ID;";
+                    $result = mysqli_query($db, "$sql");
+                    while($row = mysqli_fetch_array($result)) {
+                        echo "<tr>";
+                        echo "<th>" . $row[0] . "</th>";
+                        if ($row[1] == 1)
+                            echo "<th>Repair</th>";
+                        elseif ($row[1] == 2)
+                            echo "<th>Cleaning</th>";
+                        elseif ($row[1] == 3)
+                            echo "<th>Painting</th>";
+                        elseif ($row[1] == 4)
+                            echo "<th>Moving</th>";
+                        elseif ($row[1] == 5)
+                            echo "<th>Private Lesson</th>";
+                        echo "<th>" . $row[2] . "</th>";
+                        echo "<th>" . $row[3] . "</th>";
+                        echo "<th>" . $row[4] . "</th>";
+                        echo "</tr>";
+                    }
+                }
+                else //accessed from view service requests menu, view only this service.
+                {
+                    $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details, sos.start_date, sos.end_date FROM service_orders sos WHERE sos.requester_ID=$user_ID AND sos.order_ID = $order_id; ";
+                    $result = mysqli_query($db, "$sql");
+                    while($row = mysqli_fetch_array($result)) {
+                        echo "<tr>";
+                        echo "<th>" . $row[0] . "</th>";
+                        if ($row[1] == 1)
+                            echo "<th>Repair</th>";
+                        elseif ($row[1] == 2)
+                            echo "<th>Cleaning</th>";
+                        elseif ($row[1] == 3)
+                            echo "<th>Painting</th>";
+                        elseif ($row[1] == 4)
+                            echo "<th>Moving</th>";
+                        elseif ($row[1] == 5)
+                            echo "<th>Private Lesson</th>";
+                        echo "<th>" . $row[2] . "</th>";
+                        echo "<th>" . $row[3] . "</th>";
+                        echo "<th>" . $row[4] . "</th>";
+                        echo "</tr>";
+
+                    }
+                }
+            }
+
+
+        ?>
         </tbody>
     </table>
     <table class="table table-bordered">
@@ -68,6 +121,11 @@
         <tbody>
         <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
+            <?php
+
+            ?>
+
+
             <td>9000</td>
             <td>01.01.1970</td>
             <td>01.01.2010</td>

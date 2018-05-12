@@ -33,7 +33,9 @@
     }
     if(isset($_POST['select']))
     {
-        header('Location: view_proposals_reg.php');
+        $target  = 'Location: view_proposals_reg.php?order_id=';
+        $target .= $_POST['select'];
+        header($target);
     }
 
 ?>
@@ -80,7 +82,16 @@
                         </form>
                       </th>";
                 echo "<th>" . $row[0] . "</th>";
-                echo "<th>" . $row[1] . "</th>";
+                if($row[1] == 1)
+                    echo "<th>Repair</th>";
+                elseif ($row[1] == 2)
+                    echo "<th>Cleaning</th>";
+                elseif ($row[1] == 3)
+                    echo "<th>Painting</th>";
+                elseif ($row[1] == 4)
+                    echo "<th>Moving</th>";
+                elseif ($row[1] == 5)
+                    echo "<th>Private Lesson</th>";
                 echo "<th>" . $row[2] . "</th>";
                 echo "<th>" . $row[3] . "</th>";
                 echo "<th>" . $row[4] . "</th>";

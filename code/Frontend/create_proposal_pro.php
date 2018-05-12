@@ -4,51 +4,57 @@ session_start();
 $error = "";
 //global $user_ID;
 $user_ID= $_SESSION["user_ID"];
-
-if (isset($_POST['create']))
+$order_id = -1;
+if(isset($_GET['order_id']))
 {
-    echo "sth"; //DEBUG
-    $servicetype = $_SESSION['servicetype'];
-    if(isset($_POST['price']))
-        $price = $_POST['price'];
-    if(isset($_POST['start']))
-        $start_date = $_POST['start'];
-    if(isset($_POST['end']))
-        $end_date = $_POST['end'];
+    $order_id = $_GET['order_id'];
+    if (isset($_POST['create']))
+    {
+        echo "sth"; //DEBUG
+        $servicetype = $_SESSION['servicetype'];
+        if(isset($_POST['price']))
+            $price = $_POST['price'];
+        if(isset($_POST['start']))
+            $start_date = $_POST['start'];
+        if(isset($_POST['end']))
+            $end_date = $_POST['end'];
 
-    mysqli_query($db, "START TRANSACTION;");
-    $sql_query1 = "INSERT INTO proposed_services (service_type_ID, start_date, end_date, proposed_price)
-                            VALUES ( '$servicetype', '$start_date', '$end_date', '$price');";
-    $sql_query2 = "SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;";
-    $sql_query3 = "INSERT INTO proposals (professional_ID, proposal_ID) VALUES ('$user_ID', @autoInc);";
+        mysqli_query($db, "START TRANSACTION;");
+        $sql_query1 = "INSERT INTO proposed_services (service_type_ID, start_date, end_date, proposed_price, order_id)
+                            VALUES ( '$servicetype', '$start_date', '$end_date', '$price', '$order_id');";
+        $sql_query2 = "SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;";
+        $sql_query3 = "INSERT INTO proposals (professional_ID, proposal_ID) VALUES ('$user_ID', @autoInc);";
 
 
-    $result1 = mysqli_query($db, $sql_query1);
-    $result2 = mysqli_query($db, $sql_query2);
-    $result3 = mysqli_query($db, $sql_query3);
-    $result = $result1 && $result2 && $result3;
+        $result1 = mysqli_query($db, $sql_query1);
+        $result2 = mysqli_query($db, $sql_query2);
+        $result3 = mysqli_query($db, $sql_query3);
+        $result = $result1 && $result2 && $result3;
 
-    //$result = mysqli_query($db, "$sql");
-    $error = $db->error;
-    if ($result == false) {
-        echo "$error";
-        mysqli_query($db,"ROLLBACK");
-        echo "Rolled back";
-        return false;
+        //$result = mysqli_query($db, "$sql");
+        $error = $db->error;
+        if ($result == false) {
+            echo "$error";
+            mysqli_query($db,"ROLLBACK");
+            echo "Rolled back";
+            return false;
+        }
+        else
+        {
+            mysqli_query($db, "COMMIT;");
+            echo "Committed";
+        }
+        header("Location: view_proposals_pro.php");
     }
     else
     {
-        mysqli_query($db, "COMMIT;");
-        echo "Committed";
+        $servicetype = $_POST['servicetype'];
+        $_SESSION['servicetype'] = $servicetype;
+        $oid = $order_id;
     }
-    header("Location: view_proposals_pro.php");
+
 }
-else
-{
-    $servicetype = $_POST['servicetype'];
-    $_SESSION['servicetype'] = $servicetype;
-    $oid = $_POST['oid'];
-}
+
 
 /* Insert query
  * INSERT INTO `proposed_services` (`service_type_ID`, `start_date`, `end_date`, `proposed_price`) VALUES ( '1', '2018-05-01', '2018-05-23', '100');
@@ -108,7 +114,7 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
             <?php
             $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
                     FROM service_orders sos
-                    WHERE sos.order_ID ='$oid';";
+                    WHERE sos.order_ID ='$order_id';";
             $result = mysqli_query($db, "$sql");
             $error = $db->error;
             if ($result == false) {

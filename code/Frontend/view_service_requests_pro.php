@@ -77,7 +77,7 @@ if ($result == false) {
                 echo "<th>" . $row[1] . "</th>";
                 echo "<th>" . $row[2] . "</th>";
                 echo "<th>
-                        <form action=\"create_proposal_pro.php\" method=\"post\">
+                        <form action=\"create_proposal_pro.php?order_id=$row[0]\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
                                     <button type=\"submit\" class=\"btn btn-warning\" name='propose' value='Propose'>Propose</button>
