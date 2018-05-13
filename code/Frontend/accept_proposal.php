@@ -117,6 +117,25 @@ if(isset($_POST['orderid']))
             echo "<th>" . $row[1]. "</th>";
             echo "<th>" . $row[2] . "</th>";
             echo "<th>" . $row[3] . "</th>";
+
+            $sql_email = "SELECT us.email
+                            FROM (proposed_services pservs NATURAL JOIN proposals ps) JOIN (professional_users profs NATURAL JOIN users us)
+                            WHERE pservs.proposal_ID='$proposalid' AND profs.user_ID=ps.professional_ID";
+            $to = mysqli_fetch_array(mysqli_query($db, $sql_email))[0]; // send and get email.
+            //echo "$to";
+            $subject = "Your proposal with id $proposalid was accepted";
+
+
+            $sql_customer_email = "SELECT rus.name, us.email
+                                    FROM service_orders sos NATURAL JOIN regular_users rus NATURAL JOIN users us
+                                    WHERE sos.order_ID='1'";
+            $customer_email = mysqli_fetch_array(mysqli_query($db, $sql_customer_email))[1];
+            $customer_name = mysqli_fetch_array(mysqli_query($db, $sql_customer_email))[0];
+            $text = "$customer_name has accepted your proposal. You can contact his/her email: $customer_email";
+            $headers ="From: noreply@portakal.com" . "\r\n";
+
+            mail($to, $subject, $text, $headers);
+            echo "A mail has been sent to the proposer. You will be contacted by your registered email."
             ?>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
