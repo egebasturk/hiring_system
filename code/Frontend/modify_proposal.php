@@ -1,3 +1,41 @@
+<?php
+include('config.php');
+session_start();
+$error = "";
+//global $user_ID;
+$user_ID= $_SESSION["user_ID"];
+if(isset($_GET['proposal_id']))
+{
+    $proposal_id = $_GET['proposal_id']; //service_type_id
+    $originalStart = $_GET['start_date'];
+    $originalEnd = $_GET['end_date'];
+    $originalPrice = $_GET['price'];
+    $price = 0; //default
+    $start_date = "";
+    $end_date = "";
+    if (isset($_POST['modify']))
+    {
+        if(isset($_POST['start']))
+            $start_date = $_POST['start'];
+        if(isset($_POST['end']))
+            $end_date = $_POST['end'];
+        if(isset($_POST['price']))
+            $price = $_POST['price'];
+        $result = mysqli_query($db, "UPDATE proposed_services SET start_date='$start_date', end_date='$end_date', proposed_price = '$price' WHERE proposal_ID = '$proposal_id'");
+        $error = $db->error;
+        if ($result == false) {
+            $error = $db->error;
+            echo "$error";
+            return false;
+        }
+        header("Location: view_proposals_pro.php");
+    }
+    if(isset($_POST['goback']))
+    {
+        header('Location: view_proposals_pro.php');
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,34 +97,35 @@
         </thead>
         <tbody>
         <tr>
-            <!--BURALARA PHP SERPİŞTİRİLECEK-->
-            <td>9000</td>
-            <td>01.01.1970</td>
-            <td>01.01.2010</td>
-            <td>100</td>
-            <!--BURALARA PHP SERPİŞTİRİLECEK-->
+            <?php
+                echo "<td> $proposal_id </td>";
+                echo "<td> $originalStart </td>";
+                echo "<td> $originalEnd </td>";
+                echo "<td> $originalPrice </td>";
+            ?>
         </tr>
         </tbody>
     </table>
     <form class="form-horizontal" action="" method="POST">
         <div class="form-group">
             <label for="start">Start date:</label>
-            <input type="date" class="form-control" id="start">
+            <input type="date" class="form-control" id="start" name="start" value= "<?php echo $originalStart;?>">
         </div>
 
         <div class="form-group">
             <label for="end">End date:</label>
-            <input type="date" class="form-control" id="end">
+            <input type="date" class="form-control" id= "end" name="end" value= "<?php echo $originalEnd;?>">
         </div>
 
         <div class="form-group">
             <label for="price">Price:</label>
-            <input type="number" min="0" class="form-control" id="price">
+            <input type="number" min="0" class="form-control" id="price" name="price" value= "<?php echo $originalPrice;?>">
         </div>
 
         <div class="form-group">
             <div class="col-sm-offset-0 col-sm-0">
-                <button type="submit" class="btn btn-warning">Modify</button>
+                <button type="submit" class="btn btn-warning" name="modify">Modify</button>
+                <button type="submit" class="btn btn-warning" name="goback">Cancel</button>
             </div>
         </div>
     </form>

@@ -52,6 +52,8 @@ public class DBAccess {
             statement.executeUpdate("INSERT INTO `past_services` (`service_type_ID`, `order_date`, `provider_ID`) VALUES ('1', '1985.09.08', '2');");
             statement.executeUpdate("INSERT INTO `has_taken` (`user_ID`, `service_type_ID`, `order_date`, `provider_ID`) VALUES ('1', '1', '1985.09.08', '2');");
             statement.executeUpdate("INSERT INTO `service_ratings_evaluations` (`user_ID`, `service_type_ID`, `order_date`, `provider_ID`, `rating`, `evaluation`) VALUES ('1', '1', '1985.09.08', '2', '3', 'anan');");
+            statement.executeUpdate("INSERT INTO `provided_services` (`service_type_ID`, `custom_service_name`, `service_rating`, `service_starting_date`, `service_ending_date`) VALUES ('1', 'Super Fast Repair', '4', '2018-05-01', '2019-05-01');");
+            statement.executeUpdate("INSERT INTO `provides` (`user_ID`, `service_type_ID`, `custom_service_name`) VALUES ('2', '1', 'Super Fast Repair');");
 
             //statement.executeUpdate("INSERT INTO `has` (`order_ID`, `user_ID`) VALUES ('1', '1');");
 
@@ -77,12 +79,12 @@ public class DBAccess {
             statement.executeUpdate("drop table if exists past_services;");
             //statement.executeUpdate("drop table if exists has;");
             statement.executeUpdate("drop table if exists matches;");
+            statement.executeUpdate("drop table if exists proposals;");
+            statement.executeUpdate("drop table if exists proposed_collaborative_services;");
             statement.executeUpdate("drop table if exists proposed_services;");
             statement.executeUpdate("drop table if exists service_orders;");
             statement.executeUpdate("drop table if exists provides;");
             statement.executeUpdate("drop table if exists provided_services;");
-            statement.executeUpdate("drop table if exists proposed_collaborative_services;");
-            statement.executeUpdate("drop table if exists proposals;");
             statement.executeUpdate("drop table if exists services;");
             statement.executeUpdate("drop table if exists professional_users;");
             statement.executeUpdate("drop table if exists regular_users;");
@@ -181,7 +183,7 @@ public class DBAccess {
             );
             statement.executeUpdate("CREATE TABLE provided_services" +
                     "(service_type_ID INT," +
-                    "FOREIGN KEY (service_type_ID) REFERENCES proposed_services( service_type_ID)" +
+                    "FOREIGN KEY (service_type_ID) REFERENCES services( service_type_ID)" +
                     "ON DELETE CASCADE\n" +
                     "ON UPDATE CASCADE," +
                     "custom_service_name VARCHAR(32)," +
@@ -263,7 +265,7 @@ public class DBAccess {
                     ")engine=InnoDB;"
             );*/
             statement.executeUpdate("CREATE TABLE provides" +
-                    "(PRIMARY KEY (user_ID, service_type_ID)," +
+                    "(PRIMARY KEY (user_ID, service_type_ID, custom_service_name)," +
                     "user_ID INT," +
                     "FOREIGN KEY (user_ID) REFERENCES professional_users( user_ID)" +
                     "ON DELETE CASCADE\n" +
