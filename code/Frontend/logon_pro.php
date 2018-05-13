@@ -75,7 +75,7 @@ if(isset($_GET['decision']))
 
 <div class="container">
     <h1>
-        <form action="" method="post" style="text-align:center;">
+        <form action="" method="post" style="text-align:left;">
             <div class=""form-group">
                 <div class="col-sm-10">
                     <a href="homepage.php">
@@ -85,18 +85,22 @@ if(isset($_GET['decision']))
                     </a>
                 </div>
             </div>
-        </form>
+<br><br>
     </h1>
+      <div class="container">
 
-  <form action="" method="post" style="text-align:center;">
-  <div class="btn-group btn-group-justified">
+  <div class="btn-group btn-group-vertical" style="width: 80%; height: 200%;">
     <a name="manage" class="btn btn-warning" href="manage_pro.php" role="button">Manage Account</a>
+      <br>
     <a class="btn btn-warning" href="view_proposals_pro.php" role="button">View Proposals</a>
-    <a class="btn btn-warning" href="view_service_requests_pro.php" role="button">View Request</a>
-    <a class="btn btn-warning" href="view_services_pro.php" role="button">View Services</a>
-    <a class="btn btn-warning" href="register_service.php" role="button">Service Registration</a>
+    <br>
+      <a class="btn btn-warning" href="view_service_requests_pro.php" role="button">View Request</a>
+      <br>
+      <a class="btn btn-warning" href="view_services_pro.php" role="button">View Services</a>
+    <br>
+      <a class="btn btn-warning" href="register_service.php" role="button">Service Registration</a>
   </div>
-  </form>
+      </div>
 <form action="" method="post" style="text-align:center;">
   <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
