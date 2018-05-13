@@ -84,19 +84,36 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
+                        <?php
+                        if (!empty($_SESSION["proposalOne"]))
+                        {
+                            $proposalOne = $_SESSION["proposalOne"];
+                            $sql = "SELECT start_date, end_date, proposed_price 
+                                                    FROM proposed_services 
+                                                    WHERE proposal_ID = $proposalOne";
+
+                            $result = mysqli_query($db, $sql);
+                            $error = $db->error;
+                            if ($result == false) {
+                                echo "$error";
+                                return false;
+                            }
+
+                            while($row = mysqli_fetch_array($result))
+                            {
+                                echo "<td>" . $row[0] . "</td>";
+                                echo "<td>" . $row[1] . "</td>";
+                                echo "<td>" . $row[2] . "</td>";
+
+                            }
+                        }
+                        else
+                        {
+                            echo "<td></td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
+                        }
+                        ?>
                     </tr>
                     </tbody>
                 </table>
@@ -119,19 +136,36 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
+                    <?php
+                    if (!empty($_SESSION["proposalTwo"]))
+                    {
+                        $proposalTwo = $_SESSION["proposalTwo"];
+                        $sql = "SELECT start_date, end_date, proposed_price 
+                                                    FROM proposed_services 
+                                                    WHERE proposal_ID = $proposalTwo";
+
+                        $result = mysqli_query($db, $sql);
+                        $error = $db->error;
+                        if ($result == false) {
+                            echo "$error";
+                            return false;
+                        }
+
+                        while($row = mysqli_fetch_array($result))
+                        {
+                            echo "<td>" . $row[0] . "</td>";
+                            echo "<td>" . $row[1] . "</td>";
+                            echo "<td>" . $row[2] . "</td>";
+
+                        }
+                    }
+                    else
+                    {
+                        echo "<td></td>";
+                        echo "<td></td>";
+                        echo "<td></td>";
+                    }
+                    ?>
                     </tr>
                     </tbody>
                 </table>
