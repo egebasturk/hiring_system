@@ -56,7 +56,7 @@
     <a name="manage" class="btn btn-warning" href="manage_pro.php" role="button">Manage Account</a>
     <a class="btn btn-warning" href="view_proposals_pro.php" role="button">View Proposals</a>
     <a class="btn btn-warning" href="view_service_requests_pro.php" role="button">View Request</a>
-    <a class="btn btn-warning" href="" role="button">View Services</a>
+    <a class="btn btn-warning" href="view_services_pro.php" role="button">View Services</a>
     <a class="btn btn-warning" href="register_service.php" role="button">Service Registration</a>
   </div>
   </form>
