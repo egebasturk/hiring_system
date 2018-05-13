@@ -32,7 +32,8 @@ include ('config.php');
           <li class="active"><a><?php
             if(!empty($_SESSION["user_ID"])) {
                 $id = $_SESSION["user_ID"];
-                echo "User ID: $id";
+                $username = $_SESSION["username"];
+                echo "User ID: $id, Username: $username";
             }
             else{
                 echo "Currently not logged in!";

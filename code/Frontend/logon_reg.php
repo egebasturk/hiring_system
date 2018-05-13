@@ -33,7 +33,17 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
-            <li class="active"> <a> </a></li>
+            <li class="active"><a><?php
+                    if(!empty($_SESSION["user_ID"])) {
+                        $id = $_SESSION["user_ID"];
+                        $username = $_SESSION["username"];
+                        echo "User ID: $id, Username: $username";
+                    }
+                    else{
+                        echo "Currently not logged in!";
+                    }
+                    ?></a></li>
+
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="manage_reg.php"><span class="glyphicon glyphicon-user"></span><?php

@@ -56,6 +56,7 @@ if ($result == false) {
         <div class="navbar-header">
             <a class="navbar-brand" href="homepage.php">Portakal</a>
         </div>
+
         <ul class="nav navbar-nav navbar-right">
             <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
