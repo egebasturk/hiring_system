@@ -324,6 +324,13 @@ if(isset($_POST['submit']))
                 <button type="submit" name="submit" class="btn btn-danger">Clear the list</button>
             </div>
         </div>
+        <button class="btn btn-danger" onclick="goBack()">Go Back</button>
+
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
 </div>
 </body>
 </html>
