@@ -265,7 +265,7 @@ public class DBAccess {
                     ")engine=InnoDB;"
             );*/
             statement.executeUpdate("CREATE TABLE provides" +
-                    "(PRIMARY KEY (user_ID, service_type_ID)," +
+                    "(PRIMARY KEY (user_ID, service_type_ID, custom_service_name)," +
                     "user_ID INT," +
                     "FOREIGN KEY (user_ID) REFERENCES professional_users( user_ID)" +
                     "ON DELETE CASCADE\n" +
