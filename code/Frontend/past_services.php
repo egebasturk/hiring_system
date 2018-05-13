@@ -57,7 +57,6 @@
             <th>Expertise Field</th>
             <th>Rating</th>
             <th>Comment</th>
-            <th>Evaluate</th>
             <th>Edit</th>
         </tr>
         </thead>
@@ -98,7 +97,6 @@
                         echo "<td>$rating_print[0]</td>";
                         echo "<td>$rating_print[1]</td>";
                     }
-                    echo "<td> bu ne ak? </td>";
                     echo "<td>";
                     echo "<form action=\"evaluate_service.php?email=$email&city=$city&exp=$exp&expertise=$expertise&rating=$rating&eval=$eval&provider=$row[0]\" method=\"post\">";
                         echo"<div class=\"form-group\">";
