@@ -29,7 +29,7 @@
             echo "$error";
             return false;
         }
-        //header("Location: view_service_requests_reg.php");
+        header("Location: view_service_requests_reg.php");
     }
     if(isset($_POST['select']))
     {
