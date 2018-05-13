@@ -44,8 +44,6 @@ if (isset($_POST['create']))
     }
     header("Location: view_services_pro.php");
 }
-else
-    echo "no";
 ?>
 
 <!DOCTYPE html>

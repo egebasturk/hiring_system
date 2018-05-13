@@ -7,11 +7,14 @@ $servicetype = "";
 $user_ID= $_SESSION["user_ID"];
 if(isset($_GET['servicetype']))
 {
-    $servicetype = $_GET['servicetype'];
-    $oid = $_GET['oid'];
+    $_SESSION['servicetype'] = $_GET['servicetype'];
+    $_SESSION['oid'] = $_GET['oid'];
+    $servicetype = $_SESSION['servicetype'];
+    $oid = $_SESSION['oid'];
     if (isset($_POST['create']))
     {
-        echo "sth"; //DEBUG
+        $servicetype = $_SESSION['servicetype'];
+        $oid = $_SESSION['oid'];
         if(isset($_POST['price']))
             $price = $_POST['price'];
         if(isset($_POST['start']))
@@ -20,7 +23,7 @@ if(isset($_GET['servicetype']))
             $end_date = $_POST['end'];
         mysqli_query($db, "START TRANSACTION;");
         $sql_query1 = "INSERT INTO proposed_services (service_type_ID, start_date, end_date, proposed_price, order_ID)
-                            VALUES ( '$servicetype', '$start_date', '$end_date', '$price', '$order_ID');";
+                            VALUES ( '$servicetype', '$start_date', '$end_date', '$price', '$oid');";
         $sql_query2 = "SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;";
         $sql_query3 = "INSERT INTO proposals (professional_ID, proposal_ID) VALUES ('$user_ID', @autoInc);";
 
@@ -47,18 +50,12 @@ if(isset($_GET['servicetype']))
     }
     if(isset($_POST['invite']))
     {
-        $_POST['oid'] = $oid;
-        $_POST['servicetype'] = $servicetype;
+        $servicetype = $_SESSION['servicetype'];
+        $oid = $_SESSION['oid'];
         echo "anan";
     }
 }
-else
-{
-    if(isset($_POST['oid'])) {
-        $oid = $_POST['oid'];
-        $servicetype = $_POST['servicetype'];
-    }
-}
+
 
 /* Insert query
  * INSERT INTO `proposed_services` (`service_type_ID`, `start_date`, `end_date`, `proposed_price`) VALUES ( '1', '2018-05-01', '2018-05-23', '100');
@@ -132,6 +129,8 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
         <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
             <?php
+            $servicetype = $_SESSION['servicetype'];
+            $oid = $_SESSION['oid'];
             $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
                     FROM service_orders sos
                     WHERE sos.order_ID ='$oid';";
@@ -191,6 +190,8 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
                         <div id="section3" class="container-fluid">
                             <h1>Find other professionals who can help you</h1>
                             <?php
+                            $servicetype = $_SESSION['servicetype'];
+                            $oid = $_SESSION['oid'];
                                 $sql_city = "SELECT city_name FROM users WHERE user_ID = $user_ID;";
                                 $result_city = mysqli_query($db, $sql_city);
                                 $city = mysqli_fetch_array($result_city);
@@ -237,31 +238,7 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
 
 </div>
 <script>
-    // Get the modal
-    var modal = document.getElementById('myModal');
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
 </script>
 </body>
 </html>
