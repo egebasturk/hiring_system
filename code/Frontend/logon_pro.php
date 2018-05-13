@@ -26,10 +26,13 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
       <ul class="nav navbar-nav">
-          <li class="active"><a><?php session_start();
-                                    $id = $_SESSION["user_ID"];
-                                    echo "User ID: $id";
-                                    ?></a></li>
+          <li class="active"><a><?php
+                  if (!empty($_SESSION))
+                  {
+                      $id = $_SESSION["user_ID"];
+                      echo "User ID: $id";
+                  }
+                  ?></a></li>
       </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
