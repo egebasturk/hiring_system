@@ -63,7 +63,6 @@ if (isset($_POST['create']))
         background-color:#FFF;
         color:#000;
         border:2px solid #FFF;
-        padding:10px;
         font-size:20px;
         cursor:pointer;
         border-radius:5px;

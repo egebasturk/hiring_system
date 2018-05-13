@@ -91,7 +91,6 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
         background-color:#FFF;
         color:#000;
         border:2px solid #FFF;
-        padding:10px;
         font-size:20px;
         cursor:pointer;
         border-radius:5px;
