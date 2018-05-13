@@ -46,6 +46,12 @@ if(isset($_GET['decision']))
         border-radius:5px;
         margin-bottom:15px;
     }
+    body .modal-content {
+        /* new custom width */
+        width: 1000px;
+        /* must be half of the width, minus scrollbar on the left (30px) */
+        margin-left: -200px;
+    }
 </style>
 <body>
 <nav class="navbar navbar-inverse">
