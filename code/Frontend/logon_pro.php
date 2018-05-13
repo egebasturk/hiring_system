@@ -28,7 +28,8 @@
       <ul class="nav navbar-nav">
           <li class="active"><a><?php session_start();
                                     $id = $_SESSION["user_ID"];
-                                    echo "User ID: $id";
+                                    $username = $_SESSION["username"];
+                                    echo "User ID: $id, Username: $username";
                                     ?></a></li>
       </ul>
     <ul class="nav navbar-nav navbar-right">
