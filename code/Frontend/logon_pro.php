@@ -1,3 +1,9 @@
+<?php
+    include('config.php');
+    session_start();
+    $error = ""; // Default value
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,19 +29,26 @@
     }
 </style>
 <body>
+
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-      <ul class="nav navbar-nav">
-          <li class="active"><a><?php session_start();
-                                    $id = $_SESSION["user_ID"];
-                                    $username = $_SESSION["username"];
-                                    echo "User ID: $id, Username: $username";
-                                    ?></a></li>
-      </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-    </ul>
-  </div>
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="active"> <a> </a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="manage_pro.php"><span class="glyphicon glyphicon-user"></span><?php
+                    if (!empty($_SESSION))
+                    {
+                        $username = $_SESSION["username"];
+                        $id = $_SESSION["user_ID"];
+                        echo " $username";
+                    }
+                    ?>
+                </a>
+            </li>
+            <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+    </div>
 </nav>
   
 <div class="container">

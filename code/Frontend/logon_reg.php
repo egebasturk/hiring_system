@@ -1,10 +1,7 @@
 <?php
-include('config.php');
-session_start();
-$error = ""; // Default value
-//echo $_SESSION["user_ID"]; DEBUG
-
-
+    include('config.php');
+    session_start();
+    $error = ""; // Default value
 ?>
 
 <!DOCTYPE html>
@@ -36,16 +33,19 @@ $error = ""; // Default value
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
-            <li class="active"> <a> <?php
+            <li class="active"> <a> </a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="manage_reg.php"><span class="glyphicon glyphicon-user"></span><?php
                     if (!empty($_SESSION))
                     {
                         $username = $_SESSION["username"];
                         $id = $_SESSION["user_ID"];
-                        echo "User ID: $id, Username: $username";
+                        echo " $username";
                     }
-                    ?></a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
+                    ?>
+                </a>
+            </li>
             <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
     </div>
