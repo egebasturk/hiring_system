@@ -132,7 +132,7 @@
 			<span><?php echo $error; ?></span>
 		</div>
 	</div>
-    <div class="form-group">        
+    <div class="form-group" style="padding-left: 30em">
       <div class="col-sm-offset-0 col-sm-10">
         <button type="submit" name="submit" class="btn btn-warning">Login</button>
       </div>

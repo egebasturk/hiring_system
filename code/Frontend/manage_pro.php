@@ -157,6 +157,7 @@
       <div class="form-group">        
         <div class="col-sm-offset-0 col-sm-0">
           <button type="submit" name="submit" class="btn btn-warning">Update</button>
+            <a href="logon_pro.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
         </div>
       </div>
 	  	  <div class="form-group">

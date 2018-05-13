@@ -76,8 +76,16 @@ $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
             {
                 echo "<tr>";
                 echo "<th>" . $row[0] . "</th>";
-                echo "<th>" . $row[1] . "</th>";
-                echo "<th>" . $row[2] . "</th>";
+                if ($row[1] == 1)
+                    echo "<th>Repair</th>";
+                elseif ($row[1] == 2)
+                    echo "<th>Cleaning</th>";
+                elseif ($row[1] == 3)
+                    echo "<th>Painting</th>";
+                elseif ($row[1] == 4)
+                    echo "<th>Moving</th>";
+                elseif ($row[1] == 5)
+                    echo "<th>Private Lesson</th>";                echo "<th>" . $row[2] . "</th>";
                 $sql2 = "SELECT proposal_ID FROM proposals NATURAL JOIN proposed_services WHERE professional_ID = $user_ID AND order_ID = $row[0];";
                 $result2= mysqli_query($db, $sql2);
                 $row_query = mysqli_fetch_array($result2);

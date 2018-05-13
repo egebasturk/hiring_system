@@ -109,11 +109,10 @@ if(isset($_GET['decision']))
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h4 class="modal-title">Notifications</h4>
                 </div>
                 <div class="modal-body">
                     <div id="section3" class="container-fluid">
-                        <h1>Your Notifications</h1>
                         <?php
                             $id = $_SESSION["user_ID"];
                             $sql = "SELECT * FROM requests WHERE to_user_ID = $id;";

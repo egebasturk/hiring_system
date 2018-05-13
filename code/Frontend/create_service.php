@@ -31,8 +31,6 @@ if (isset($_POST['create']))
     }
     header("Location: view_service_requests_reg.php");
 }
-else
-    echo "no";
 ?>
 
 <!DOCTYPE html>

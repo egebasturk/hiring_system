@@ -97,7 +97,7 @@ if(isset($_GET['service_id']))
 
         <div class="form-group">
             <label for="end">Planned End Date:</label>
-            <input type="date" value="<?php echo $originalEnd;?>" class="form-control" name="end">
+            <input type="date" value= "<?php echo $originalEnd;?>" class="form-control" name="end">
         </div>
         <div class="form-group">
             <label for="odetails">Custom Service Name:</label>
