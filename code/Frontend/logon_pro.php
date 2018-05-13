@@ -1,3 +1,9 @@
+<?php
+    include('config.php');
+    session_start();
+    $error = ""; // Default value
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,34 +29,41 @@
     }
 </style>
 <body>
+
 <nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-      <ul class="nav navbar-nav">
-          <li class="active"><a><?php session_start();
-                                    $id = $_SESSION["user_ID"];
-                                    $username = $_SESSION["username"];
-                                    echo "User ID: $id, Username: $username";
-                                    ?></a></li>
-      </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-    </ul>
-  </div>
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li class="active"> <a> </a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="manage_pro.php"><span class="glyphicon glyphicon-user"></span><?php
+                    if (!empty($_SESSION))
+                    {
+                        $username = $_SESSION["username"];
+                        $id = $_SESSION["user_ID"];
+                        echo " $username";
+                    }
+                    ?>
+                </a>
+            </li>
+            <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        </ul>
+    </div>
 </nav>
-  
+
 <div class="container">
     <h1>
-        <form action="" method="post" style="text-align:center;">
+        <form action="" method="post" style="text-align:left;">
             <div class=""form-group">
-            <div class="col-sm-10">
+            <div class="col-sm-0">
                 <a href="homepage.php">
                     <img src="logo.png"
                          alt="Portakal logo"
                          style="width:271px;height:47px;border:0;">
                 </a>
             </div>
-    </div>
-    </h1>
+</div>
+</h1>
   <form action="" method="post" style="text-align:center;">
   <div class="btn-group btn-group-justified">
     <a name="manage" class="btn btn-warning" href="manage_pro.php" role="button">Manage Account</a>

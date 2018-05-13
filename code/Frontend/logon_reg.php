@@ -1,10 +1,7 @@
 <?php
-include('config.php');
-session_start();
-$error = ""; // Default value
-//echo $_SESSION["user_ID"]; DEBUG
-
-
+    include('config.php');
+    session_start();
+    $error = ""; // Default value
 ?>
 
 <!DOCTYPE html>
@@ -36,16 +33,19 @@ $error = ""; // Default value
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
-            <li class="active"> <a> <?php
+            <li class="active"> <a> </a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="manage_reg.php"><span class="glyphicon glyphicon-user"></span><?php
                     if (!empty($_SESSION))
                     {
                         $username = $_SESSION["username"];
                         $id = $_SESSION["user_ID"];
-                        echo "User ID: $id, Username: $username";
+                        echo " $username";
                     }
-                    ?></a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
+                    ?>
+                </a>
+            </li>
             <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
     </div>
@@ -53,9 +53,9 @@ $error = ""; // Default value
   
 <div class="container">
     <h1>
-        <form action="" method="post" style="text-align:center;">
+        <form action="" method="post" style="text-align:left;">
             <div class=""form-group">
-            <div class="col-sm-10">
+            <div class="col-sm-0">
                 <a href="homepage.php">
                     <img src="logo.png"
                          alt="Portakal logo"
@@ -64,7 +64,6 @@ $error = ""; // Default value
             </div>
 </div>
 </h1>
-  <p>List of actions for regular users</p>
   <div class="btn-group btn-group-justified">
     <a href="manage_reg.php" class="btn btn-warning">Manage Account</a>
     <a href="view_service_requests_reg.php" class="btn btn-warning">Service Requests</a>
