@@ -112,11 +112,13 @@
                  alt="Portakal logo"
                  style="width:271px;height:47px;border:0;">
         </a>
+
         </div>
     </div>
 
     <div class="form-group">
       <div class="col-sm-10">
+          <br>
         <input type="text" class="form-control" id="username" placeholder="Username/E-mail" name="username">
       </div>
     </div>
@@ -125,15 +127,15 @@
         <input type="password" class="form-control" id="password" placeholder="Password" name="password">
       </div>
     </div>
+	<div class="form-group">
+		<div class="col-sm-10">
+			<span><?php echo $error; ?></span>
+		</div>
+	</div>
     <div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-10" style="padding-left: 16em">
-          <button type="submit" name="submit"  class="btn btn-default">Login</button>
+      <div class="col-sm-offset-0 col-sm-10">
+        <button type="submit" name="submit" class="btn btn-warning">Login</button>
       </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-10">
-            <span><?php echo $error; ?></span>
-        </div>
     </div>
 </div>
 </form>
