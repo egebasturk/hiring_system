@@ -128,7 +128,7 @@ if ($result == false) {
         </tr>
         </tbody>
     </table>
+    <a href="logon_pro.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </div>
-<a href="logon_pro.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </body>
 </html>

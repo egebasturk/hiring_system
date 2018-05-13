@@ -97,11 +97,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h4 class="modal-title">Your Notifications</h4>
                 </div>
                 <div class="modal-body">
                     <div id="section3" class="container-fluid">
-                        <h1>Your Notifications</h1>
                         <?php
                         $id = $_SESSION["user_ID"];
                         $sql = "SELECT * FROM requests WHERE to_user_ID = $id;";
@@ -117,7 +116,6 @@
                                         <th>From</th>
                                         <th>Subject </th>
                                         <th>Order Type</th>
-                                        <th>Price</th>
                                         <th>Accept</th>
                                         <th>Decline</th>
                                     </tr>
@@ -133,8 +131,9 @@
                                 echo "<tr>";
                                 echo "<th>" . $arr_2[0] . "</th>";
                                 echo "<th>" . $arr[2] . "</th>";
+
                                 echo "<th>" . $arr[3] . "</th>";
-                                echo "<th>" . $arr[4] . "</th>";
+                                //echo "<th>" . $arr[4] . "</th>";
                                 echo "<th> <a href=\"logon_pro.php?decision=1&from_uid=$arr[1]\" type=\"button\" class=\"btn btn-warning\">Accept</a></th>";
                                 echo "<th> <a href=\"logon_pro.php?decision=0&from_uid=$arr[1]\" type=\"button\" class=\"btn btn-warning\">Decline</a></th>";
                                 echo "</tr>";

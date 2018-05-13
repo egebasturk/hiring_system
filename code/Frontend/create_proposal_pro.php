@@ -129,7 +129,16 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
             $row = mysqli_fetch_array($result);
             echo "<tr>";
             echo "<th>" . $row[0] . "</th>";
-            echo "<th>" . $row[1] . "</th>";
+            if ($row[1] == 1)
+                echo "<th>Repair</th>";
+            elseif ($row[1] == 2)
+                echo "<th>Cleaning</th>";
+            elseif ($row[1] == 3)
+                echo "<th>Painting</th>";
+            elseif ($row[1] == 4)
+                echo "<th>Moving</th>";
+            elseif ($row[1] == 5)
+                echo "<th>Private Lesson</th>";
             echo "<th>" . $row[2] . "</th>";
             echo "</tr>";
             //<button type="submit" class="btn btn-warning" name="help" value="help">Get Help</button>
@@ -169,7 +178,7 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
+                        <h4 class="modal-title">Invite Professionals</h4>
                     </div>
                     <div class="modal-body">
                         <div id="section3" class="container-fluid">
@@ -209,13 +218,13 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
                                     echo "<th>" . $help[2] . "</th>";
                                     if($row_count == 0)
                                     {
-                                        echo "<th><button type=\"submit\" name=\"invite\" class=\"btn btn-warning\" value=\"$help[0]\">invite</button></th>";
+                                        echo "<th><button type=\"submit\" name=\"invite\" class=\"btn btn-warning\" value=\"$help[0]\">Invite</button></th>";
                                     }
                                     else
                                     {
                                         if($pending[0] == 2)
                                         {
-                                            echo "<th><button type=\"submit\" name=\"pending\" class=\"btn btn-warning\" value=\"$help[0]\">pending</button></th>";
+                                            echo "<th><button type=\"submit\" name=\"pending\" class=\"btn btn-warning\" value=\"$help[0]\">Pending</button></th>";
                                         }
                                         elseif($pending[0] == 1)
                                         {
