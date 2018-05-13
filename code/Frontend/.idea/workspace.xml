@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a4842e21-01aa-479b-b039-e8ddc54bc0de" name="Default" comment="List fix">
+    <list default="true" id="a4842e21-01aa-479b-b039-e8ddc54bc0de" name="Default" comment="Notification box width fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/compare_list.php" beforeDir="false" afterPath="$PROJECT_DIR$/compare_list.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,20 +13,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="compare_list.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/compare_list.php">
+      <file leaf-file-name="create_proposal_pro.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/create_proposal_pro.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+            <state relative-caret-position="-33">
+              <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manage_pro.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/manage_pro.php">
+      <file leaf-file-name="service_provider_info.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/service_provider_info.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
-              <caret line="82" column="24" selection-start-line="82" selection-start-column="19" selection-end-line="82" selection-end-column="24" />
+            <state relative-caret-position="150">
+              <caret line="10" selection-start-line="10" selection-end-line="22" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -39,13 +38,14 @@
       <find>Bootstrap Example</find>
       <find>Login</find>
       <find>order_id</find>
+      <find>help</find>
     </findStrings>
     <replaceStrings>
       <replace>Portakal</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
-    <option name="UPDATE_TYPE" value="REBASE" />
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="IdeDocumentHistory">
@@ -59,20 +59,20 @@
         <option value="$PROJECT_DIR$/evaluate_service.php" />
         <option value="$PROJECT_DIR$/view_proposals.php" />
         <option value="$PROJECT_DIR$/modify_proposal.php" />
-        <option value="$PROJECT_DIR$/service_provider_info.php" />
         <option value="$PROJECT_DIR$/view_proposals_pro.php" />
-        <option value="$PROJECT_DIR$/manage_pro.php" />
         <option value="$PROJECT_DIR$/create_service.php" />
-        <option value="$PROJECT_DIR$/create_proposal_pro.php" />
         <option value="$PROJECT_DIR$/manage_reg.php" />
-        <option value="$PROJECT_DIR$/logon_reg.php" />
-        <option value="$PROJECT_DIR$/logon_pro.php" />
         <option value="$PROJECT_DIR$/view_service_requests_pro.php" />
         <option value="$PROJECT_DIR$/accept_proposal.php" />
-        <option value="$PROJECT_DIR$/login.php" />
         <option value="$PROJECT_DIR$/view_proposals_reg.php" />
         <option value="$PROJECT_DIR$/view_service_requests_reg.php" />
         <option value="$PROJECT_DIR$/compare_list.php" />
+        <option value="$PROJECT_DIR$/logon_reg.php" />
+        <option value="$PROJECT_DIR$/login.php" />
+        <option value="$PROJECT_DIR$/manage_pro.php" />
+        <option value="$PROJECT_DIR$/logon_pro.php" />
+        <option value="$PROJECT_DIR$/create_proposal_pro.php" />
+        <option value="$PROJECT_DIR$/service_provider_info.php" />
       </list>
     </option>
   </component>
@@ -136,7 +136,7 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/compare_list.php</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/logon_reg.php</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -263,7 +263,7 @@
       <workItem from="1526018282886" duration="3039000" />
       <workItem from="1526025571982" duration="12671000" />
       <workItem from="1526112024664" duration="25000" />
-      <workItem from="1526204876474" duration="19002000" />
+      <workItem from="1526204876474" duration="28870000" />
     </task>
     <task id="LOCAL-00001" summary="Moved php files">
       <created>1525947623777</created>
@@ -440,11 +440,46 @@
       <option name="project" value="LOCAL" />
       <updated>1526221928147</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Error message added">
+      <created>1526227703307</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1526227703307</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Logon pages edited">
+      <created>1526228093937</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1526228093937</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Logon pages edited">
+      <created>1526228256443</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1526228256443</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Notification box width fixed">
+      <created>1526239549294</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1526239549294</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Get help box color fixed">
+      <created>1526239666098</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1526239666098</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44889000" />
+    <option name="totallyTimeSpent" value="54757000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1299" height="743" extended-state="6" />
@@ -460,6 +495,7 @@
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26943803" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4996151" weight="0.328594" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
@@ -469,7 +505,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4996151" weight="0.328594" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -479,8 +514,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Moved php files" />
-    <MESSAGE value="Past services added" />
     <MESSAGE value="Service registration for pro user" />
     <MESSAGE value="Fix" />
     <MESSAGE value="Comment and evaluation can be made in a single page" />
@@ -502,7 +535,11 @@
     <MESSAGE value="Clearing the compare list" />
     <MESSAGE value="List fix" />
     <MESSAGE value="Compare list almost done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Compare list almost done" />
+    <MESSAGE value="Error message added" />
+    <MESSAGE value="Logon pages edited" />
+    <MESSAGE value="Notification box width fixed" />
+    <MESSAGE value="Get help box color fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Get help box color fixed" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/accept_proposal.php">
@@ -716,13 +753,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/evaluate_service.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="68" column="8" selection-start-line="68" selection-start-column="8" selection-end-line="68" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/signup_pro.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-885">
@@ -737,20 +767,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/manage_reg.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="84" lean-forward="true" selection-start-line="84" selection-end-line="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logon_reg.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="38" column="36" lean-forward="true" selection-start-line="38" selection-start-column="36" selection-end-line="44" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/match.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-180" />
@@ -760,20 +776,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="47" column="16" lean-forward="true" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/create_proposal_pro.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="44" lean-forward="true" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service_provider_info.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="612">
-          <caret line="91" column="11" lean-forward="true" selection-start-line="91" selection-start-column="11" selection-end-line="91" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -791,24 +793,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view_services_pro.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="16" lean-forward="true" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modify_proposal.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="12" lean-forward="true" selection-start-line="1" selection-end-line="3" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logon_pro.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="23" lean-forward="true" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
         </state>
       </provider>
     </entry>
@@ -826,27 +814,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="9" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="14" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/logo.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/logon_reg.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="62" selection-start-line="62" selection-end-line="74" selection-end-column="5" />
+          <folding>
+            <element signature="n#style#0;n#form#0;n#h1#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#a#0;n#div#1;n#form#0;n#h1#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="84" column="5" lean-forward="true" selection-start-line="84" selection-start-column="5" selection-end-line="84" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/manage_pro.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="82" column="24" selection-start-line="82" selection-start-column="19" selection-end-line="82" selection-end-column="24" />
+        <state relative-caret-position="640">
+          <caret line="79" column="6" selection-start-line="79" selection-start-column="6" selection-end-line="79" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view_services_pro.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-375">
+          <caret line="2" column="16" lean-forward="true" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage_reg.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1161">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/evaluate_service.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="897">
+          <caret line="67" column="8" selection-start-line="67" selection-start-column="8" selection-end-line="67" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/compare_list.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="27" lean-forward="true" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+        <state relative-caret-position="660">
+          <caret line="44" column="49" selection-start-line="44" selection-start-column="49" selection-end-line="44" selection-end-column="49" />
+          <folding>
+            <element signature="e#145#152#1" expanded="true" />
+            <element signature="e#145#152#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logon_pro.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="40" column="30" lean-forward="true" selection-start-line="40" selection-start-column="30" selection-end-line="40" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/create_proposal_pro.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-33">
+          <caret line="87" lean-forward="true" selection-start-line="87" selection-end-line="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service_provider_info.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="22" selection-end-column="8" />
         </state>
       </provider>
     </entry>

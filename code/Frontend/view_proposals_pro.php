@@ -115,7 +115,7 @@ if ($result == false) {
                         <form action=\"view_proposals_pro.php\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
-                                    <button type=\"submit\" class=\"btn btn-warning\" name='cancel' value='Cancel'>Cancel</button>
+                                    <button type=\"submit\" class=\"btn btn-danger\" name='cancel' value='Cancel'>Cancel</button>
                                     <input type=\"hidden\" name='var' value='$row[0]'></input>
                                 </div>
                             </div>
@@ -130,5 +130,6 @@ if ($result == false) {
     </table>
     <a href="logon_pro.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </div>
+
 </body>
 </html>

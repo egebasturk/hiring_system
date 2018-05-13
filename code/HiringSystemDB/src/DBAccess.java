@@ -149,6 +149,9 @@ public class DBAccess {
         statement.executeUpdate("CREATE TABLE service_orders" +
                 "(order_ID INT PRIMARY KEY AUTO_INCREMENT," +
                 "requester_ID INT," +
+                "FOREIGN KEY (requester_ID) REFERENCES regular_users( user_ID)\n" +
+                "ON DELETE CASCADE\n" +
+                "ON UPDATE CASCADE," +
                 "service_type_ID INT," +
                 "FOREIGN KEY (service_type_ID) REFERENCES services( service_type_ID)\n" +
                 "ON DELETE CASCADE\n" +
