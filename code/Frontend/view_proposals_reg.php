@@ -124,7 +124,7 @@
                                 <form action=\"\" method=\"post\">
                                     <div class=\"form-group\">
                                         <div class=\"col-sm-offset-0 col-sm-0\">
-                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\">match</button>
+                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\" value=\"$row[0]\">match</button>
                                         </div>
                                     </div>
                                 </form>
@@ -132,11 +132,11 @@
                         echo "</tr>";
                     }
                 }
-
                 if(isset($_POST['match']))
                 {
+                    $oid = $_POST['match'];
                     $target  = 'Location: match.php?order_id=';
-                    $target .= $_POST['match'];
+                    $target .= $oid;
                     header($target);
                 }
             }
@@ -176,10 +176,10 @@
                         echo "<th>" . $row[2] . "</th>";
                         echo "<th>" . $row[3] . "</th>";
                         echo "<td>
-                                <form action=\"\" method=\"post\">
+                                <form action=\"compare_list.php\" method=\"post\">
                                     <div class=\"form-group\">
                                         <div class=\"col-sm-offset-0 col-sm-0\">
-                                            <button type=\"submit\" name=\"add\" class=\"btn btn-warning\">Add</button>
+                                            <button type=\"submit\" name=\"add\" value='$row[0]' class=\"btn btn-warning\">Add</button>
                                         </div>
                                     </div>
                                 </form>
@@ -213,10 +213,10 @@
                         echo "<th>" . $row[2] . "</th>";
                         echo "<th>" . $row[3] . "</th>";
                         echo "<td>
-                                <form action=\"\" method=\"post\">
+                                <form action=\"compare_list.php\" method=\"post\">
                                     <div class=\"form-group\">
                                         <div class=\"col-sm-offset-0 col-sm-0\">
-                                            <button type=\"submit\" name=\"add\" class=\"btn btn-warning\">Add</button>
+                                            <button type=\"submit\" name=\"add\" value='$row[0]' class=\"btn btn-warning\">Add</button>
                                         </div>
                                     </div>
                                 </form>
@@ -240,7 +240,7 @@
         </tr>
         </tbody>
     </table>
+    <a href="logon_reg.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </div>
-<a href="logon_reg.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </body>
 </html>

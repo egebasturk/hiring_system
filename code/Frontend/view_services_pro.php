@@ -5,34 +5,10 @@ $error = "";
 //global $user_ID;
 $user_ID= $_SESSION["user_ID"];
 
-if($db->connect_error){
-    die("Connection failed: " . $db->connect_error);
-}
 
-if (isset($_POST['cancel']))
-{
-    //echo "sth";DEBUG
-    $oid = $_POST['var'];
-    echo $oid; // Can take this but cannot delete
-    $sql = "DELETE FROM proposed_services 
-            WHERE proposed_services.proposal_ID=$oid";
-    $result = mysqli_query($db, "$sql");
-    $error = $db->error;
-    if ($result == false) {
-        $error = $db->error;
-        echo "$error";
-        return false;
-    }
-    //header("Location: view_service_requests_reg.php");
-}
-else
-    echo "";//DEBUG
-
-
-
-$sql = "SELECT proposal_ID, start_date, end_date, proposed_price
-FROM (professional_users pros NATURAL JOIN proposals ps) NATURAL JOIN proposed_services pservs
-WHERE pros.user_ID=$user_ID";
+$sql = "SELECT provs.service_type_ID, provs.custom_service_name, provs.service_starting_date, provs.service_ending_date, provs.service_rating
+        FROM provided_services provs JOIN provides ps JOIN professional_users profs
+        WHERE profs.user_ID = '$user_ID' AND provs.custom_service_name=ps.custom_service_name AND profs.user_ID=ps.user_ID";
 $result = mysqli_query($db, "$sql");
 $error = $db->error;
 if ($result == false) {
@@ -40,8 +16,31 @@ if ($result == false) {
     echo "$error";
     return false;
 }
-?>
+if (isset($_POST['cancel']))
+{
+    //echo "sth";DEBUG
+    $servicetype = $_POST['servicetype'];
+    $servicename = $_POST['servicename'];
 
+    $sql = "DELETE
+            FROM `provided_services`
+            WHERE `provided_services`.`service_type_ID` = '$servicetype' AND `provided_services`.`custom_service_name` = '$servicename'";
+    $result = mysqli_query($db, "$sql");
+    $error = $db->error;
+    if ($result == false) {
+        $error = $db->error;
+        echo "$error";
+        return false;
+    }
+    header("Location: view_services_pro.php");
+}
+if(isset($_POST['select']))
+{
+    $target  = 'Location: view_proposals_reg.php?order_id=';
+    $target .= $_POST['select'];
+    header($target);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,6 +51,7 @@ if ($result == false) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<body>
 <style>
     body {background-color: rgb(256, 256, 256);}
     input[class=form-control]{
@@ -66,8 +66,6 @@ if ($result == false) {
         margin-bottom:15px;
     }
 </style>
-<body>
-
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -91,14 +89,15 @@ if ($result == false) {
 </nav>
 
 <div class="container">
-    <h1>View Proposals</h1>
+    <h1>Registered Services</h1>
     <table class="table table-bordered">
         <thead>
         <tr>
-            <th>Proposal ID</th>
-            <th>Starting Date</th>
-            <th>Ending Date</th>
-            <th>Price</th>
+            <th>Service Type ID</th>
+            <th>Custom Service Name</th>
+            <th>Active Starting Date</th>
+            <th>Active Ending Date</th>
+            <th>Rating</th>
             <th>Modify</th>
             <th>Cancel</th>
         </tr>
@@ -107,33 +106,38 @@ if ($result == false) {
         <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
             <?php
-            while($row = mysqli_fetch_array($result))
+            if ($result != false)
             {
-                echo "<tr>";
-                echo "<th>" . $row[0] . "</th>";
-                echo "<th>" . $row[1] . "</th>";
-                echo "<th>" . $row[2] . "</th>";
-                echo "<th>" . $row[3] . "</th>";
-                echo "<th>
-                        <form action=\"modify_service_request.php\" method=\"post\">
+                while($row = mysqli_fetch_array($result))
+                {
+                    echo "<tr>";
+                    echo "<th>" . $row[0] . "</th>";
+                    echo "<th>" . $row[1] . "</th>";
+                    echo "<th>" . $row[2] . "</th>";
+                    echo "<th>" . $row[3] . "</th>";
+                    echo "<th>" . $row[4] . "</th>";
+                    echo "<th>
+                        <form action=\"#\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
-                                    <a href=\"modify_proposal.php?proposal_id=$row[0]&start_date=$row[1]&end_date=$row[2]&price=$row[3]\"type=\"button\" class=\"btn btn-warning\">Modify</a>
-                                </div>
-                            </div>
-                        </form>
-                    </th>
-                    <th>
-                        <form action=\"view_proposals_pro.php\" method=\"post\">
-                            <div class=\"form-group\">
-                                <div class=\"col-sm-offset-0 col-sm-0\">
-                                    <button type=\"submit\" class=\"btn btn-warning\" name='cancel' value='Cancel'>Cancel</button>
-                                    <input type=\"hidden\" name='var' value='$row[0]'></input>
+                                    <a href=\"modify_registered_service.php?service_id=$row[0]&service_name=$row[1]&start_date=$row[2]&end_date=$row[3]de\"type=\"button\" class=\"btn btn-warning\">Modify</a>
                                 </div>
                             </div>
                         </form>
                     </th>";
-                echo "</tr>";
+                    echo "<th>
+                        <form action=\"view_services_pro.php\" method=\"post\">
+                            <div class=\"form-group\">
+                                <div class=\"col-sm-offset-0 col-sm-0\">
+                                    <button type=\"submit\" class=\"btn btn-warning\" name='cancel' value='Cancel'>Cancel</button>
+                                    <input type=\"hidden\" name='servicetype' value='$row[0]'></input>
+                                    <input type=\"hidden\" name='servicename' value='$row[1]'></input>
+                                </div>
+                            </div>
+                        </form>
+                    </th>";
+                    echo "</tr>";
+                }
             }
             ?>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->

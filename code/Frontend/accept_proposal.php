@@ -1,3 +1,30 @@
+<?php
+include('config.php');
+session_start();
+$user_ID = $_SESSION['user_ID'];
+if(isset($_POST['proposalid']))
+{
+    $proposalid = $_POST['proposalid'];
+    //echo "$proposalid";
+}
+if(isset($_POST['orderid']))
+{
+    $orderid = $_POST['orderid'];
+    //echo "$orderid";
+}
+// TODO: Fix this.
+$sql_update = "INSERT INTO past_services (service_type_ID, order_date, provider_ID)
+                SELECT service_type_ID, pservs.start_date, ps.professional_ID
+                        FROM proposed_services pservs NATURAL JOIN proposals ps
+                        WHERE proposal_ID='1' AND start_date='2018-5-1' AND professional_ID='2'";
+$result = mysqli_query($db, "$sql_update");
+$error = $db->error;
+if ($result == false) {
+    $error = $db->error;
+    echo "$error";
+    return false;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,10 +76,24 @@
         <tbody>
         <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
-            <td>2000</td>
-            <td>Moving</td>
-            <td>01.01.1970</td>
-            <td>01.01.2010</td>
+            <?php
+            $sql = "SELECT order_ID, service_type_name, sos.start_date, sos.end_date
+                    FROM services s NATURAL JOIN service_orders sos
+                    WHERE sos.order_ID='$orderid'";
+            $result = mysqli_query($db, "$sql");
+            $error = $db->error;
+            if ($result == false) {
+                $error = $db->error;
+                echo "$error";
+                return false;
+            }
+            $row = mysqli_fetch_array($result);
+            echo "<tr>";
+            echo "<th>" . $row[0] . "</th>";
+            echo "<th>" . $row[1]. "</th>";
+            echo "<th>" . $row[2] . "</th>";
+            echo "<th>" . $row[3] . "</th>";
+            ?>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
         </tbody>
@@ -62,7 +103,6 @@
         <thead>
         <tr>
             <th>Proposal ID</th>
-            <th>Name</th>
             <th>Starting Date</th>
             <th>Ending Date</th>
             <th>Price</th>
@@ -71,11 +111,43 @@
         <tbody>
         <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
-            <td>9000</td>
-            <td>Buğra</td>
-            <td>01.01.1970</td>
-            <td>01.01.2010</td>
-            <td>100</td>
+            <?php
+            $sql = "SELECT pservs.proposal_ID, pservs.start_date, pservs.end_date, pservs.proposed_price
+                    FROM proposed_services pservs NATURAL JOIN proposals ps
+                    WHERE pservs.proposal_ID='$proposalid';";
+            $result = mysqli_query($db, "$sql");
+            $error = $db->error;
+            if ($result == false) {
+                $error = $db->error;
+                echo "$error";
+                return false;
+            }
+            $row = mysqli_fetch_array($result);
+            echo "<tr>";
+            echo "<th>" . $row[0] . "</th>";
+            echo "<th>" . $row[1]. "</th>";
+            echo "<th>" . $row[2] . "</th>";
+            echo "<th>" . $row[3] . "</th>";
+
+            $sql_email = "SELECT us.email
+                            FROM (proposed_services pservs NATURAL JOIN proposals ps) JOIN (professional_users profs NATURAL JOIN users us)
+                            WHERE pservs.proposal_ID='$proposalid' AND profs.user_ID=ps.professional_ID";
+            $to = mysqli_fetch_array(mysqli_query($db, $sql_email))[0]; // send and get email.
+            //echo "$to";
+            $subject = "Your proposal with id $proposalid was accepted";
+
+
+            $sql_customer_email = "SELECT rus.name, us.email
+                                    FROM service_orders sos NATURAL JOIN regular_users rus NATURAL JOIN users us
+                                    WHERE sos.order_ID='1'";
+            $customer_email = mysqli_fetch_array(mysqli_query($db, $sql_customer_email))[1];
+            $customer_name = mysqli_fetch_array(mysqli_query($db, $sql_customer_email))[0];
+            $text = "$customer_name has accepted your proposal. You can contact his/her email: $customer_email";
+            $headers ="From: noreply@portakal.com" . "\r\n";
+
+            mail($to, $subject, $text, $headers);
+            echo "A mail has been sent to the proposer. You will be contacted by your registered email."
+            ?>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
         </tbody>
@@ -107,6 +179,7 @@
         </tr>
         </tbody>
     </table>
+    <a href="logon_reg.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </div>
 </body>
 </html>

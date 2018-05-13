@@ -4,38 +4,53 @@ session_start();
 $error = "";
 //global $user_ID;
 $user_ID= $_SESSION["user_ID"];
-if(isset($_GET['proposal_id']))
+if(isset($_GET['service_id']))
 {
-    $proposal_id = $_GET['proposal_id']; //service_type_id
+    $service_id = $_GET['service_id']; //service_type_id
+    $original_service_name = $_GET['service_name'];
     $originalStart = $_GET['start_date'];
     $originalEnd = $_GET['end_date'];
-    $originalPrice = $_GET['price'];
-    $price = 0; //default
     $start_date = "";
     $end_date = "";
-    if (isset($_POST['modify']))
+    $name = "";
+    if(isset($_POST['modify']))
     {
+        if(isset($_POST['custom_name']))
+            $name = $_POST['custom_name'];
         if(isset($_POST['start']))
             $start_date = $_POST['start'];
         if(isset($_POST['end']))
             $end_date = $_POST['end'];
-        if(isset($_POST['price']))
-            $price = $_POST['price'];
-        $result = mysqli_query($db, "UPDATE proposed_services SET start_date='$start_date', end_date='$end_date', proposed_price = '$price' WHERE proposal_ID = '$proposal_id'");
+        $sql_query1 = "UPDATE provided_services 
+                       SET custom_service_name = '$name', service_starting_date = '$start_date', service_ending_date = '$end_date'
+                       WHERE custom_service_name = '$original_service_name' AND service_type_ID = '$service_id';";
+        $sql_query2 = "UPDATE provides SET custom_service_name = '$name' WHERE user_ID = '$user_ID' AND service_type_ID = '$service_id' AND custom_service_name = '$original_service_name';";
+
+        $result1 = mysqli_query($db, $sql_query1);
+        $result2 = mysqli_query($db, $sql_query2);
+
+        $result = $result1 && $result2;
         $error = $db->error;
         if ($result == false) {
-            $error = $db->error;
             echo "$error";
+            mysqli_query($db,"ROLLBACK");
+            echo "Rolled back";
             return false;
         }
-        header("Location: view_proposals_pro.php");
+        else
+        {
+            mysqli_query($db, "COMMIT;");
+            echo "Committed";
+        }
+        header("Location: view_services_pro.php");
     }
     if(isset($_POST['goback']))
     {
-        header('Location: view_proposals_pro.php');
+        header('Location: view_services_pro.php');
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,41 +100,20 @@ if(isset($_GET['proposal_id']))
 </nav>
 
 <div class="container">
-    <h1>Modify Proposal</h1>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Proposal ID</th>
-            <th>Starting Date</th>
-            <th>Ending Date</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <?php
-                echo "<td> $proposal_id </td>";
-                echo "<td> $originalStart </td>";
-                echo "<td> $originalEnd </td>";
-                echo "<td> $originalPrice </td>";
-            ?>
-        </tr>
-        </tbody>
-    </table>
     <form class="form-horizontal" action="" method="POST">
         <div class="form-group">
+            <h1>Modify Request</h1>
             <label for="start">Start date:</label>
-            <input type="date" class="form-control" id="start" name="start" value= "<?php echo $originalStart;?>">
+            <input type="date" value= "<?php echo $originalStart;?>" class="form-control" name="start">
         </div>
 
         <div class="form-group">
-            <label for="end">End date:</label>
-            <input type="date" class="form-control" id= "end" name="end" value= "<?php echo $originalEnd;?>">
+            <label for="end">Planned End Date:</label>
+            <input type="date" value="<?php echo $originalEnd;?>" class="form-control" name="end">
         </div>
-
         <div class="form-group">
-            <label for="price">Price:</label>
-            <input type="number" min="0" class="form-control" id="price" name="price" value= "<?php echo $originalPrice;?>">
+            <label for="odetails">Custom Service Name:</label>
+            <textarea class="form-control" rows="5" name="custom_name"><?php echo $original_service_name;?></textarea>
         </div>
 
         <div class="form-group">
@@ -130,5 +124,6 @@ if(isset($_GET['proposal_id']))
         </div>
     </form>
 </div>
+
 </body>
 </html>

@@ -1,43 +1,50 @@
 <?php
-include('config.php');
-$error = ""; // Default value
-session_start();
-$_SESSION = array();
-session_destroy();
-if(isset($_POST['submit'])){
-	if(empty($_POST['username']) || empty($_POST['password'])){
-		$error = "Fields can't be left blank";
-	}
-	else{
-		$username=$_POST['username'];
-		$password=$_POST['password'];
+    include('config.php');
+    $error = ""; // Default value
+    session_start();
+    if (session_id())
+    {
+        // session has been started
+        session_destroy();
+    }
+    if(isset($_POST['submit']))
+    {
+        if (empty($_POST['username']) || empty($_POST['password']))
+        {
+            $error = "Fields can't be left blank";
+        }
+        else
+        {
+            $username = $_POST['username'];
+            $password = $_POST['password'];
 
-	$query = mysqli_query($db, "SELECT * FROM users WHERE (username='$username' OR email='$username') AND password='$password'");
-	$rows = mysqli_num_rows($query);
-	if($rows == 1){
-		//session_start(); KEYI BI SONRAKI SAYFAYA AKTARMA OLAYI
-		//$_SESSION
-		$user = mysqli_fetch_object($query);
-		$id = $user->user_ID;
-		$username = $user->username;
-		$query = mysqli_query($db, "SELECT user_ID FROM professional_users WHERE user_ID='$id'");
-		$isProf = mysqli_num_rows($query);
-		session_start();
-		$_SESSION['user_ID'] = $id;
-		$_SESSION['username'] = $username;
-		$_SESSION['is_prof'] = $isProf;
-		if($isProf == 1){
-			header("Location: logon_pro.php");
-		}
-		else{
-			header("Location: logon_reg.php");
-		}
-	}
-	else{
-		$error = "No user was found";
-	}
-	mysqli_close($db);
-	}
+            $query = mysqli_query($db, "SELECT * FROM users WHERE username='$username' OR email='$username' AND password='$password'");
+            $rows = mysqli_num_rows($query);
+            if($rows == 1)
+            {
+                //session_start(); KEYI BI SONRAKI SAYFAYA AKTARMA OLAYI
+                //$_SESSION
+                $user = mysqli_fetch_object($query);
+                $id = $user->user_ID;
+                $username = $user->username;
+                $query = mysqli_query($db, "SELECT user_ID FROM professional_users WHERE user_ID='$id'");
+                $isProf = mysqli_num_rows($query);
+                session_start();
+                $_SESSION['username'] = $username;
+                $_SESSION['user_ID'] = $id;
+                $_SESSION['is_prof'] = $isProf;
+                if($isProf == 1){
+                    header("Location: logon_pro.php");
+                }
+                else{
+                    header("Location: logon_reg.php");
+                }
+            }
+            else{
+                $error = "No user was found";
+            }
+            mysqli_close($db);
+        }
 }
 ?>
 

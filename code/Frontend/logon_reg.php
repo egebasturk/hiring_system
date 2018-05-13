@@ -36,10 +36,13 @@ $error = ""; // Default value
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <ul class="nav navbar-nav">
-            <li class="active"><a><?php session_start();
-                    $id = $_SESSION["user_ID"];
-                    $username = $_SESSION["username"];
-                    echo "User ID: $id, Username: $username";
+            <li class="active"> <a> <?php
+                    if (!empty($_SESSION))
+                    {
+                        $username = $_SESSION["username"];
+                        $id = $_SESSION["user_ID"];
+                        echo "User ID: $id, Username: $username";
+                    }
                     ?></a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
