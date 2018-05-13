@@ -117,12 +117,10 @@ if(isset($_POST['select']))
                     echo "<th>" . $row[3] . "</th>";
                     echo "<th>" . $row[4] . "</th>";
                     echo "<th>
-                        <form action=\"#\" method=\"post\"><--!modify sayfasına gidecek bu>
+                        <form action=\"#\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
-                                    <button type=\"submit\" class=\"btn btn-warning\" name='modify' value='Modify'>Modify</button>
-                                    <input type=\"hidden\" name='oid' value='$row[0]'></input>
-                                    <input type=\"hidden\" name='servicetype' value='$row[1]'></input>
+                                    <a href=\"modify_registered_service.php?service_id=$row[0]&service_name=$row[1]&start_date=$row[2]&end_date=$row[3]\"type=\"button\" class=\"btn btn-warning\">Modify</a>
                                 </div>
                             </div>
                         </form>
