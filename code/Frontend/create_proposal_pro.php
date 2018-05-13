@@ -85,7 +85,16 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style>
-
+    input[class=form-control]{
+        width:100%;
+        background-color:#FFF;
+        color:#000;
+        border:2px solid #FFF;
+        font-size:20px;
+        cursor:pointer;
+        border-radius:5px;
+        margin-bottom:15px;
+    }
 </style>
 <body>
 
