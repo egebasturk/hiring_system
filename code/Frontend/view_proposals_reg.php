@@ -124,7 +124,7 @@
                                 <form action=\"\" method=\"post\">
                                     <div class=\"form-group\">
                                         <div class=\"col-sm-offset-0 col-sm-0\">
-                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\">match</button>
+                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\" value=\"$row[0]\">match</button>
                                         </div>
                                     </div>
                                 </form>
@@ -132,11 +132,12 @@
                         echo "</tr>";
                     }
                 }
-
                 if(isset($_POST['match']))
                 {
+                    $oid = $_POST['match'];
+                    echo $oid;
                     $target  = 'Location: match.php?order_id=';
-                    $target .= $_POST['match'];
+                    $target .= $oid;
                     header($target);
                 }
             }

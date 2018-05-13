@@ -66,13 +66,9 @@
         if(isset($_GET['order_id']))
         {
             $order_id = $_GET['order_id'];
-            if($order_id == 0) //entered the page from logon menu, view all services
-            {
-                $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details, sos.start_date, sos.end_date
-                            FROM regular_users rus JOIN service_orders sos
-                            WHERE rus.user_ID=$user_ID AND sos.requester_ID=$user_ID;";
-                $result = mysqli_query($db, "$sql");
-                while($row = mysqli_fetch_array($result)) {
+            $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details, sos.start_date, sos.end_date FROM service_orders sos WHERE sos.requester_ID=$user_ID AND sos.order_ID = $order_id; ";
+            $result = mysqli_query($db, "$sql");
+            while($row = mysqli_fetch_array($result)) {
                     echo "<tr>";
                     echo "<th>" . $row[0] . "</th>";
                     if ($row[1] == 1)
@@ -88,35 +84,8 @@
                     echo "<th>" . $row[2] . "</th>";
                     echo "<th>" . $row[3] . "</th>";
                     echo "<th>" . $row[4] . "</th>";
-
                 }
-            }
-            else //accessed from view service requests menu, view only this service.
-            {
-                $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details, sos.start_date, sos.end_date FROM service_orders sos WHERE sos.requester_ID=$user_ID AND sos.order_ID = $order_id; ";
-                $result = mysqli_query($db, "$sql");
-                while($row = mysqli_fetch_array($result)) {
-                    echo "<tr>";
-                    echo "<th>" . $row[0] . "</th>";
-                    if ($row[1] == 1)
-                        echo "<th>Repair</th>";
-                    elseif ($row[1] == 2)
-                        echo "<th>Cleaning</th>";
-                    elseif ($row[1] == 3)
-                        echo "<th>Painting</th>";
-                    elseif ($row[1] == 4)
-                        echo "<th>Moving</th>";
-                    elseif ($row[1] == 5)
-                        echo "<th>Private Lesson</th>";
-                    echo "<th>" . $row[2] . "</th>";
-                    echo "<th>" . $row[3] . "</th>";
-                    echo "<th>" . $row[4] . "</th>";
-
-                }
-            }
         }
-
-
         ?>
         </tbody>
     </table>
@@ -134,142 +103,62 @@
         <tbody>
         <!--BURALARA PHP SERPİŞTİRİLECEK-->
         <?php
-        /*
-        if($order_id == 0)
-        {
-            $sql = "SELECT ps.proposal_ID, ps.start_date, ps.end_date, ps.proposed_price, os.start_date, os.end_date, os.order_ID FROM  
-                    (SELECT order_ID, start_date, end_date FROM service_orders WHERE requester_ID = $user_ID) os INNER JOIN proposed_services ps ON ps.order_ID = os.order_ID;";
-                    //WHERE (7 > SELECT TIMESTAMPDIFF(DAY, ps.start_date, os.start_data)) AND (7 > SELECT TIMESTAMPDIFF(DAY, ps.end_date, os.end_date));";
-            $result = mysqli_query($db, $sql);
+            $sql_temp_create = "CREATE TEMPORARY TABLE temp_proposal (
+                  proposal_ID INT PRIMARY KEY,
+                  p_start DATE,
+                  p_end DATE,
+                  proposed_price INT
+            );";
+            $sql_date_table = "CREATE TEMPORARY TABLE temp_date (
+                      proposal_ID INT PRIMARY KEY,
+                      proposed_price INT,
+                      p_start DATE,
+                      p_end DATE,
+                      start_date DATE,
+                      end_date DATE 
+            );";
+
+            $sql_temp = "INSERT INTO temp_proposal(proposal_ID, p_start, p_end, proposed_price) 
+                         SELECT proposal_ID, start_date AS p_start, end_date AS p_end, proposed_price FROM proposed_services WHERE order_ID = $order_id;";
+
+            $sql_date_fill = "INSERT INTO temp_date(proposal_ID, proposed_price, p_start, p_end, start_date, end_date)
+                              SELECT proposal_ID, proposed_price, p_start, p_end, start_date, end_date
+                              FROM temp_proposal NATURAL JOIN service_orders so
+                              WHERE so.order_ID = $order_id;";
+
+            $sql_date_diff= "SELECT proposal_ID, proposed_price, p_start, p_end, DATEDIFF(p_start, p_end) AS prop_time, DATEDIFF(start_date, end_date) AS serv_time, 
+                             DATEDIFF(p_start, start_date) AS starts, DATEDIFF(p_end, end_date) AS ends 
+                             FROM temp_date
+                             HAVING ABS(prop_time) < ABS(serv_time) OR (ABS(ends) < 3 AND ABS(starts) < 3 );";
+
+            $result1 = mysqli_query($db, $sql_temp_create);
+            $result2 = mysqli_query($db, $sql_date_table);
+            $result3 = mysqli_query($db, $sql_temp);
+            $result4 = mysqli_query($db, $sql_date_fill);
+            $result5 = mysqli_query($db, $sql_date_diff);
+            $result_temp = $result5;
+            $result = $result1 && $result2 && $result3 && $result4 && $result5;
             $error = $db->error;
             if ($result == false) {
                 echo "$error";
                 return false;
             }
 
-            while($row = mysqli_fetch_array($result)) {
-                $start_service = $row[1];
-                $end_service = $row[2];
-                $start_proposal = $row[4];
-                $end_proposal = $row[4];
-                $start_service = new DateTime($start_service);
-                $end_service = new DateTime($end_service);
-                $start_proposal = new DateTime($start_proposal);
-                $end_proposal = new DateTime($end_proposal);
-
-                $starts_diff = $start_service->diff($start_proposal);
-                $ends_diff = $end_service->diff($end_proposal);
-                $service_total = $end_service->diff($start_service);
-                $proposed_total = $end_proposal->diff($start_proposal);
-
-                $starts_diff = $starts_diff->format('%d');
-                $ends_diff = $ends_diff->format('%d');
-                $service_total = $service_total->format('%d');
-                $proposed_total = $proposed_total->format('%d');
-
-                if(($starts_diff < 3 && $ends_diff < 3) || ($service_total > $proposed_total))
-                {
-                    $sql_ins = "INSERT INTO matches(order_ID, proposal_ID) VALUES ('$row[6]', '$row[0]');";
-                    $insert_res = mysqli_query($db, $sql_ins);
+            while($row = mysqli_fetch_array($result_temp)) {
                     echo "<tr>";
                     echo "<th>" . $row[0] . "</th>";
                     echo "<th>" . $row[1] . "</th>";
                     echo "<th>" . $row[2] . "</th>";
                     echo "<th>" . $row[3] . "</th>";
                     echo "<td>
-                                <form action=\"\" method=\"post\">
-                                    <div class=\"form-group\">
-                                        <div class=\"col-sm-offset-0 col-sm-0\">
-                                            <button type=\"submit\" name=\"add\" class=\"btn btn-warning\">Add</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </td>";
-                    echo "<td>
-                                <form action=\"\" method=\"post\">
-                                    <div class=\"form-group\">
-                                        <div class=\"col-sm-offset-0 col-sm-0\">
-                                            <button type=\"submit\" name=\"remove\" class=\"btn btn-danger\">Remove</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </td>";
-                    echo "</tr>";
-                }
-
-            }
-        }
-        */
-
-            /*$sql = "SELECT ps.proposal_ID, ps.start_date, ps.end_date, ps.proposed_price, os.start_date, os.end_date, os.order_ID
-                    FROM  (SELECT order_ID, start_date, end_date 
-                          FROM service_orders 
-                          WHERE order_ID = $order_id) os INNER JOIN proposed_services ps ON ps.order_ID = os.order_ID 
-                          WHERE ps.order_ID = $order_id;";*/
-            $sql_init = "SELECT DATEDIFF('2018-05-01','2018-05-25') as requestersDDiff INTO @requestersDDiff;
-                        SELECT DATEDIFF('2018-05-01','2018-05-26') as proposersDDiff INTO @proposersDDiff;
-                        
-                        INSERT INTO matches (order_ID, proposal_ID) 
-                        SELECT  os.order_ID , ps.proposal_ID
-                        FROM  (SELECT order_ID, start_date, end_date 
-                            FROM service_orders 
-                            WHERE order_ID = '1') os INNER JOIN proposed_services ps ON ps.order_ID = os.order_ID 
-                        WHERE ps.order_ID = '1' AND @requestersDDiff > @proposersDDiff;";
-            $result = mysqli_query($db, $sql_init);
-            $error = $db->error;
-            if ($result == false) {
-                echo "$error";
-                return false;
-            }
-
-            $sql_show = "SELECT proposal_ID, pservs.start_date, pservs.end_date, pservs.proposed_price
-                        FROM matches ms NATURAL JOIN proposed_services pservs
-                        WHERE ms.proposal_ID=pservs.proposal_ID;";
-            $result = mysqli_query($db, $sql_show);
-            $error = $db->error;
-            if ($result == false) {
-                echo "$error";
-                return false;
-            }
-            while($row = mysqli_fetch_array($result)) {
-                /*$start_service = $row[1];
-                $end_service = $row[2];
-                $start_proposal = $row[4];
-                $end_proposal = $row[4];
-                $start_service = new DateTime($start_service);
-                $end_service = new DateTime($end_service);
-                $start_proposal = new DateTime($start_proposal);
-                $end_proposal = new DateTime($end_proposal);
-
-                $starts_diff = $start_service->diff($start_proposal);
-                $ends_diff = $end_service->diff($end_proposal);
-                $service_total = $end_service->diff($start_service);
-                $proposed_total = $end_proposal->diff($start_proposal);
-
-                $starts_diff = $starts_diff->format('%d');
-                $ends_diff = $ends_diff->format('%d');
-                $service_total = $service_total->format('%d');
-                $proposed_total = $proposed_total->format('%d');*/
-
-                /*if(($starts_diff < 3 && $ends_diff < 3) || ($service_total > $proposed_total)) {
-                    $sql_ins = "INSERT INTO matches(order_ID, proposal_ID) VALUES ('$row[6]', '$row[0]');";
-                    $insert_res = mysqli_query($db, $sql_ins);*/
-
-
-                    echo "<tr>";
-                    echo "<th>" . $row[0] . "</th>";
-                    echo "<th>" . $row[1] . "</th>";
-                    echo "<th>" . $row[2] . "</th>";
-                    echo "<th>" . $row[3] . "</th>";
-                    echo "<td>
-                                    <form action=\"\" method=\"post\">
+                    <form action=\"\" method=\"post\">
                                         <div class=\"form-group\">
                                             <div class=\"col-sm-offset-0 col-sm-0\">
                                                 <button type=\"submit\" name=\"add\" class=\"btn btn-warning\">Add</button>
                                             </div>
                                         </div>
                                     </form>
-                                </td>";
+                    </td>";
                     echo "<td>
                                     <form action=\"\" method=\"post\">
                                         <div class=\"form-group\">
@@ -282,17 +171,18 @@
                     echo "</tr>";
                 //}
             }
-        $sql_exit = "DELETE
-                  FROM matches
-                  WHERE proposal_ID IN (SELECT proposal_ID
-                                        FROM proposed_services AS pservs JOIN service_orders AS sos USING(order_ID)
-                                        WHERE sos.requester_ID='$user_ID')";
-        $result = mysqli_query($db, $sql_exit);
-        $error = $db->error;
-        if ($result == false) {
-            echo "$error";
-            return false;
-        }
+            $sql_drop_temp_proposal = "DROP TEMPORARY TABLE temp_proposal;";
+            $sql_drop_temp_date = "DROP TEMPORARY TABLE temp_date;";
+
+             $drop1 = mysqli_query($db, $sql_drop_temp_proposal);
+             $drop2 = mysqli_query($db, $sql_drop_temp_date);
+             $drop = $drop1 && $drop2;
+
+             $error = $db->error;
+            if ($drop == false) {
+                echo "$error";
+                return false;
+            }
         ?>
         <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
