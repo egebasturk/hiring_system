@@ -240,7 +240,7 @@
         </tr>
         </tbody>
     </table>
+    <a href="logon_reg.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </div>
-<a href="logon_reg.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </body>
 </html>

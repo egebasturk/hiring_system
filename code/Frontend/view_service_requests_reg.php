@@ -123,7 +123,7 @@
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
                                     <button type=\"submit\" class=\"btn btn-warning\" name='cancel' value='Cancel'>Cancel</button>
-                                    <input type=\"hidden\" name='var' value='$row[0]'>Cancel</input>
+                                    <input type=\"hidden\" name='var' value='$row[0]'></input>
                                 </div>
                             </div>
                         </form>
