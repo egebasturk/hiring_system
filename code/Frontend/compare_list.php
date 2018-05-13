@@ -20,7 +20,7 @@
         }
         else
         {
-
+            echo "Full";
         }
     }
 
@@ -30,7 +30,7 @@
         {
             unset($_SESSION["proposalOne"]);
         }
-        elseif (!empty($_SESSION["proposalTwo"]))
+        if (!empty($_SESSION["proposalTwo"]))
         {
             unset($_SESSION["proposalTwo"]);
         }
