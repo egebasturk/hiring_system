@@ -20,7 +20,18 @@
         }
         else
         {
+
+        }
+    }
+
+    if(isset($_POST['submit']))
+    {
+        if (!empty($_SESSION["proposalOne"]))
+        {
             unset($_SESSION["proposalOne"]);
+        }
+        elseif (!empty($_SESSION["proposalTwo"]))
+        {
             unset($_SESSION["proposalTwo"]);
         }
     }
