@@ -56,7 +56,8 @@ if(isset($_GET['decision']))
                   if (!empty($_SESSION))
                   {
                       $id = $_SESSION["user_ID"];
-                      echo "User ID: $id";
+                      $username = $_SESSION["username"];
+                      echo "User ID: $id, Username: $username";
                   }
                   ?></a></li>
       </ul>
