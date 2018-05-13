@@ -12,7 +12,18 @@ if(isset($_POST['orderid']))
     $orderid = $_POST['orderid'];
     //echo "$orderid";
 }
-
+// TODO: Fix this.
+$sql_update = "INSERT INTO past_services (service_type_ID, order_date, provider_ID)
+                SELECT service_type_ID, pservs.start_date, ps.professional_ID
+                        FROM proposed_services pservs NATURAL JOIN proposals ps
+                        WHERE proposal_ID='1' AND start_date='2018-5-1' AND professional_ID='2'";
+$result = mysqli_query($db, "$sql_update");
+$error = $db->error;
+if ($result == false) {
+    $error = $db->error;
+    echo "$error";
+    return false;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
