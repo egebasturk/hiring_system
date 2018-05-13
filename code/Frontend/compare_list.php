@@ -102,7 +102,7 @@
                             $proposalOne = $_SESSION["proposalOne"];
                             $sql = "SELECT start_date, end_date, proposed_price 
                                                     FROM proposed_services 
-                                                    WHERE proposal_ID = $proposalOne";
+                                                    WHERE proposal_ID = '$proposalOne';";
 
                             $result = mysqli_query($db, $sql);
                             $error = $db->error;
@@ -233,7 +233,7 @@
 
                             $sql = "SELECT username, email, city_name, experience, expertise_field 
                                     FROM professional_users natural join users
-                                    where user_id = $professional_ID[0]";
+                                    where user_id = '$professional_ID[0]';";
 
                             $result = mysqli_query($db, $sql);
                             $error = $db->error;
@@ -296,7 +296,7 @@
 
                             $sql = "SELECT username, email, city_name, experience, expertise_field 
                                     FROM professional_users natural join users
-                                    where user_id = $professional_ID[0]";
+                                    where user_id = '$professional_ID[0]'";
 
                             $result = mysqli_query($db, $sql);
                             $error = $db->error;
