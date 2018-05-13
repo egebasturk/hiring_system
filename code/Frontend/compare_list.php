@@ -1,3 +1,30 @@
+<?php
+    include('config.php');
+    session_start();
+    $error = "";
+
+    if (isset($_POST['add']))
+    {
+        if (empty($_SESSION["proposalOne"]))
+        {
+            $_SESSION["proposalOne"] = $_POST['add'];
+        }
+        elseif (empty($_SESSION["proposalTwo"]))
+        {
+            if ($_SESSION["proposalOne"] != $_POST['add'])
+            {
+                $_SESSION["proposalTwo"] = $_POST['add'];
+            }
+            else
+                echo "Same";
+        }
+        else
+        {
+            unset($_SESSION["proposalOne"]);
+            unset($_SESSION["proposalTwo"]);
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
