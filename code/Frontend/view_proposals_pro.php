@@ -15,7 +15,7 @@ if (isset($_POST['cancel']))
     $oid = $_POST['var'];
     echo $oid; // Can take this but cannot delete
     $sql = "DELETE FROM proposed_services 
-WHERE proposed_services.proposal_ID=$oid";
+            WHERE proposed_services.proposal_ID=$oid";
     $result = mysqli_query($db, "$sql");
     $error = $db->error;
     if ($result == false) {
@@ -99,7 +99,7 @@ if ($result == false) {
             <th>Starting Date</th>
             <th>Ending Date</th>
             <th>Price</th>
-            <th>Edit</th>
+            <th>Modify</th>
             <th>Cancel</th>
         </tr>
         </thead>
@@ -118,7 +118,7 @@ if ($result == false) {
                         <form action=\"modify_service_request.php\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
-                                    <a href=\"#\" type=\"button\" class=\"btn btn-warning\">Edit</a>
+                                    <a href=\"modify_proposal.php?proposal_id=$row[0]&start_date=$row[1]&end_date=$row[2]&price=$row[3]\"type=\"button\" class=\"btn btn-warning\">Modify</a>
                                 </div>
                             </div>
                         </form>
@@ -128,7 +128,7 @@ if ($result == false) {
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
                                     <button type=\"submit\" class=\"btn btn-warning\" name='cancel' value='Cancel'>Cancel</button>
-                                    <input type=\"hidden\" name='var' value='$row[0]'>Cancel</input>
+                                    <input type=\"hidden\" name='var' value='$row[0]'></input>
                                 </div>
                             </div>
                         </form>
