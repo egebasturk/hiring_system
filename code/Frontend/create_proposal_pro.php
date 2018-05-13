@@ -52,8 +52,17 @@ if(isset($_GET['servicetype']))
     {
         $servicetype = $_SESSION['servicetype'];
         $oid = $_SESSION['oid'];
-        echo "anan";
+        $to_user_ID = $_POST['invite'];
+        $sql = "INSERT INTO requests(to_user_ID, from_user_ID, subject, order_ID, price, answer)
+                VALUES('$to_user_ID', '$user_ID', 'Collaboration Invitation', '$oid', '0', '2');";
+        $result1 = mysqli_query($db, $sql);
+        echo "invitation sent";
     }
+    if(isset($_POST['accept']))
+    {
+
+    }
+
 }
 
 
@@ -207,21 +216,40 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
                                 echo "<table class=\"table table-bordered\">
                                     <thead>
                                     <tr>
-                                        <th>Proposal ID</th>
-                                        <th>Starting Date</th>
-                                        <th>Ending Date</th>
-                                        <th>Price</th>
-                                        <th>Add</th>
-                                        <th>Remove</th>
+                                        <th>Custom Service Name</th>
+                                        <th>User</th>
+                                        <th>Invite</th>
                                     </tr>
                                     </thead>
                                     <tbody>";
                                 while($help = mysqli_fetch_array($result_help))
                                 {
+                                    $sql_pending = "SELECT answer FROM requests WHERE to_user_ID = '$help[0]' AND from_user_ID = '$user_ID' AND order_ID = '$oid';";
+                                    $result_pending = mysqli_query($db, $sql_pending);
+                                    $pending = mysqli_fetch_array($result_pending);
+                                    $row_count = mysqli_num_rows($result_pending);
                                     echo "<tr>";
                                     echo "<th>" . $help[1] . "</th>";
                                     echo "<th>" . $help[2] . "</th>";
-                                    echo "<th><button type=\"submit\" name=\"invite\" class=\"btn btn-warning\" value=\"$help[2]\">invite</button></th>";
+                                    if($row_count == 0)
+                                    {
+                                        echo "<th><button type=\"submit\" name=\"invite\" class=\"btn btn-warning\" value=\"$help[0]\">invite</button></th>";
+                                    }
+                                    else
+                                    {
+                                        if($pending[0] == 2)
+                                        {
+                                            echo "<th><button type=\"submit\" name=\"pending\" class=\"btn btn-warning\" value=\"$help[0]\">pending</button></th>";
+                                        }
+                                        elseif($pending[0] == 1)
+                                        {
+                                            echo "<th><button type=\"submit\" name=\"accept\" class=\"btn btn-warning\" value=\"$help[0]\">Accepted!</button></th>";
+                                        }
+                                        elseif($pending[0] == 0)
+                                        {
+                                            echo "<th><button type=\"submit\" name=\"declined\" class=\"btn btn-warning\" disabled>Declined</button></th>";
+                                        }
+                                    }
                                     echo "</tr>";
                                 }
                                 echo "</tbody></table>";
