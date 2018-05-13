@@ -4,47 +4,51 @@ session_start();
 $error = "";
 //global $user_ID;
 $user_ID= $_SESSION["user_ID"];
-
-if (isset($_POST['create']))
+if(isset($_GET['service_id']))
 {
-    //echo "sth"; DEBUG
-    $serviceType = 1; // Bunu bir şekilde radio buttonlardan almak gerek
-    $orderDetails = "";
+    $service_id = $_GET['service_id']; //service_type_id
+    $original_service_name = $_GET['service_name'];
+    $originalStart = $_GET['start_date'];
+    $originalEnd = $_GET['end_date'];
     $start_date = "";
     $end_date = "";
-    if(isset($_POST['radio']))
-        $serviceType = $_POST['radio'];
-    if(isset($_POST['odetails']))
-        $orderDetails = $_POST['odetails'];
-    if(isset($_POST['start']))
-        $start_date = $_POST['start'];
-    if(isset($_POST['end']))
-        $end_date = $_POST['end'];
-    mysqli_query($db, "START TRANSACTION;");
-
-    $sql_query1 = "IUPDATE `provided_services` SET `custom_service_name` = 'Super Fast Repair New', `service_starting_date` = '2018-05-02', `service_ending_date` = '2019-05-02' WHERE `provided_services`.`service_type_ID` = 1 AND `provided_services`.`custom_service_name` = 'Super Fast Repair' ";
-    $sql_query2 = "INSERT INTO `provides` (`user_ID`, `service_type_ID`, `custom_service_name`) 
-            VALUES ('$user_ID', '$serviceType', '$orderDetails');";
-    $result1 = mysqli_query($db, "$sql_query1");
-    $result2 = mysqli_query($db, "$sql_query2");
-
-    $result = $result1 && $result2;
-    $error = $db->error;
-    if ($result == false) {
-        echo "$error";
-        mysqli_query($db,"ROLLBACK");
-        echo "Rolled back";
-        return false;
-    }
-    else
+    $name = "";
+    if(isset($_POST['modify']))
     {
-        mysqli_query($db, "COMMIT;");
-        echo "Committed";
+        if(isset($_POST['custom_name']))
+            $name = $_POST['custom_name'];
+        if(isset($_POST['start']))
+            $start_date = $_POST['start'];
+        if(isset($_POST['end']))
+            $end_date = $_POST['end'];
+        $sql_query1 = "UPDATE provided_services 
+                       SET custom_service_name = '$name', service_starting_date = '$start_date', service_ending_date = '$end_date'
+                       WHERE custom_service_name = '$original_service_name' AND service_type_ID = '$service_id';";
+        $sql_query2 = "UPDATE provides SET custom_service_name = '$name' WHERE user_ID = '$user_ID' AND service_type_ID = '$service_id' AND custom_service_name = '$original_service_name';";
+
+        $result1 = mysqli_query($db, $sql_query1);
+        $result2 = mysqli_query($db, $sql_query2);
+
+        $result = $result1 && $result2;
+        $error = $db->error;
+        if ($result == false) {
+            echo "$error";
+            mysqli_query($db,"ROLLBACK");
+            echo "Rolled back";
+            return false;
+        }
+        else
+        {
+            mysqli_query($db, "COMMIT;");
+            echo "Committed";
+        }
+        header("Location: view_services_pro.php");
     }
-    header("Location: view_services_pro.php");
+    if(isset($_POST['goback']))
+    {
+        header('Location: view_services_pro.php');
+    }
 }
-else
-    echo "no";
 ?>
 
 <!DOCTYPE html>
@@ -95,49 +99,27 @@ else
     </div>
 </nav>
 
-
 <div class="container">
-    <form class="form-horizontal" action="modify_registered_service.php" method="POST">
+    <form class="form-horizontal" action="" method="POST">
         <div class="form-group">
-            <h1>Register Service</h1>
+            <h1>Modify Request</h1>
             <label for="start">Start date:</label>
-            <input type="date" class="form-control" name="start">
+            <input type="date" value= "<?php echo $originalStart;?>" class="form-control" name="start">
         </div>
 
         <div class="form-group">
-            <label for="end">End date:</label>
-            <input type="date" class="form-control" name="end">
-        </div>
-
-        <div class="form-group">
-            <label for="service">Service Type:</label>
-            <div class="radio-group">
-                <label class="radio-inline">
-                    <input type="radio" name="radio" value="1">Repair
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio" value="2">Cleaning
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio" value="3">Painting
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio" value="4">Moving
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" name="radio" value="5">Private Lesson
-                </label>
-            </div>
+            <label for="end">Planned End Date:</label>
+            <input type="date" value="<?php echo $originalEnd;?>" class="form-control" name="end">
         </div>
         <div class="form-group">
             <label for="odetails">Custom Service Name:</label>
-            <textarea class="form-control" rows="5" name="odetails"></textarea>
+            <textarea class="form-control" rows="5" name="custom_name"><?php echo $original_service_name;?></textarea>
         </div>
 
         <div class="form-group">
             <div class="col-sm-offset-0 col-sm-0">
-                <button type="submit" class="btn btn-warning" name="create">Create</button>
-                <a href="view_services_pro.php" type="button" class="btn btn-warning">Back</a>
+                <button type="submit" class="btn btn-warning" name="modify">Modify</button>
+                <button type="submit" class="btn btn-warning" name="goback">Cancel</button>
             </div>
         </div>
     </form>
