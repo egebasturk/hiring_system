@@ -1,42 +1,3 @@
-<?php
-    include('config.php');
-
-    session_start();
-    $error = "";
-
-    if (isset($_POST['add']))
-    {
-        if (empty($_SESSION["proposalOne"]))
-        {
-            $_SESSION["proposalOne"] = $_POST['add'];
-        }
-        elseif (empty($_SESSION["proposalTwo"]))
-        {
-            if ($_SESSION["proposalOne"] != $_POST['add'])
-            {
-                $_SESSION["proposalTwo"] = $_POST['add'];
-            }
-            else
-                echo "Same";
-        }
-        else
-        {
-            echo "Full";
-        }
-    }
-
-    if(isset($_POST['submit']))
-    {
-        if (!empty($_SESSION["proposalOne"]))
-        {
-            unset($_SESSION["proposalOne"]);
-        }
-        if (!empty($_SESSION["proposalTwo"]))
-        {
-            unset($_SESSION["proposalTwo"]);
-        }
-    }
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,6 +35,49 @@
     </div>
 </nav>
 
+<?php
+include('config.php');
+session_start();
+$error = "";
+if (isset($_POST['add']))
+{
+    if (empty($_SESSION["proposalOne"]))
+    {
+        $_SESSION["proposalOne"] = $_POST['add'];
+    }
+    elseif (empty($_SESSION["proposalTwo"]))
+    {
+        if ($_SESSION["proposalOne"] != $_POST['add'])
+        {
+            $_SESSION["proposalTwo"] = $_POST['add'];
+        }
+        else
+            echo "<div class=\"alert alert-danger alert-dismissible\">
+                  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+                  <strong>Error!</strong> Cannot add the same item!
+                  </div>";
+    }
+    else
+    {
+        echo "<div class=\"alert alert-danger alert-dismissible\">
+                  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+                  <strong>Error!</strong> Your list is full!
+                  </div>";
+    }
+}
+if(isset($_POST['submit']))
+{
+    if (!empty($_SESSION["proposalOne"]))
+    {
+        unset($_SESSION["proposalOne"]);
+    }
+    if (!empty($_SESSION["proposalTwo"]))
+    {
+        unset($_SESSION["proposalTwo"]);
+    }
+}
+?>
+
 <div class="container">
     <h1>Comparison List</h1>
     <table class="table table-bordered">
@@ -103,20 +107,17 @@
                             $sql = "SELECT start_date, end_date, proposed_price 
                                                     FROM proposed_services 
                                                     WHERE proposal_ID = '$proposalOne';";
-
                             $result = mysqli_query($db, $sql);
                             $error = $db->error;
                             if ($result == false) {
                                 echo "$error";
                                 return false;
                             }
-
                             while($row = mysqli_fetch_array($result))
                             {
                                 echo "<td>" . $row[0] . "</td>";
                                 echo "<td>" . $row[1] . "</td>";
                                 echo "<td>" . $row[2] . "</td>";
-
                             }
                         }
                         else
@@ -148,36 +149,33 @@
                     </thead>
                     <tbody>
                     <tr>
-                    <?php
-                    if (!empty($_SESSION["proposalTwo"]))
-                    {
-                        $proposalTwo = $_SESSION["proposalTwo"];
-                        $sql = "SELECT start_date, end_date, proposed_price 
+                        <?php
+                        if (!empty($_SESSION["proposalTwo"]))
+                        {
+                            $proposalTwo = $_SESSION["proposalTwo"];
+                            $sql = "SELECT start_date, end_date, proposed_price 
                                                     FROM proposed_services 
                                                     WHERE proposal_ID = $proposalTwo";
-
-                        $result = mysqli_query($db, $sql);
-                        $error = $db->error;
-                        if ($result == false) {
-                            echo "$error";
-                            return false;
+                            $result = mysqli_query($db, $sql);
+                            $error = $db->error;
+                            if ($result == false) {
+                                echo "$error";
+                                return false;
+                            }
+                            while($row = mysqli_fetch_array($result))
+                            {
+                                echo "<td>" . $row[0] . "</td>";
+                                echo "<td>" . $row[1] . "</td>";
+                                echo "<td>" . $row[2] . "</td>";
+                            }
                         }
-
-                        while($row = mysqli_fetch_array($result))
+                        else
                         {
-                            echo "<td>" . $row[0] . "</td>";
-                            echo "<td>" . $row[1] . "</td>";
-                            echo "<td>" . $row[2] . "</td>";
-
+                            echo "<td></td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
                         }
-                    }
-                    else
-                    {
-                        echo "<td></td>";
-                        echo "<td></td>";
-                        echo "<td></td>";
-                    }
-                    ?>
+                        ?>
                     </tr>
                     </tbody>
                 </table>
@@ -221,20 +219,16 @@
                             $sql = "SELECT professional_ID
                                     FROM proposals 
                                     WHERE proposal_ID = $proposalOne";
-
                             $professional_ID = mysqli_query($db, $sql);
                             $error = $db->error;
                             if ($professional_ID == false) {
                                 echo "$error";
                                 return false;
                             }
-
                             $professional_ID = mysqli_fetch_array($professional_ID);
-
                             $sql = "SELECT username, email, city_name, experience, expertise_field 
                                     FROM professional_users natural join users
                                     where user_id = '$professional_ID[0]';";
-
                             $result = mysqli_query($db, $sql);
                             $error = $db->error;
                             if ($result == false) {
@@ -248,7 +242,6 @@
                                 echo "<td>" . $row[2] . "</td>";
                                 echo "<td>" . $row[3] . "</td>";
                                 echo "<td>" . $row[4] . "</td>";
-
                             }
                         }
                         else
@@ -284,20 +277,16 @@
                             $sql = "SELECT professional_ID
                                     FROM proposals 
                                     WHERE proposal_ID = $proposalTwo";
-
                             $professional_ID = mysqli_query($db, $sql);
                             $error = $db->error;
                             if ($professional_ID == false) {
                                 echo "$error";
                                 return false;
                             }
-
                             $professional_ID = mysqli_fetch_array($professional_ID);
-
                             $sql = "SELECT username, email, city_name, experience, expertise_field 
                                     FROM professional_users natural join users
                                     where user_id = '$professional_ID[0]'";
-
                             $result = mysqli_query($db, $sql);
                             $error = $db->error;
                             if ($result == false) {
@@ -311,7 +300,6 @@
                                 echo "<td>" . $row[2] . "</td>";
                                 echo "<td>" . $row[3] . "</td>";
                                 echo "<td>" . $row[4] . "</td>";
-
                             }
                         }
                         else
@@ -331,11 +319,11 @@
         </tbody>
     </table>
     <form action="" method="post">
-    <div class="form-group">
-        <div class="col-sm-offset-0 col-sm-0">
-            <button type="submit" name="submit" class="btn btn-danger">Clear the list</button>
+        <div class="form-group">
+            <div class="col-sm-offset-0 col-sm-0">
+                <button type="submit" name="submit" class="btn btn-danger">Clear the list</button>
+            </div>
         </div>
-    </div>
 </div>
 </body>
 </html>
