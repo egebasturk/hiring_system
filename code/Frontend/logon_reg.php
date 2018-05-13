@@ -37,8 +37,11 @@ $error = ""; // Default value
     <div class="container-fluid">
         <ul class="nav navbar-nav">
             <li class="active"> <a> <?php
-                    $id = $_SESSION["user_ID"];
-                    echo "User ID: $id";
+                    if (!empty($_SESSION))
+                    {
+                        $id = $_SESSION["user_ID"];
+                        echo "User ID: $id";
+                    }
                     ?></a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
