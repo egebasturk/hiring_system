@@ -40,7 +40,6 @@ $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
         background-color:#FFF;
         color:#000;
         border:2px solid #FFF;
-        padding:10px;
         font-size:20px;
         cursor:pointer;
         border-radius:5px;
