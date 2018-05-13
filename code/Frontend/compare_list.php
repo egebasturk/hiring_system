@@ -73,6 +73,13 @@
                     </tr>
                     </tbody>
                 </table>
+                <form action="" method="post">
+                    <div class="form-group">
+                        <div class="col-sm-offset-0 col-sm-0">
+                            <button type="submit" name="submit" class="btn btn-success">Accept</button>
+                        </div>
+                    </div>
+                </form>
             </td>
             <td>
                 <table class="table table-bordered">
@@ -101,6 +108,13 @@
                     </tr>
                     </tbody>
                 </table>
+                <form action="" method="post">
+                    <div class="form-group">
+                        <div class="col-sm-offset-0 col-sm-0">
+                            <button type="submit" name="submit" class="btn btn-success">Accept</button>
+                        </div>
+                    </div>
+                </form>
             </td>
         </tr>
         </tbody>
@@ -119,6 +133,7 @@
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th>E-mail</th>
                         <th>Address</th>
                         <th>Experience</th>
                         <th>Expertise Field</th>
@@ -128,6 +143,7 @@
                     <tbody id="myTable">
                     <tr>
                         <td>Buğra</td>
+                        <td>a@a.com</td>
                         <td>Ankara</td>
                         <td>5 years</td>
                         <td>Car repair</td>
@@ -141,6 +157,7 @@
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th>E-mail</th>
                         <th>Address</th>
                         <th>Experience</th>
                         <th>Expertise Field</th>
@@ -150,6 +167,7 @@
                     <tbody id="myTable">
                     <tr>
                         <td>Buğra</td>
+                        <td>a@a.com</td>
                         <td>Ankara</td>
                         <td>5 years</td>
                         <td>Car repair</td>

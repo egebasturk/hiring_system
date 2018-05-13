@@ -168,6 +168,18 @@
                                         </div>
                                     </form>
                                 </td>";
+                echo "<td>
+                                    <form action=\"accept_proposal.php\" method=\"post\">
+                                        <div class=\"form-group\">
+                                            <div class=\"col-sm-offset-0 col-sm-0\">
+                                                <button type=\"submit\" name=\"remove\" class=\"btn btn-danger\">Accept</button>
+                                                <input type=\"hidden\" name='proposalid' value='$row[0]'></input>
+                                                <input type=\"hidden\" name='orderid' value='$order_id'></input>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </td>";
+                echo "</tr>";
                     echo "</tr>";
                 //}
             }
