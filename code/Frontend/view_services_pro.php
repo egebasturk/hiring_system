@@ -16,6 +16,30 @@ if ($result == false) {
     echo "$error";
     return false;
 }
+if (isset($_POST['cancel']))
+{
+    //echo "sth";DEBUG
+    $servicetype = $_POST['servicetype'];
+    $servicename = $_POST['servicename'];
+
+    $sql = "DELETE
+            FROM `provided_services`
+            WHERE `provided_services`.`service_type_ID` = '$servicetype' AND `provided_services`.`custom_service_name` = '$servicename'";
+    $result = mysqli_query($db, "$sql");
+    $error = $db->error;
+    if ($result == false) {
+        $error = $db->error;
+        echo "$error";
+        return false;
+    }
+    header("Location: view_services_pro.php");
+}
+if(isset($_POST['select']))
+{
+    $target  = 'Location: view_proposals_reg.php?order_id=';
+    $target .= $_POST['select'];
+    header($target);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +89,7 @@ if ($result == false) {
 </nav>
 
 <div class="container">
-    <h1>Service Requests</h1>
+    <h1>Registered Services</h1>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -82,15 +106,17 @@ if ($result == false) {
         <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
             <?php
-            while($row = mysqli_fetch_array($result))
+            if ($result != false)
             {
-                echo "<tr>";
-                echo "<th>" . $row[0] . "</th>";
-                echo "<th>" . $row[1] . "</th>";
-                echo "<th>" . $row[2] . "</th>";
-                echo "<th>" . $row[3] . "</th>";
-                echo "<th>" . $row[4] . "</th>";
-                echo "<th>
+                while($row = mysqli_fetch_array($result))
+                {
+                    echo "<tr>";
+                    echo "<th>" . $row[0] . "</th>";
+                    echo "<th>" . $row[1] . "</th>";
+                    echo "<th>" . $row[2] . "</th>";
+                    echo "<th>" . $row[3] . "</th>";
+                    echo "<th>" . $row[4] . "</th>";
+                    echo "<th>
                         <form action=\"#\" method=\"post\"><--!modify sayfasına gidecek bu>
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
@@ -101,18 +127,19 @@ if ($result == false) {
                             </div>
                         </form>
                     </th>";
-                echo "<th>
+                    echo "<th>
                         <form action=\"view_services_pro.php\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
                                     <button type=\"submit\" class=\"btn btn-warning\" name='cancel' value='Cancel'>Cancel</button>
-                                    <input type=\"hidden\" name='oid' value='$row[0]'></input>
-                                    <input type=\"hidden\" name='servicetype' value='$row[1]'></input>
+                                    <input type=\"hidden\" name='servicetype' value='$row[0]'></input>
+                                    <input type=\"hidden\" name='servicename' value='$row[1]'></input>
                                 </div>
                             </div>
                         </form>
                     </th>";
-                echo "</tr>";
+                    echo "</tr>";
+                }
             }
             ?>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
