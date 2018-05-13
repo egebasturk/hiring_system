@@ -1,5 +1,6 @@
 <?php
     include('config.php');
+
     session_start();
     $error = "";
 
@@ -209,17 +210,56 @@
                         <th>Address</th>
                         <th>Experience</th>
                         <th>Expertise Field</th>
-                        <th>Rating</th>
                     </tr>
                     </thead>
                     <tbody id="myTable">
                     <tr>
-                        <td>Buğra</td>
-                        <td>a@a.com</td>
-                        <td>Ankara</td>
-                        <td>5 years</td>
-                        <td>Car repair</td>
-                        <td>6/10</td>
+                        <?php
+                        if (!empty($_SESSION["proposalOne"]))
+                        {
+                            $proposalOne = $_SESSION["proposalOne"];
+                            $sql = "SELECT professional_ID
+                                    FROM proposals 
+                                    WHERE proposal_ID = $proposalOne";
+
+                            $professional_ID = mysqli_query($db, $sql);
+                            $error = $db->error;
+                            if ($professional_ID == false) {
+                                echo "$error";
+                                return false;
+                            }
+
+                            $professional_ID = mysqli_fetch_array($professional_ID);
+
+                            $sql = "SELECT username, email, city_name, experience, expertise_field 
+                                    FROM professional_users natural join users
+                                    where user_id = $professional_ID[0]";
+
+                            $result = mysqli_query($db, $sql);
+                            $error = $db->error;
+                            if ($result == false) {
+                                echo "$error";
+                                return false;
+                            }
+                            while($row = mysqli_fetch_array($result))
+                            {
+                                echo "<td>" . $row[0] . "</td>";
+                                echo "<td>" . $row[1] . "</td>";
+                                echo "<td>" . $row[2] . "</td>";
+                                echo "<td>" . $row[3] . "</td>";
+                                echo "<td>" . $row[4] . "</td>";
+
+                            }
+                        }
+                        else
+                        {
+                            echo "<td></td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
+                        }
+                        ?>
                     </tr>
                     </tbody>
                 </table>
@@ -233,17 +273,56 @@
                         <th>Address</th>
                         <th>Experience</th>
                         <th>Expertise Field</th>
-                        <th>Rating</th>
                     </tr>
                     </thead>
                     <tbody id="myTable">
                     <tr>
-                        <td>Buğra</td>
-                        <td>a@a.com</td>
-                        <td>Ankara</td>
-                        <td>5 years</td>
-                        <td>Car repair</td>
-                        <td>6/10</td>
+                        <?php
+                        if (!empty($_SESSION["proposalTwo"]))
+                        {
+                            $proposalTwo = $_SESSION["proposalTwo"];
+                            $sql = "SELECT professional_ID
+                                    FROM proposals 
+                                    WHERE proposal_ID = $proposalTwo";
+
+                            $professional_ID = mysqli_query($db, $sql);
+                            $error = $db->error;
+                            if ($professional_ID == false) {
+                                echo "$error";
+                                return false;
+                            }
+
+                            $professional_ID = mysqli_fetch_array($professional_ID);
+
+                            $sql = "SELECT username, email, city_name, experience, expertise_field 
+                                    FROM professional_users natural join users
+                                    where user_id = $professional_ID[0]";
+
+                            $result = mysqli_query($db, $sql);
+                            $error = $db->error;
+                            if ($result == false) {
+                                echo "$error";
+                                return false;
+                            }
+                            while($row = mysqli_fetch_array($result))
+                            {
+                                echo "<td>" . $row[0] . "</td>";
+                                echo "<td>" . $row[1] . "</td>";
+                                echo "<td>" . $row[2] . "</td>";
+                                echo "<td>" . $row[3] . "</td>";
+                                echo "<td>" . $row[4] . "</td>";
+
+                            }
+                        }
+                        else
+                        {
+                            echo "<td></td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
+                        }
+                        ?>
                     </tr>
                     </tbody>
                 </table>
