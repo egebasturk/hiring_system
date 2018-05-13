@@ -197,7 +197,6 @@
             }
         ?>
         <!--BURALARA PHP SERPİŞTİRİLECEK-->
-        </tr>
         </tbody>
     </table>
 </div>

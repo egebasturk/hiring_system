@@ -120,7 +120,7 @@ if(isset($_POST['select']))
                         <form action=\"#\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
-                                    <a href=\"modify_registered_service.php?service_id=$row[0]&service_name=$row[1]&start_date=$row[2]&end_date=$row[3]\"type=\"button\" class=\"btn btn-warning\">Modify</a>
+                                    <a href=\"modify_registered_service.php?service_id=$row[0]&service_name=$row[1]&start_date=$row[2]&end_date=$row[3]de\"type=\"button\" class=\"btn btn-warning\">Modify</a>
                                 </div>
                             </div>
                         </form>
