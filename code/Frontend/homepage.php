@@ -17,7 +17,6 @@ include ('config.php');
         background-color:#FFF;
         color:#000;
         border:2px solid #FFF;
-        padding:10px;
         font-size:20px;
         cursor:pointer;
         border-radius:5px;
@@ -32,7 +31,8 @@ include ('config.php');
           <li class="active"><a><?php
             if(!empty($_SESSION["user_ID"])) {
                 $id = $_SESSION["user_ID"];
-                echo "User ID: $id";
+                $username = $_SESSION["username"];
+                echo "User ID: $id, Username: $username";
             }
             else{
                 echo "Currently not logged in!";

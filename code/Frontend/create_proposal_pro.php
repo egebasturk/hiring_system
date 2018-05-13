@@ -7,11 +7,14 @@ $servicetype = "";
 $user_ID= $_SESSION["user_ID"];
 if(isset($_GET['servicetype']))
 {
-    $servicetype = $_GET['servicetype'];
-    $oid = $_GET['oid'];
+    $_SESSION['servicetype'] = $_GET['servicetype'];
+    $_SESSION['oid'] = $_GET['oid'];
+    $servicetype = $_SESSION['servicetype'];
+    $oid = $_SESSION['oid'];
     if (isset($_POST['create']))
     {
-        echo "sth"; //DEBUG
+        $servicetype = $_SESSION['servicetype'];
+        $oid = $_SESSION['oid'];
         if(isset($_POST['price']))
             $price = $_POST['price'];
         if(isset($_POST['start']))
@@ -20,7 +23,7 @@ if(isset($_GET['servicetype']))
             $end_date = $_POST['end'];
         mysqli_query($db, "START TRANSACTION;");
         $sql_query1 = "INSERT INTO proposed_services (service_type_ID, start_date, end_date, proposed_price, order_ID)
-                            VALUES ( '$servicetype', '$start_date', '$end_date', '$price', '$order_ID');";
+                            VALUES ( '$servicetype', '$start_date', '$end_date', '$price', '$oid');";
         $sql_query2 = "SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;";
         $sql_query3 = "INSERT INTO proposals (professional_ID, proposal_ID) VALUES ('$user_ID', @autoInc);";
 
@@ -47,18 +50,21 @@ if(isset($_GET['servicetype']))
     }
     if(isset($_POST['invite']))
     {
-        $_POST['oid'] = $oid;
-        $_POST['servicetype'] = $servicetype;
-        echo "anan";
+        $servicetype = $_SESSION['servicetype'];
+        $oid = $_SESSION['oid'];
+        $to_user_ID = $_POST['invite'];
+        $sql = "INSERT INTO requests(to_user_ID, from_user_ID, subject, order_ID, price, answer)
+                VALUES('$to_user_ID', '$user_ID', 'Collaboration Invitation', '$oid', '0', '2');";
+        $result1 = mysqli_query($db, $sql);
+        echo "invitation sent";
     }
-}
-else
-{
-    if(isset($_POST['oid'])) {
-        $oid = $_POST['oid'];
-        $servicetype = $_POST['servicetype'];
+    if(isset($_POST['accept']))
+    {
+
     }
+
 }
+
 
 /* Insert query
  * INSERT INTO `proposed_services` (`service_type_ID`, `start_date`, `end_date`, `proposed_price`) VALUES ( '1', '2018-05-01', '2018-05-23', '100');
@@ -85,7 +91,6 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
         background-color:#FFF;
         color:#000;
         border:2px solid #FFF;
-        padding:10px;
         font-size:20px;
         cursor:pointer;
         border-radius:5px;
@@ -101,17 +106,6 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
         <div class="navbar-header">
             <a class="navbar-brand" href="homepage.php">Portakal</a>
         </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="homepage.php">Home</a></li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Page 1-1</a></li>
-                    <li><a href="#">Page 1-2</a></li>
-                    <li><a href="#">Page 1-3</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Page 2</a></li>
-        </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
@@ -132,6 +126,8 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
         <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
             <?php
+            $servicetype = $_SESSION['servicetype'];
+            $oid = $_SESSION['oid'];
             $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
                     FROM service_orders sos
                     WHERE sos.order_ID ='$oid';";
@@ -191,6 +187,8 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
                         <div id="section3" class="container-fluid">
                             <h1>Find other professionals who can help you</h1>
                             <?php
+                            $servicetype = $_SESSION['servicetype'];
+                            $oid = $_SESSION['oid'];
                                 $sql_city = "SELECT city_name FROM users WHERE user_ID = $user_ID;";
                                 $result_city = mysqli_query($db, $sql_city);
                                 $city = mysqli_fetch_array($result_city);
@@ -206,21 +204,40 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
                                 echo "<table class=\"table table-bordered\">
                                     <thead>
                                     <tr>
-                                        <th>Proposal ID</th>
-                                        <th>Starting Date</th>
-                                        <th>Ending Date</th>
-                                        <th>Price</th>
-                                        <th>Add</th>
-                                        <th>Remove</th>
+                                        <th>Custom Service Name</th>
+                                        <th>User</th>
+                                        <th>Invite</th>
                                     </tr>
                                     </thead>
                                     <tbody>";
                                 while($help = mysqli_fetch_array($result_help))
                                 {
+                                    $sql_pending = "SELECT answer FROM requests WHERE to_user_ID = '$help[0]' AND from_user_ID = '$user_ID' AND order_ID = '$oid';";
+                                    $result_pending = mysqli_query($db, $sql_pending);
+                                    $pending = mysqli_fetch_array($result_pending);
+                                    $row_count = mysqli_num_rows($result_pending);
                                     echo "<tr>";
                                     echo "<th>" . $help[1] . "</th>";
                                     echo "<th>" . $help[2] . "</th>";
-                                    echo "<th><button type=\"submit\" name=\"invite\" class=\"btn btn-warning\" value=\"$help[2]\">invite</button></th>";
+                                    if($row_count == 0)
+                                    {
+                                        echo "<th><button type=\"submit\" name=\"invite\" class=\"btn btn-warning\" value=\"$help[0]\">invite</button></th>";
+                                    }
+                                    else
+                                    {
+                                        if($pending[0] == 2)
+                                        {
+                                            echo "<th><button type=\"submit\" name=\"pending\" class=\"btn btn-warning\" value=\"$help[0]\">pending</button></th>";
+                                        }
+                                        elseif($pending[0] == 1)
+                                        {
+                                            echo "<th><button type=\"submit\" name=\"accept\" class=\"btn btn-warning\" value=\"$help[0]\">Accepted!</button></th>";
+                                        }
+                                        elseif($pending[0] == 0)
+                                        {
+                                            echo "<th><button type=\"submit\" name=\"declined\" class=\"btn btn-warning\" disabled>Declined</button></th>";
+                                        }
+                                    }
                                     echo "</tr>";
                                 }
                                 echo "</tbody></table>";
@@ -237,31 +254,7 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
 
 </div>
 <script>
-    // Get the modal
-    var modal = document.getElementById('myModal');
 
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
 </script>
 </body>
 </html>
