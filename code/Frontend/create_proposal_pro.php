@@ -166,7 +166,7 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
             </div>
         </div>
     </form>
+    <a href="view_service_requests_pro.php" type="button" class="btn btn-warning">Go Back</a>
 </div>
-<a href="view_service_requests_pro.php" type="button" class="btn btn-warning">Go Back</a>
 </body>
 </html>
