@@ -62,26 +62,33 @@
         </ul>
     </div>
 </nav>
-  
+
 <div class="container">
     <h1>
         <form action="" method="post" style="text-align:left;">
             <div class=""form-group">
-            <div class="col-sm-0">
+            <div class="col-sm-10">
                 <a href="homepage.php">
                     <img src="logo.png"
                          alt="Portakal logo"
-                         style="width:271px;height:47px;border:0;">
+                         style="width:271px;height:47px;border:0;" / >
                 </a>
             </div>
 </div>
+<br><br>
 </h1>
-  <div class="btn-group btn-group-justified">
+<div class="container">
+  <div class="btn-group btn-group-vertical" style="width: 80%; height: 200%;">
+      <br>
     <a href="manage_reg.php" class="btn btn-warning">Manage Account</a>
+      <br>
     <a href="view_service_requests_reg.php" class="btn btn-warning">Service Requests</a>
+      <br>
     <a href="view_proposals_reg.php?order_id=0" class="btn btn-warning">View Proposals</a>
+      <br>
     <a href="past_services.php" class="btn btn-warning">View Past Services</a>
   </div>
+</div>
 <form action="" method="post" style="text-align:center;">
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">

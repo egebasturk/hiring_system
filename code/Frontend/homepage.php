@@ -9,6 +9,7 @@ include ('config.php');
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style>
@@ -21,6 +22,11 @@ include ('config.php');
         cursor:pointer;
         border-radius:5px;
         margin-bottom:15px;
+    }
+    input[class=table table-striped table-dark]{
+        background-color:#000;
+        color:#FFF;
+        font-size:40px;
     }
 </style>
 <body>
@@ -102,6 +108,39 @@ include ('config.php');
       $results = array();
       $result_query = "";
       $lower_service_type = strtolower($server_service_type);
+      $service_ID = '';
+      if($lower_service_type == "repair")
+          $service_ID = 1;
+      if($lower_service_type == "cleaning")
+          $service_ID = 2;
+       if($lower_service_type == "painting")
+           $service_ID = 3;
+       if($lower_service_type == "moving")
+           $service_ID = 4;
+       if($lower_service_type == "private_lesson" || $lower_service_type == "private lesson" || $lower_service_type == "private lesson")
+           $service_ID = 5;
+       $result_query = mysqli_query($db, "SELECT * FROM provided_services WHERE service_type_ID='$service_ID'");
+       echo "<div class=\"container\"> 
+             <table style=\"background-color:#181818; color:#FFF\" class=\"table\">
+             <thead class=\"thead-dark\"> 
+             <tr> <th>Name </th>
+                  <th>Service Rating </th>
+                  <th>Starting Date </th>
+             </tr>
+             </thead>
+             <tbody>";
+       while($row = mysqli_fetch_array($result_query)) {
+           echo "<tr> 
+                <td> $row[1] </td>
+                <td> $row[2] </td>
+                <td> $row[3] </td>
+                </tr>";
+       }
+       echo "</tbody>
+                </table> </div>";
+
+      /*
+
       if($lower_service_type == "repair")
       {
            $result_query = mysqli_query($db, "SELECT service_type_ID, custom_service_name, base_material_price, item_type FROM repair_service");
@@ -176,5 +215,7 @@ include ('config.php');
           }
           echo "</table> </div>";
       }
+      */
     }
+
 ?>
