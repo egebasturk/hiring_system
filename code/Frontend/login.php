@@ -18,7 +18,7 @@
             $username = $_POST['username'];
             $password = $_POST['password'];
 
-            $query = mysqli_query($db, "SELECT * FROM users WHERE username='$username' OR email='$username' AND password='$password'");
+            $query = mysqli_query($db, "SELECT * FROM users WHERE (username='$username' OR email='$username') AND password='$password'");
             $rows = mysqli_num_rows($query);
             if($rows == 1)
             {
@@ -30,8 +30,8 @@
                 $query = mysqli_query($db, "SELECT user_ID FROM professional_users WHERE user_ID='$id'");
                 $isProf = mysqli_num_rows($query);
                 session_start();
-                $_SESSION['username'] = $username;
                 $_SESSION['user_ID'] = $id;
+                $_SESSION['username'] = $username;
                 $_SESSION['is_prof'] = $isProf;
                 if($isProf == 1){
                     header("Location: logon_pro.php");
