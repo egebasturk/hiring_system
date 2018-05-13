@@ -1,5 +1,6 @@
 <?php
 session_start();
+include ('config.php');
 ?>
 <html lang="en">
 <head>
@@ -47,6 +48,13 @@ session_start();
                 }
                 else{
                     echo "<li><a href=\"login.php\"><span class=\"glyphicon glyphicon-log-out\"></span> Logout</a></li>";
+                    $sql = "SELECT user_ID
+                            FROM users us NATURAL JOIN regular_users rus
+                            WHERE rus.user_ID='$id'";
+                    if (mysqli_num_rows(mysqli_query($db, "$sql")) == 1)
+                        echo "<li><a href=\"logon_reg.php\"><span class=\"glyphicon glyphicon-home\"></span> My Home</a></li>";
+                    else
+                        echo "<li><a href=\"logon_pro.php\"><span class=\"glyphicon glyphicon-home\"></span> My Home</a></li>";
                 }
       ?>
 
@@ -87,7 +95,6 @@ session_start();
 </body>
 </html>
 <?php
-   include ('config.php');
    $method_value = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : null;
    if($method_value== 'POST')
    {

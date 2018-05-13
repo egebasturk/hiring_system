@@ -128,7 +128,7 @@ $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
         </tr>
         </tbody>
     </table>
+    <a href="logon_pro.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </div>
-<a href="logon_pro.php" type="button" class="btn btn-warning">Go Back To Home Page</a>
 </body>
 </html>
