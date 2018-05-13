@@ -53,9 +53,9 @@
   
 <div class="container">
     <h1>
-        <form action="" method="post" style="text-align:center;">
+        <form action="" method="post" style="text-align:left;">
             <div class=""form-group">
-            <div class="col-sm-10">
+            <div class="col-sm-0">
                 <a href="homepage.php">
                     <img src="logo.png"
                          alt="Portakal logo"
@@ -64,7 +64,6 @@
             </div>
 </div>
 </h1>
-  <p>List of actions for regular users</p>
   <div class="btn-group btn-group-justified">
     <a href="manage_reg.php" class="btn btn-warning">Manage Account</a>
     <a href="view_service_requests_reg.php" class="btn btn-warning">Service Requests</a>

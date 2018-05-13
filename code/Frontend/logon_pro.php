@@ -50,20 +50,20 @@
         </ul>
     </div>
 </nav>
-  
+
 <div class="container">
     <h1>
-        <form action="" method="post" style="text-align:center;">
+        <form action="" method="post" style="text-align:left;">
             <div class=""form-group">
-            <div class="col-sm-10">
+            <div class="col-sm-0">
                 <a href="homepage.php">
                     <img src="logo.png"
                          alt="Portakal logo"
                          style="width:271px;height:47px;border:0;">
                 </a>
             </div>
-    </div>
-    </h1>
+</div>
+</h1>
   <form action="" method="post" style="text-align:center;">
   <div class="btn-group btn-group-justified">
     <a name="manage" class="btn btn-warning" href="manage_pro.php" role="button">Manage Account</a>
