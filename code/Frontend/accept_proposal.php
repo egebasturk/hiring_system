@@ -1,3 +1,19 @@
+<?php
+include('config.php');
+session_start();
+$user_ID = $_SESSION['user_ID'];
+if(isset($_POST['proposalid']))
+{
+    $proposalid = $_POST['proposalid'];
+    //echo "$proposalid";
+}
+if(isset($_POST['orderid']))
+{
+    $orderid = $_POST['orderid'];
+    //echo "$orderid";
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,10 +65,24 @@
         <tbody>
         <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
-            <td>2000</td>
-            <td>Moving</td>
-            <td>01.01.1970</td>
-            <td>01.01.2010</td>
+            <?php
+            $sql = "SELECT order_ID, service_type_name, sos.start_date, sos.end_date
+                    FROM services s NATURAL JOIN service_orders sos
+                    WHERE sos.order_ID='$orderid'";
+            $result = mysqli_query($db, "$sql");
+            $error = $db->error;
+            if ($result == false) {
+                $error = $db->error;
+                echo "$error";
+                return false;
+            }
+            $row = mysqli_fetch_array($result);
+            echo "<tr>";
+            echo "<th>" . $row[0] . "</th>";
+            echo "<th>" . $row[1]. "</th>";
+            echo "<th>" . $row[2] . "</th>";
+            echo "<th>" . $row[3] . "</th>";
+            ?>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
         </tbody>
@@ -62,7 +92,6 @@
         <thead>
         <tr>
             <th>Proposal ID</th>
-            <th>Name</th>
             <th>Starting Date</th>
             <th>Ending Date</th>
             <th>Price</th>
@@ -71,11 +100,24 @@
         <tbody>
         <tr>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
-            <td>9000</td>
-            <td>Buğra</td>
-            <td>01.01.1970</td>
-            <td>01.01.2010</td>
-            <td>100</td>
+            <?php
+            $sql = "SELECT pservs.proposal_ID, pservs.start_date, pservs.end_date, pservs.proposed_price
+                    FROM proposed_services pservs NATURAL JOIN proposals ps
+                    WHERE pservs.proposal_ID='$proposalid';";
+            $result = mysqli_query($db, "$sql");
+            $error = $db->error;
+            if ($result == false) {
+                $error = $db->error;
+                echo "$error";
+                return false;
+            }
+            $row = mysqli_fetch_array($result);
+            echo "<tr>";
+            echo "<th>" . $row[0] . "</th>";
+            echo "<th>" . $row[1]. "</th>";
+            echo "<th>" . $row[2] . "</th>";
+            echo "<th>" . $row[3] . "</th>";
+            ?>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>
         </tbody>
