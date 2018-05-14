@@ -17,7 +17,10 @@ $sql_update = "INSERT INTO past_services (service_type_ID, order_date, provider_
                 SELECT service_type_ID, pservs.start_date, ps.professional_ID
                         FROM proposed_services pservs NATURAL JOIN proposals ps
                         WHERE proposal_ID='$proposalid'";
+
+
 $result = mysqli_query($db, "$sql_update");
+
 $error = $db->error;
 if ($result == false) {
     $error = $db->error;
@@ -179,15 +182,7 @@ if ($result == false) {
         </thead>
         <tbody>
         <tr>
-            <!--BURALARA PHP SERPİŞTİRİLECEK-->
-            <td>Buğra</td>
-            <td>Ankara</td>
-            <td>5 years</td>
-            <td>House cleaning</td>
-            <td>6/10</td>
-            <td>N/A</td>
-            <td>N/A</td>
-            <!--BURALARA PHP SERPİŞTİRİLECEK-->
+
         </tr>
         </tbody>
     </table>

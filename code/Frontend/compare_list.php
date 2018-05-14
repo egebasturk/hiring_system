@@ -133,13 +133,6 @@ if(isset($_POST['back'])) {
                     </tr>
                     </tbody>
                 </table>
-                <form action="" method="post">
-                    <div class="form-group">
-                        <div class="col-sm-offset-0 col-sm-0">
-                            <button type="submit" name="submit" class="btn btn-success">Accept</button>
-                        </div>
-                    </div>
-                </form>
             </td>
             <td>
                 <table class="table table-bordered">
@@ -182,13 +175,6 @@ if(isset($_POST['back'])) {
                     </tr>
                     </tbody>
                 </table>
-                <form action="" method="post">
-                    <div class="form-group">
-                        <div class="col-sm-offset-0 col-sm-0">
-                            <button type="submit" name="submit" class="btn btn-success">Accept</button>
-                        </div>
-                    </div>
-                </form>
             </td>
         </tr>
         </tbody>
