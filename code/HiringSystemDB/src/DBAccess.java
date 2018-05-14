@@ -47,7 +47,7 @@ public class DBAccess {
                 "FROM (past_services paservs NATURAL JOIN provided pd NATURAL JOIN proposed_services pservs) JOIN service_orders sos \n" +
                 "WHERE sos.order_ID=pservs.order_ID AND provider_ID=NEW.provider_ID"
         );
-        statement.executeUpdate("INSERT INTO service_ratings_evaluations (user_ID, service_type_ID, order_date, provider_ID, rating, evaluation) \n" +
+        statement.executeUpdate("CREATE TRIGGER `update_eval` AFTER INSERT ON `has_taken` FOR EACH ROW INSERT INTO service_ratings_evaluations (user_ID, service_type_ID, order_date, provider_ID, rating, evaluation) \n" +
                 "VALUES (NEW.user_ID, NEW.service_type_ID, NEW.order_date, NEW.provider_ID, '0', '')"
         );
     }
