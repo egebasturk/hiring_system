@@ -44,6 +44,7 @@
             <th>Order Details</th>
             <th>Starting Date</th>
             <th>Ending Date</th>
+            <th>Match</th>
         </tr>
         </thead>
         <tbody>

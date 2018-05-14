@@ -86,6 +86,7 @@
             <th>Price</th>
             <th>Add</th>
             <th>Remove</th>
+            <th>Accept</th>
         </tr>
         </thead>
         <tbody>

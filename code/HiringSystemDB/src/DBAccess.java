@@ -39,7 +39,14 @@ public class DBAccess {
                 "AFTER INSERT ON past_services " +
                 "FOR EACH ROW " +
                 "INSERT INTO provided (service_type_ID, order_date, provider_ID, served) " +
-                "VALUES (NEW.service_type_ID, NEW.order_date , NEW.provider_ID, '0')");
+                "VALUES (NEW.service_type_ID, NEW.order_date , NEW.provider_ID, '0')"
+        );
+        statement.executeUpdate("CREATE TRIGGER `send_notification_prof` BEFORE INSERT ON `past_services` " +
+                "FOR EACH ROW INSERT INTO requests (to_user_ID, from_user_ID, subject, order_ID, price)\n" +
+                "SELECT pd.provider_ID, sos.requester_ID, 'Proposal Acceptance', pservs.order_ID, pservs.proposed_price\n" +
+                "FROM (past_services paservs NATURAL JOIN provided pd NATURAL JOIN proposed_services pservs) JOIN service_orders sos \n" +
+                "WHERE sos.order_ID=pservs.order_ID\n"
+        );
     }
     private static void insertDummyData() throws java.sql.SQLException
     {
@@ -149,6 +156,9 @@ public class DBAccess {
         statement.executeUpdate("CREATE TABLE service_orders" +
                 "(order_ID INT PRIMARY KEY AUTO_INCREMENT," +
                 "requester_ID INT," +
+                "FOREIGN KEY (requester_ID) REFERENCES regular_users( user_ID)\n" +
+                "ON DELETE CASCADE\n" +
+                "ON UPDATE CASCADE," +
                 "service_type_ID INT," +
                 "FOREIGN KEY (service_type_ID) REFERENCES services( service_type_ID)\n" +
                 "ON DELETE CASCADE\n" +

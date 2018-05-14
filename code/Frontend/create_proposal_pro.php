@@ -2,6 +2,7 @@
 include('config.php');
 session_start();
 $error = "";
+$req_error = "";
 $oid = "";
 $servicetype = "";
 $user_ID= $_SESSION["user_ID"];
@@ -50,19 +51,60 @@ if(isset($_GET['servicetype']))
     }
     if(isset($_POST['invite']))
     {
-        $servicetype = $_SESSION['servicetype'];
-        $oid = $_SESSION['oid'];
-        $to_user_ID = $_POST['invite'];
-        $sql = "INSERT INTO requests(to_user_ID, from_user_ID, subject, order_ID, price, answer)
-                VALUES('$to_user_ID', '$user_ID', 'Collaboration Invitation', '$oid', '0', '2');";
-        $result1 = mysqli_query($db, $sql);
-        echo "invitation sent";
+        if(isset($_POST['request_price']))
+        {
+            $servicetype = $_SESSION['servicetype'];
+            $oid = $_SESSION['oid'];
+            $req_price = $_POST['request_price'];
+            $req_start = $_POST['request_start'];
+            $req_end = $_POST['request_end'];
+            if($_POST['request_price'] == 0)
+                $query_price = "not determined";
+            else
+                $query_price = $_POST['request_price'];
+            $to_user_ID = $_POST['invite'];
+            $sql = "INSERT INTO requests(to_user_ID, from_user_ID, subject, order_ID, price, answer, start_date, end_date)
+                VALUES('$to_user_ID', '$user_ID', 'Collaboration Invitation', '$oid', '$query_price', '2', '$req_start', '$req_end');";
+            $result1 = mysqli_query($db, $sql);
+        }
     }
     if(isset($_POST['accept']))
     {
-
+        if(isset($_POST['accepted_price']))
+        {
+            $servicetype = $_SESSION['servicetype'];
+            $oid = $_SESSION['oid'];
+            $to_user_ID = $_POST['accept'];
+            $accepted_price = $_POST['accepted_price'];
+            $servicetype = $_SESSION['servicetype'];
+            $start_date = $_POST['accepted_start'];
+            $end_date = $_POST['accepted_end'];
+            mysqli_query($db, "START TRANSACTION;");
+            $sql_query1 = "INSERT INTO proposed_services (service_type_ID, start_date, end_date, proposed_price, order_ID)
+                            VALUES ( '$servicetype', '$start_date', '$end_date', '$accepted_price', '$oid');";
+            $sql_query2 = "SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;";
+            $sql_query3 = "INSERT INTO proposals (professional_ID, proposal_ID) VALUES('$user_ID', @autoInc);";
+            $sql_query4 = "INSERT INTO collaborators(proposal_ID, user_one_ID, user_two_ID) VALUES (@autoInc, '$user_ID', '$to_user_ID');";
+            $result1 = mysqli_query($db, $sql_query1);
+            $result2 = mysqli_query($db, $sql_query2);
+            $result3 = mysqli_query($db, $sql_query3);
+            $result4 = mysqli_query($db, $sql_query4);
+            $result = $result1 && $result2 && $result3 && $result4;
+            $error = $db->error;
+            if ($result == false) {
+                echo "$error";
+                mysqli_query($db,"ROLLBACK");
+                echo "Rolled back";
+                return false;
+            }
+            else
+            {
+                mysqli_query($db, "COMMIT;");
+                echo "Committed";
+            }
+        }
+        header("Location: view_proposals_pro.php");
     }
-
 }
 
 
@@ -85,7 +127,6 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <style>
-    body {background-color: rgb(256, 256, 256);}
     input[class=form-control]{
         width:100%;
         background-color:#FFF;
@@ -96,8 +137,6 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
         border-radius:5px;
         margin-bottom:15px;
     }
-    #section3 {padding-top:50px;height:500px;color: #fff; background-color: #ff9800;}
-
 </style>
 <body>
 
@@ -141,7 +180,16 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
             $row = mysqli_fetch_array($result);
             echo "<tr>";
             echo "<th>" . $row[0] . "</th>";
-            echo "<th>" . $row[1] . "</th>";
+            if ($row[1] == 1)
+                echo "<th>Repair</th>";
+            elseif ($row[1] == 2)
+                echo "<th>Cleaning</th>";
+            elseif ($row[1] == 3)
+                echo "<th>Painting</th>";
+            elseif ($row[1] == 4)
+                echo "<th>Moving</th>";
+            elseif ($row[1] == 5)
+                echo "<th>Private Lesson</th>";
             echo "<th>" . $row[2] . "</th>";
             echo "</tr>";
             //<button type="submit" class="btn btn-warning" name="help" value="help">Get Help</button>
@@ -175,13 +223,13 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
+        <div class="modal fade" id="myModal" role="dialog" ">
+            <div class="modal-dialog" style="padding-right: 1000px">
                 <!-- Modal content-->
-                <div class="modal-content">
+                <div class="modal-content" style="width: 1200px" >
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
+                        <h4 class="modal-title">Invite Professionals</h4>
                     </div>
                     <div class="modal-body">
                         <div id="section3" class="container-fluid">
@@ -206,13 +254,16 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
                                     <tr>
                                         <th>Custom Service Name</th>
                                         <th>User</th>
+                                        <th>Price</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
                                         <th>Invite</th>
                                     </tr>
                                     </thead>
                                     <tbody>";
                                 while($help = mysqli_fetch_array($result_help))
                                 {
-                                    $sql_pending = "SELECT answer FROM requests WHERE to_user_ID = '$help[0]' AND from_user_ID = '$user_ID' AND order_ID = '$oid';";
+                                    $sql_pending = "SELECT answer, price, start_date, end_date FROM requests WHERE to_user_ID = '$help[0]' AND from_user_ID = '$user_ID' AND order_ID = '$oid';";
                                     $result_pending = mysqli_query($db, $sql_pending);
                                     $pending = mysqli_fetch_array($result_pending);
                                     $row_count = mysqli_num_rows($result_pending);
@@ -221,20 +272,32 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
                                     echo "<th>" . $help[2] . "</th>";
                                     if($row_count == 0)
                                     {
-                                        echo "<th><button type=\"submit\" name=\"invite\" class=\"btn btn-warning\" value=\"$help[0]\">invite</button></th>";
+                                        echo "<th> <input type=\"number\" min=\"0\" class=\"form-control\" name=\"request_price\"></th>";
+                                        echo "<th> <input type=\"date\" class=\"form-control\" name=\"request_start\"></th>";
+                                        echo "<th> <input type=\"date\" class=\"form-control\" name=\"request_end\"></th>";
+                                        echo "<th><button type=\"submit\" name=\"invite\" class=\"btn btn-warning\" value=\"$help[0]\">Invite</button></th>";
                                     }
                                     else
                                     {
                                         if($pending[0] == 2)
                                         {
-                                            echo "<th><button type=\"submit\" name=\"pending\" class=\"btn btn-warning\" value=\"$help[0]\">pending</button></th>";
+                                            echo " <th> <input type=\"number\" min=\"0\" class=\"form-control\" name=\"pending_price\" value=\"$pending[1]\" readonly></th>";
+                                            echo "<th> <input type=\"date\" class=\"form-control\" name=\"request_start\" value=\"$pending[2]\" readonly></th>";
+                                            echo "<th> <input type=\"date\" class=\"form-control\" name=\"request_end\" value=\"$pending[3]\" readonly></th>";
+                                            echo "<th><button type=\"submit\" name=\"pending\" class=\"btn btn-warning\" value=\"$help[0]\">Pending</button></th>";
                                         }
                                         elseif($pending[0] == 1)
                                         {
+                                            echo " <th> <input type=\"number\" min=\"0\" class=\"form-control\" name=\"accepted_price\" value=\"$pending[1]\" readonly></th>";
+                                            echo "<th> <input type=\"date\" class=\"form-control\" name=\"accepted_start\" value=\"$pending[2]\" readonly></th>";
+                                            echo "<th> <input type=\"date\" class=\"form-control\" name=\"accepted_end\" value=\"$pending[3]\" readonly></th>";
                                             echo "<th><button type=\"submit\" name=\"accept\" class=\"btn btn-warning\" value=\"$help[0]\">Accepted!</button></th>";
                                         }
                                         elseif($pending[0] == 0)
                                         {
+                                            echo " <th> <input type=\"number\" min=\"0\" class=\"form-control\" value=\"$pending[1]\" readonly></th>";
+                                            echo "<th> <input type=\"date\" class=\"form-control\"readonly></th>";
+                                            echo "<th> <input type=\"date\" class=\"form-control\"readonly></th>";
                                             echo "<th><button type=\"submit\" name=\"declined\" class=\"btn btn-warning\" disabled>Declined</button></th>";
                                         }
                                     }
