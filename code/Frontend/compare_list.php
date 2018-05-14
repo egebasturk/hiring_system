@@ -75,6 +75,10 @@ if(isset($_POST['submit']))
         unset($_SESSION["proposalTwo"]);
     }
 }
+
+if(isset($_POST['back'])) {
+    header('Location: view_proposals_reg.php?order_id=0');
+}
 ?>
 
 <div class="container">
@@ -321,15 +325,10 @@ if(isset($_POST['submit']))
         <div class="form-group">
             <div class="col-sm-offset-0 col-sm-0">
                 <button type="submit" name="submit" class="btn btn-danger">Clear the list</button>
+                <button type="submit" name="back" class="btn btn-danger">Back</button>
             </div>
         </div>
-        <button class="btn btn-danger" onclick="goBack()">Go Back</button>
 
-        <script>
-            function goBack() {
-                window.history.back();
-            }
-        </script>
 </div>
 </body>
 </html>
