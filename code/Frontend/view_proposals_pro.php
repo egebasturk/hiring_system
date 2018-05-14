@@ -28,8 +28,6 @@ if (isset($_POST['cancel']))
 else
     echo "";//DEBUG
 
-
-
 $sql = "SELECT proposal_ID, start_date, end_date, proposed_price
 FROM (professional_users pros NATURAL JOIN proposals ps) NATURAL JOIN proposed_services pservs
 WHERE pros.user_ID=$user_ID";
