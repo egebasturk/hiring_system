@@ -144,7 +144,16 @@ if(isset($_GET['decision']))
                                     echo "<tr>";
                                     echo "<th>" . $arr_2[0] . "</th>";
                                     echo "<th>" . $arr[2] . "</th>";
-                                    echo "<th>" . $arr[3] . "</th>";
+                                    if ($arr[3] == 1)
+                                        echo "<th>Repair</th>";
+                                    elseif ($arr[3] == 2)
+                                        echo "<th>Cleaning</th>";
+                                    elseif ($arr[3] == 3)
+                                        echo "<th>Painting</th>";
+                                    elseif ($arr[3] == 4)
+                                        echo "<th>Moving</th>";
+                                    elseif ($arr[3] == 5)
+                                        echo "<th>Private Lesson</th>";
                                     echo "<th>" . $arr[4] . "</th>";
                                     echo "<th> <a href=\"logon_pro.php?decision=1&from_uid=$arr[1]\" type=\"button\" class=\"btn btn-warning\">Accept</a></th>";
                                     echo "<th> <a href=\"logon_pro.php?decision=0&from_uid=$arr[1]\" type=\"button\" class=\"btn btn-warning\">Decline</a></th>";
