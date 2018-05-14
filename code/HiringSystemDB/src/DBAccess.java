@@ -174,7 +174,9 @@ public class DBAccess {
                 "ON DELETE CASCADE\n" +
                 "ON UPDATE CASCADE," +
                 "price INT," +
-                "answer INT" +
+                "answer INT," +
+                "start_date DATE," +
+                "end_date DATE" +
                 ")engine=InnoDB;"
         );
         /*statement.executeUpdate("CREATE TRIGGER service_trigger " +
@@ -261,8 +263,12 @@ public class DBAccess {
                 "FOREIGN KEY (proposal_ID) REFERENCES proposed_services( proposal_ID)" +
                 "ON DELETE CASCADE\n" +
                 "ON UPDATE CASCADE," +
-                "user_ID INT," +
-                "FOREIGN KEY (user_ID) REFERENCES professional_users( user_ID)\n" +
+                "user_one_ID INT," +
+                "FOREIGN KEY (user_one_ID) REFERENCES professional_users( user_ID)\n" +
+                "ON DELETE CASCADE\n" +
+                "ON UPDATE CASCADE," +
+                "user_two_ID INT," +
+                "FOREIGN KEY (user_two_ID) REFERENCES professional_users( user_ID)\n" +
                 "ON DELETE CASCADE\n" +
                 "ON UPDATE CASCADE" +
                 ")engine=InnoDB;"
