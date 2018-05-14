@@ -29,8 +29,8 @@ else
     echo "";//DEBUG
 
 $sql = "SELECT proposal_ID, start_date, end_date, proposed_price
-FROM (professional_users pros NATURAL JOIN proposals ps) NATURAL JOIN proposed_services pservs
-WHERE pros.user_ID=$user_ID";
+FROM proposals ps NATURAL JOIN proposed_services pservs
+WHERE ps.professional_ID=$user_ID";
 $result = mysqli_query($db, "$sql");
 $error = $db->error;
 if ($result == false) {
