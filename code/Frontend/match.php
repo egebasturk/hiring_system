@@ -140,10 +140,10 @@
                     echo "<th>" . $row[2] . "</th>";
                     echo "<th>" . $row[3] . "</th>";
                     echo "<td>
-                    <form action=\"\" method=\"post\">
+                    <form action=\"compare_list.php\" method=\"post\">
                                         <div class=\"form-group\">
                                             <div class=\"col-sm-offset-0 col-sm-0\">
-                                                <button type=\"submit\" name=\"add\" class=\"btn btn-warning\">Add</button>
+                                                <button type=\"submit\" name=\"add\" value='$row[0]' class=\"btn btn-warning\">Add</button>
                                             </div>
                                         </div>
                                     </form>

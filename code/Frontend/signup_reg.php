@@ -97,7 +97,7 @@
 
 <div class="container">
     <h1>
-        <form action="" method="post" style="text-align:center;">
+        <form action="" method="post">
             <div class=""form-group">
             <div class="col-sm-10">
                 <a href="homepage.php">
@@ -111,10 +111,10 @@
     <form action="" method="post" style="text-align:center;">
     <div class="btn-group btn-group-justified">
       <div class="btn-group">
-        <button type="submit" name="pro" class="btn btn-primary">Professional User</button>
+        <button type="submit" name="pro" class="btn btn-warning">Professional User</button>
       </div>
       <div class="btn-group">
-        <button type="submit" name="reg" class="btn btn-primary">Regular User</button>
+        <button type="submit" name="reg" class="btn btn-warning">Regular User</button>
       </div>       
     </div>
     <div class="form-group">

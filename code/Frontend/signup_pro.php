@@ -99,7 +99,7 @@
 
 <div class="container">
   <h1>
-      <form action="" method="post" style="text-align:center;">
+      <form action="" method="post">
           <div class=""form-group">
           <div class="col-sm-10">
               <a href="homepage.php">
@@ -112,10 +112,10 @@
   </h1>
     <div class="btn-group btn-group-justified">
       <div class="btn-group">
-        <a class="btn btn-primary" name="pro" href="signup_pro.php" role="button">Professional User</a>
+        <a class="btn btn-warning" name="pro" href="signup_pro.php" role="button">Professional User</a>
       </div>
       <div class="btn-group">
-        <a class="btn btn-primary" name="reg" href="signup_reg.php" role="button">Regular User</a>
+        <a class="btn btn-warning" name="reg" href="signup_reg.php" role="button">Regular User</a>
       </div>       
     </div>
     <form action="" method="post" style="text-align:center;">

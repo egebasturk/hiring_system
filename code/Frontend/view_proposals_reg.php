@@ -81,7 +81,7 @@
                                 <form action=\"\" method=\"post\">
                                     <div class=\"form-group\">
                                         <div class=\"col-sm-offset-0 col-sm-0\">
-                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\" value=\"$row[0]\">match</button>
+                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\" value=\"$row[0]\">Match</button>
                                         </div>
                                     </div>
                                 </form>
@@ -113,7 +113,7 @@
                                 <form action=\"\" method=\"post\">
                                     <div class=\"form-group\">
                                         <div class=\"col-sm-offset-0 col-sm-0\">
-                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\" value=\"$row[0]\">match</button>
+                                            <button type=\"submit\" name=\"match\" class=\"btn btn-danger\" value=\"$row[0]\">Match</button>
                                         </div>
                                     </div>
                                 </form>
@@ -150,7 +150,7 @@
             <?php
                 if($order_id == 0)
                 {
-                    $sql = "SELECT ps.proposal_ID, ps.start_date, ps.end_date, ps.proposed_price FROM proposed_services ps NATURAL JOIN (SELECT order_ID FROM service_orders WHERE requester_ID = $user_ID) os;";
+                    $sql = "SELECT ps.proposal_ID, ps.start_date, ps.end_date, ps.proposed_price, order_ID FROM proposed_services ps NATURAL JOIN (SELECT order_ID FROM service_orders WHERE requester_ID = $user_ID) os;";
                     $result = mysqli_query($db, $sql);
                     $error = $db->error;
                     if ($result == false) {
@@ -169,6 +169,7 @@
                                     <div class=\"form-group\">
                                         <div class=\"col-sm-offset-0 col-sm-0\">
                                             <button type=\"submit\" name=\"add\" value='$row[0]' class=\"btn btn-warning\">Add</button>
+                                            <input type=\"hidden\" name='orderid' value='$row[4]'></input>
                                         </div>
                                     </div>
                                 </form>
@@ -206,6 +207,7 @@
                                     <div class=\"form-group\">
                                         <div class=\"col-sm-offset-0 col-sm-0\">
                                             <button type=\"submit\" name=\"add\" value='$row[0]' class=\"btn btn-warning\">Add</button>
+                                            <input type=\"hidden\" name='orderid' value='$row[4]'></input>
                                         </div>
                                     </div>
                                 </form>
