@@ -16,7 +16,7 @@ if(isset($_POST['orderid']))
 $sql_update = "INSERT INTO past_services (service_type_ID, order_date, provider_ID)
                 SELECT service_type_ID, pservs.start_date, ps.professional_ID
                         FROM proposed_services pservs NATURAL JOIN proposals ps
-                        WHERE proposal_ID='1' AND start_date='2018-5-1' AND professional_ID='2'";
+                        WHERE proposal_ID='$proposalid'";
 $result = mysqli_query($db, "$sql_update");
 $error = $db->error;
 if ($result == false) {
@@ -24,6 +24,18 @@ if ($result == false) {
     echo "$error";
     return false;
 }
+$sql_update = "INSERT INTO has_taken (user_ID, service_type_ID, order_date, provider_ID)
+                SELECT '$user_ID', service_type_ID, pservs.start_date, ps.professional_ID
+                        FROM proposed_services pservs NATURAL JOIN proposals ps
+                        WHERE proposal_ID='$proposalid'";
+$result = mysqli_query($db, "$sql_update");
+$error = $db->error;
+if ($result == false) {
+    $error = $db->error;
+    echo "$error";
+    return false;
+}
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -137,16 +149,16 @@ if ($result == false) {
             $subject = "Your proposal with id $proposalid was accepted";
 
 
-            $sql_customer_email = "SELECT rus.name, us.email
+            /*$sql_customer_email = "SELECT rus.name, us.email
                                     FROM service_orders sos NATURAL JOIN regular_users rus NATURAL JOIN users us
                                     WHERE sos.order_ID='1'";
             $customer_email = mysqli_fetch_array(mysqli_query($db, $sql_customer_email))[1];
             $customer_name = mysqli_fetch_array(mysqli_query($db, $sql_customer_email))[0];
             $text = "$customer_name has accepted your proposal. You can contact his/her email: $customer_email";
             $headers ="From: noreply@portakal.com" . "\r\n";
-
             mail($to, $subject, $text, $headers);
             echo "A mail has been sent to the proposer. You will be contacted by your registered email."
+            */
             ?>
             <!--BURALARA PHP SERPİŞTİRİLECEK-->
         </tr>

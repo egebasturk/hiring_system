@@ -129,6 +129,8 @@ if(isset($_GET['decision']))
                                         <th>Subject </th>
                                         <th>Order Type</th>
                                         <th>Price</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
                                         <th>Accept</th>
                                         <th>Decline</th>
                                     </tr>
@@ -155,6 +157,8 @@ if(isset($_GET['decision']))
                                     elseif ($arr[3] == 5)
                                         echo "<th>Private Lesson</th>";
                                     echo "<th>" . $arr[4] . "</th>";
+                                    echo "<th>" . $arr[6] . "</th>";
+                                    echo "<th>" . $arr[7] . "</th>";
                                     echo "<th> <a href=\"logon_pro.php?decision=1&from_uid=$arr[1]\" type=\"button\" class=\"btn btn-warning\">Accept</a></th>";
                                     echo "<th> <a href=\"logon_pro.php?decision=0&from_uid=$arr[1]\" type=\"button\" class=\"btn btn-warning\">Decline</a></th>";
                                     echo "</tr>";

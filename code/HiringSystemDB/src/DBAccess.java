@@ -39,7 +39,14 @@ public class DBAccess {
                 "AFTER INSERT ON past_services " +
                 "FOR EACH ROW " +
                 "INSERT INTO provided (service_type_ID, order_date, provider_ID, served) " +
-                "VALUES (NEW.service_type_ID, NEW.order_date , NEW.provider_ID, '0')");
+                "VALUES (NEW.service_type_ID, NEW.order_date , NEW.provider_ID, '0')"
+        );
+        // TODO: This should be also after insert but MariaDB does not support it yet.
+        statement.executeUpdate("CREATE TRIGGER `send_notification_pro` BEFORE INSERT ON `past_services` FOR EACH ROW INSERT INTO requests (to_user_ID, from_user_ID, subject, order_ID, price, start_date, end_date)\n" +
+                "SELECT pd.provider_ID, sos.requester_ID, 'Proposal Acceptance', pservs.order_ID, pservs.proposed_price, pservs.start_date, pservs.end_date\n" +
+                "FROM (past_services paservs NATURAL JOIN provided pd NATURAL JOIN proposed_services pservs) JOIN service_orders sos \n" +
+                "WHERE sos.order_ID=pservs.order_ID AND provider_ID=NEW.provider_ID"
+        );
     }
     private static void insertDummyData() throws java.sql.SQLException
     {
@@ -177,7 +184,9 @@ public class DBAccess {
                 "ON DELETE CASCADE\n" +
                 "ON UPDATE CASCADE," +
                 "price INT," +
-                "answer INT" +
+                "answer INT," +
+                "start_date DATE," +
+                "end_date DATE" +
                 ")engine=InnoDB;"
         );
         /*statement.executeUpdate("CREATE TRIGGER service_trigger " +
@@ -264,8 +273,12 @@ public class DBAccess {
                 "FOREIGN KEY (proposal_ID) REFERENCES proposed_services( proposal_ID)" +
                 "ON DELETE CASCADE\n" +
                 "ON UPDATE CASCADE," +
-                "user_ID INT," +
-                "FOREIGN KEY (user_ID) REFERENCES professional_users( user_ID)\n" +
+                "user_one_ID INT," +
+                "FOREIGN KEY (user_one_ID) REFERENCES professional_users( user_ID)\n" +
+                "ON DELETE CASCADE\n" +
+                "ON UPDATE CASCADE," +
+                "user_two_ID INT," +
+                "FOREIGN KEY (user_two_ID) REFERENCES professional_users( user_ID)\n" +
                 "ON DELETE CASCADE\n" +
                 "ON UPDATE CASCADE" +
                 ")engine=InnoDB;"
