@@ -12,23 +12,6 @@ include ('config.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<style>
-    input[class=form-control]{
-        width:100%;
-        background-color:#FFF;
-        color:#000;
-        border:2px solid #FFF;
-        font-size:20px;
-        cursor:pointer;
-        border-radius:5px;
-        margin-bottom:15px;
-    }
-    input[class=table table-striped table-dark]{
-        background-color:#000;
-        color:#FFF;
-        font-size:40px;
-    }
-</style>
 <body>
 
 <nav class="navbar navbar-inverse">
@@ -69,34 +52,53 @@ include ('config.php');
 </nav>
 <div class="container">
     <h1>
-            <div class=""form-group">
-            <div class="col-sm-10">
-                <a href="homepage.php">
-                    <img src="logo.png"
-                         alt="Portakal logo"
-                         style="width:271px;height:47px;border:0;">
-                </a>
-            </div>
+        <a href="homepage.php">
+            <img src="logo.png"
+                 alt="Portakal logo"
+                 style="width:271px;height:47px;border:0;">
+        </a>
+    </h1>
+<div class="form-group">
+    <button type="button" class="btn btn-danger btn-xs">Repair</button>
+    <button type="button" class="btn btn-primary btn-xs">Cleaning</button>
+    <button type="button" class="btn btn-success btn-xs">Painting</button>
+    <button type="button" class="btn btn-info btn-xs">Moving</button>
+    <button type="button" class="btn btn-warning btn-xs">Private Lesson</button>
 </div>
-</h1>
-<br/> <br/>
-<br/> <br/>
-<div class=""form-group">
-<div class="col-sm-10">
-  <span class="label label-danger">Repair</span>
-  <span class="label label-primary">Cleaning</span>
-  <span class="label label-success">Painting</span>
-  <span class="label label-info">Moving</span>
-  <span class="label label-warning">Private Lesson</span>
+
+<div class="form-group row">
+    <div class="col-xs-2">
+        <label for="ex1">Min price:</label>
+        <input class="form-control" id="ex1" type="number" min="0">
+    </div>
+    <div class="col-xs-2">
+        <label for="ex1">Max price:</label>
+        <input class="form-control" id="ex2" type="number" min="0">
+    </div>
+    <div class="col-xs-2">
+        <label for="ex1">Start date:</label>
+        <input class="form-control" id="ex3" type="date">
+    </div>
+    <div class="col-xs-2">
+        <label for="ex1">End date:</label>
+        <input class="form-control" id="ex4" type="date">
+    </div>
+    <div class="col-xs-2">
+        <label for="ex1">Min rating:</label>
+        <input class="form-control" id="ex5" type="number" min="0">
+    </div>
 </div>
-</div>
-  <br/> <br/>
-  <form  action="" method = "post">
-      <div class="form-group">
-        <input type="text" name = "service_type" class="form-control" placeholder="Search">
-      </div>
-      <button type="submit" class="btn btn-default">Search</button>
-    </form>
+<form action="" method = "post">
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search">
+        <div class="input-group-btn">
+            <button class="btn btn-default" type="submit">
+                <i class="glyphicon glyphicon-search"></i>
+            </button>
+        </div>
+    </div>
+</form>
+
 </div>
 </body>
 </html>
