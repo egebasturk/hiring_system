@@ -93,12 +93,22 @@ include ('config.php');
   <br/> <br/>
   <form  action="" method = "post">
       <div class="form-group">
-        <input type="text" name = "service_type" class="form-control" placeholder="Search">
+        <input type="text" id="input" name = "service_type" class="form-control" placeholder="Search">
       </div>
       <button type="submit" class="btn btn-default">Search</button>
     </form>
 </div>
 </body>
+<script>
+    $(document).ready(function(){
+        $("#input").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 </html>
 <?php
    $method_value = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : null;
@@ -119,21 +129,26 @@ include ('config.php');
            $service_ID = 4;
        if($lower_service_type == "private_lesson" || $lower_service_type == "private lesson" || $lower_service_type == "private lesson")
            $service_ID = 5;
-       $result_query = mysqli_query($db, "SELECT * FROM provided_services WHERE service_type_ID='$service_ID'");
+       if($lower_service_type != "")
+            $result_query = mysqli_query($db, "SELECT * FROM provided_services WHERE service_type_ID='$service_ID'");
+       else
+           $result_query = mysqli_query($db, "SELECT * FROM provided_services");
        echo "<div class=\"container\"> 
              <table style=\"background-color:#181818; color:#FFF\" class=\"table\">
              <thead class=\"thead-dark\"> 
              <tr> <th>Name </th>
                   <th>Service Rating </th>
                   <th>Starting Date </th>
+                  <th>Ending Date </th>
              </tr>
              </thead>
-             <tbody>";
+             <tbody id=\"myTable\">";
        while($row = mysqli_fetch_array($result_query)) {
            echo "<tr> 
                 <td> $row[1] </td>
                 <td> $row[2] </td>
                 <td> $row[3] </td>
+                <td> $row[4] </td>
                 </tr>";
        }
        echo "</tbody>

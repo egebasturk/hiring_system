@@ -164,7 +164,7 @@
 		</div>
 	  </div>
       <div class="form-group">
-      <label for="service">Service Type:</label>
+      <label style="text-align:left;" for="service">Service Type:</label>
         <div class="radio-group">
           <label class="radio-inline">
             <input type="radio" value="repair" name="radio">Repair
@@ -182,7 +182,6 @@
             <input type="radio" value="privatelesson" name="radio">Private Lesson
           </label>          
         </div>
-      </div>
 
       <div class="form-group">        
         <div class="col-sm-offset-0 col-sm-0">
