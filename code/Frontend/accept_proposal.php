@@ -24,6 +24,18 @@ if ($result == false) {
     echo "$error";
     return false;
 }
+$sql_update = "INSERT INTO has_taken (user_ID, service_type_ID, order_date, provider_ID)
+                SELECT '$user_ID', service_type_ID, pservs.start_date, ps.professional_ID
+                        FROM proposed_services pservs NATURAL JOIN proposals ps
+                        WHERE proposal_ID='$proposalid'";
+$result = mysqli_query($db, "$sql_update");
+$error = $db->error;
+if ($result == false) {
+    $error = $db->error;
+    echo "$error";
+    return false;
+}
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
