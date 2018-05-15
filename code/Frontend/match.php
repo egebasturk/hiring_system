@@ -176,7 +176,7 @@
                                     <form action=\"accept_proposal.php\" method=\"post\">
                                         <div class=\"form-group\">
                                             <div class=\"col-sm-offset-0 col-sm-0\">
-                                                <button type=\"submit\" name=\"remove\" class=\"btn btn-danger\">Accept</button>
+                                                <button type=\"submit\" name=\"remove\" class=\"btn btn-success\">Accept</button>
                                                 <input type=\"hidden\" name='proposalid' value='$row[0]'></input>
                                                 <input type=\"hidden\" name='orderid' value='$order_id'></input>
                                             </div>
