@@ -25,9 +25,14 @@
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="homepage.php">Portakal</a>
+        </div>
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a href="manage_reg.php"><span class="glyphicon glyphicon-user"></span><?php
+                    include('config.php');
+                    session_start();
                     if (!empty($_SESSION))
                     {
                         $username = $_SESSION["username"];
@@ -60,8 +65,6 @@
         </thead>
         <tbody>
         <?php
-        include('config.php');
-        session_start();
         $user_ID = $_SESSION['user_ID'];
         if(isset($_GET['order_id']))
         {

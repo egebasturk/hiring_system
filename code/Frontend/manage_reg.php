@@ -71,6 +71,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a href="manage_reg.php"><span class="glyphicon glyphicon-user"></span><?php
+                    session_start();
                     if (!empty($_SESSION))
                     {
                         $username = $_SESSION["username"];
