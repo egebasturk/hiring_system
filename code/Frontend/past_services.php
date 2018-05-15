@@ -70,11 +70,10 @@
                 $error = '';
                 $user_ID = $_SESSION['user_ID'];
                 $results = array();
-                $result_query = mysqli_query($db, "SELECT provider_ID FROM regular_users NATURAL JOIN has_taken WHERE user_ID = $user_ID");
+                $result_query = mysqli_query($db, "SELECT provider_ID, service_type_ID FROM regular_users NATURAL JOIN has_taken WHERE user_ID = $user_ID");
                 while($row = mysqli_fetch_array($result_query))
                 {
                     $provider_query = mysqli_query($db, "SELECT email, city_name, experience, expertise_field FROM professional_users NATURAL JOIN users WHERE user_ID = $row[0]");
-                    $rating_query = mysqli_query($db, "SELECT rating, evaluation FROM service_ratings_evaluations WHERE user_ID = $user_ID AND provider_ID = $row[0]");
                     $email = "";
                     $city = "";
                     $exp = "";
@@ -84,24 +83,24 @@
                     echo "<tr>";
                     while($print_row = mysqli_fetch_array($provider_query))
                     {
+                        $rating_query = mysqli_query($db, "SELECT rating, evaluation FROM service_ratings_evaluations WHERE user_ID = $user_ID AND provider_ID = $row[0] AND service_type_ID = $row[1]");
+                        $rating_print = mysqli_fetch_array($rating_query);
                         $email = $print_row[0];
                         $city = $print_row[1];
                         $exp = $print_row[2];
                         $expertise = $print_row[3];
+                        $rating = $rating_print[0];
+                        $eval = $rating_print[1];
                         echo "<td>$print_row[0]</td>";
                             echo "<td>$print_row[1]</td>";
                             echo "<td>$print_row[2]</td>";
                             echo "<td>$print_row[3]</td>";
-                    }
-                    while($rating_print = mysqli_fetch_array($rating_query))
-                    {
-                        $rating = $rating_print[0];
-                        $eval = $rating_print[1];
                         echo "<td>$rating_print[0]</td>";
                         echo "<td>$rating_print[1]</td>";
+
                     }
                     echo "<td>";
-                    echo "<form action=\"evaluate_service.php?email=$email&city=$city&exp=$exp&expertise=$expertise&rating=$rating&eval=$eval&provider=$row[0]\" method=\"post\">";
+                    echo "<form action=\"evaluate_service.php?email=$email&city=$city&exp=$exp&expertise=$expertise&rating=$rating&eval=$eval&provider=$row[0]&service_type=$row[1]\" method=\"post\">";
                         echo"<div class=\"form-group\">";
                             echo "<div class=\"col-sm-offset-0 col-sm-0\">";
                                 echo"<button type=\"submit\"name=\"submit\" class=\"btn btn-warning\">Edit</button>";

@@ -60,6 +60,7 @@
                 $provider_expertise = $_GET['expertise'];
                 $service_rating = $_GET['rating'];
                 $service_eval = $_GET['eval'];
+                $service_type = $_GET['service_type'];
                 echo "<tr>";
                 echo "<td> $provider </td>";
                 echo "<td> $provider_city </td>";
@@ -92,8 +93,8 @@
                     {
                         $rating = $_POST['rating'];
                     }
-                    $sql = mysqli_query($db, "UPDATE service_ratings_evaluations SET rating='$rating', evaluation='$comment' WHERE user_ID = $user_ID AND provider_ID = $provider_ID");
-                    header('Location: evaluate_service.php?email='.$provider.'&city='.$provider_city.'&exp='.$provider_experience.'&expertise='.$provider_expertise.'&rating='.$rating.'&eval='.$comment.'&provider='.$provider_ID);
+                    $sql = mysqli_query($db, "UPDATE service_ratings_evaluations SET rating='$rating', evaluation='$comment' WHERE user_ID = $user_ID AND provider_ID = $provider_ID AND service_type_ID = $service_type");
+                    header('Location: evaluate_service.php?email='.$provider.'&city='.$provider_city.'&exp='.$provider_experience.'&expertise='.$provider_expertise.'&rating='.$rating.'&eval='.$comment.'&provider='.$provider_ID.'&service_type='.$service_type);
                 }
                 if(isset($_POST['back']))
                 {

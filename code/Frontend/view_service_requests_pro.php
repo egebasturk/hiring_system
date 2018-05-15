@@ -8,8 +8,7 @@ $user_ID= $_SESSION["user_ID"];
 if($db->connect_error){
     die("Connection failed: " . $db->connect_error);
 }
-
-$sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
+$sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details, sos.requester_ID
         FROM regular_users rus JOIN service_orders sos WHERE rus.user_ID=sos.requester_ID 
         AND sos.service_type_ID IN (SELECT prov.service_type_ID FROM provides prov WHERE prov.user_ID = $user_ID);";
         $result = mysqli_query($db, "$sql");
@@ -19,8 +18,6 @@ $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
             echo "$error";
             return false;
         }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -127,7 +124,7 @@ $sql = "SELECT sos.order_ID, sos.service_type_ID, sos.order_details
                         <form action=\"create_proposal_pro.php\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
-                                    <a href=\"create_proposal_pro.php?oid=$row[0]&servicetype=$row[1]\"type=\"button\" class=\"btn btn-warning\">Propose</a>
+                                    <a href=\"create_proposal_pro.php?oid=$row[0]&servicetype=$row[1]&req_id=$row[3]\"type=\"button\" class=\"btn btn-warning\">Propose</a>
                                 </div>
                             </div>
                         </form>

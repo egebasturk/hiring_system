@@ -5,6 +5,7 @@ $error = "";
 $req_error = "";
 $oid = "";
 $servicetype = "";
+$requester_ID = "";
 $user_ID= $_SESSION["user_ID"];
 if(isset($_GET['servicetype']))
 {
@@ -12,6 +13,7 @@ if(isset($_GET['servicetype']))
     $_SESSION['oid'] = $_GET['oid'];
     $servicetype = $_SESSION['servicetype'];
     $oid = $_SESSION['oid'];
+    $requester_ID = $_GET['req_id'];
     if (isset($_POST['create']))
     {
         $servicetype = $_SESSION['servicetype'];
@@ -27,27 +29,34 @@ if(isset($_GET['servicetype']))
                             VALUES ( '$servicetype', '$start_date', '$end_date', '$price', '$oid');";
         $sql_query2 = "SELECT LAST_INSERT_ID() as autoInc INTO @autoInc;";
         $sql_query3 = "INSERT INTO proposals (professional_ID, proposal_ID) VALUES ('$user_ID', @autoInc);";
-
+        $sql = "INSERT INTO requests(to_user_ID, from_user_ID, subject, order_ID, price, answer, start_date, end_date)
+                VALUES('$requester_ID', '$user_ID', 'Service Propose', '$oid', '$price', '2', '$start_date', '$end_date');";
 
         $result1 = mysqli_query($db, $sql_query1);
         $result2 = mysqli_query($db, $sql_query2);
         $result3 = mysqli_query($db, $sql_query3);
-        $result = $result1 && $result2 && $result3;
+        $result4 = mysqli_query($db, $sql);
+        $result = $result1 && $result2 && $result3 && $result4;
+        echo "<div class=\"alert alert-danger alert-dismissible\">
+                  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+                  <strong>Error!</strong> Cannot add the same item!
+                  </div>";
 
         //$result = mysqli_query($db, "$sql");
         $error = $db->error;
         if ($result == false) {
-            echo "$error";
             mysqli_query($db,"ROLLBACK");
-            echo "Rolled back";
             return false;
         }
         else
         {
             mysqli_query($db, "COMMIT;");
-            echo "Committed";
+            echo "<div class=\"alert alert-danger alert-dismissible\">
+                  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+                  <strong>Committed!</strong>
+                  </div>";
         }
-        header("Location: view_proposals_pro.php");
+
     }
     if(isset($_POST['invite']))
     {
@@ -202,7 +211,7 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
         </tbody>
     </table>
 
-    <form class="form-horizontal" action="create_proposal_pro.php?oid=<?php echo "$oid&servicetype=$servicetype";?>"method="POST">
+    <form class="form-horizontal" action="create_proposal_pro.php?oid=<?php echo "$oid&servicetype=$servicetype&req_id=$requester_ID";?>"method="POST">
         <div class="form-group">
             <label for="start">Start date:</label>
             <input type="date" class="form-control" name="start">

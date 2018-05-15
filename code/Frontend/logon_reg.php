@@ -101,15 +101,7 @@
                             return false;
                         }
                         echo "<table class=\"table table-bordered\">
-                                    <thead>
-                                    <tr>
-                                        <th>From</th>
-                                        <th>Subject </th>
-                                        <th>Order Type</th>
-                                        <th>Accept</th>
-                                        <th>Decline</th>
-                                    </tr>
-                               </thead>
+                            
                                <tbody>";
                         while($arr = mysqli_fetch_array($result))
                         {
@@ -119,13 +111,7 @@
                                 $result2 = mysqli_query($db, $sql2);
                                 $arr_2 = mysqli_fetch_array($result2);
                                 echo "<tr>";
-                                echo "<th>" . $arr_2[0] . "</th>";
-                                echo "<th>" . $arr[2] . "</th>";
-
-                                echo "<th>" . $arr[3] . "</th>";
-                                //echo "<th>" . $arr[4] . "</th>";
-                                echo "<th> <a href=\"logon_pro.php?decision=1&from_uid=$arr[1]\" type=\"button\" class=\"btn btn-warning\">Accept</a></th>";
-                                echo "<th> <a href=\"logon_pro.php?decision=0&from_uid=$arr[1]\" type=\"button\" class=\"btn btn-warning\">Decline</a></th>";
+                                echo "<th>" . $arr_2[0] . " sent you a proposal!</th>";
                                 echo "</tr>";
                             }
                         }

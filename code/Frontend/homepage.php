@@ -100,7 +100,7 @@ include ('config.php');
     </div>
     <div class="col-xs-2">
         <label for="ex1">Sort By:</label>
-        <select name="sort_by">
+        <select name="sort_by" class="form-control">
             <option value="alph">Name Z-A</option>
             <option value="rating">Descending Rating</option>
         </select>
