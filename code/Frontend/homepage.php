@@ -7,6 +7,7 @@ include ('config.php');
   <title>Portakal</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -58,41 +59,55 @@ include ('config.php');
                  style="width:271px;height:47px;border:0;">
         </a>
     </h1>
-<div class="form-group">
-    <button type="button" class="btn btn-danger btn-xs">Repair</button>
-    <button type="button" class="btn btn-primary btn-xs">Cleaning</button>
-    <button type="button" class="btn btn-success btn-xs">Painting</button>
-    <button type="button" class="btn btn-info btn-xs">Moving</button>
-    <button type="button" class="btn btn-warning btn-xs">Private Lesson</button>
-</div>
+    <form action="" method="post">
+    <div class="form-group">
+        <label for="service">Service Type:</label>
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-rounded active btn-md form-check-label">
+                <input type="radio" value="1" autocomplete="off" name="service_type">Repair <i class="fa fa-cogs"></i>
+            </label>
+            <label class="btn btn-rounded active btn-md form-check-label">
+                <input type="radio" value="2" autocomplete="off" name="service_type">Cleaning <i class="fa fa-leaf"></i>
+            </label>
+            <label class="btn btn-rounded active btn-md form-check-label">
+                <input type="radio" value="3" autocomplete="off" name="service_type">Painting <i class="fa fa-paint-brush"></i>
+            </label>
+            <label class="btn btn-rounded active btn-md form-check-label">
+                <input type="radio" value="4" autocomplete="off" name="service_type">Moving <i class="fa fa-home"></i>
+            </label>
+            <label class="btn btn-rounded active btn-md form-check-label">
+                <input type="radio" value="5" autocomplete="off" name="service_type">Private Lesson <i class="fa fa-graduation-cap"></i>
+            </label>
+        </div>
+    </div>
+
 
 <div class="form-group row">
     <div class="col-xs-2">
-        <label for="ex1">Min price:</label>
-        <input class="form-control" id="ex1" type="number" min="0">
+        <label for="ex1">Min Rating:</label>
+        <input class="form-control" id="ex1" name="min_rating" type="number" min="0">
     </div>
     <div class="col-xs-2">
-        <label for="ex1">Max price:</label>
-        <input class="form-control" id="ex2" type="number" min="0">
+        <label for="ex1">Desired Time Range</label>
+        <input class="form-control" id="ex3" name="start_date" type="date">
     </div>
     <div class="col-xs-2">
-        <label for="ex1">Start date:</label>
-        <input class="form-control" id="ex3" type="date">
+        <label style="color:#FFF;" for="ex1">End date:</label>
+        <input class="form-control" id="ex4" name="end_date" type="date">
     </div>
     <div class="col-xs-2">
-        <label for="ex1">End date:</label>
-        <input class="form-control" id="ex4" type="date">
-    </div>
-    <div class="col-xs-2">
-        <label for="ex1">Min rating:</label>
-        <input class="form-control" id="ex5" type="number" min="0">
+        <label for="ex1">Sort By:</label>
+        <select name="sort_by">
+            <option value="alph">Name Z-A</option>
+            <option value="rating">Descending Rating</option>
+        </select>
     </div>
 </div>
 <form action="" method = "post">
     <div class="input-group">
-        <input type="text" id="input" class="form-control" placeholder="Search">
+        <input type="text" id="input" name="keyword" class="form-control" placeholder="Search">
         <div class="input-group-btn">
-            <button class="btn btn-default" type="submit">
+            <button class="btn btn-default" name="submit" type="submit">
                 <i class="glyphicon glyphicon-search"></i>
             </button>
         </div>
@@ -101,40 +116,54 @@ include ('config.php');
 
 </div>
 </body>
-<script>
-    $(document).ready(function(){
-        $("#input").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#myTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
-    });
-</script>
 </html>
 <?php
    $method_value = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : null;
-   if($method_value== 'POST')
+   if(isset($_POST['submit']))
    {
-      $server_service_type = $_POST['service_type'];
+       if(empty($_POST['service_type']))
+           $server_service_type = '';
+       else
+           $server_service_type = $_POST['service_type'];
+       $keyword = $_POST['keyword'];
+       $minrating = $_POST['min_rating'];
+       if(empty($_POST['min_rating']))
+            $minrating = 0;
+       else
+           $minrating = $_POST['min_rating'];
+
+       if(empty($_POST['start_date'])){
+            $start = '0000-00-00';
+       }
+       else
+           $start = $_POST['start_date'];
+
+       if(empty($_POST['end_date'])){
+           $end = '9999-12-12';
+       }
+       else
+           $end = $_POST['end_date'];
+       $search_keyword = strtolower($keyword);
       $results = array();
       $result_query = "";
       $lower_service_type = strtolower($server_service_type);
-      $service_ID = '';
-      if($lower_service_type == "repair")
-          $service_ID = 1;
-      if($lower_service_type == "cleaning")
-          $service_ID = 2;
-       if($lower_service_type == "painting")
-           $service_ID = 3;
-       if($lower_service_type == "moving")
-           $service_ID = 4;
-       if($lower_service_type == "private_lesson" || $lower_service_type == "private lesson" || $lower_service_type == "private lesson")
-           $service_ID = 5;
+      $service_ID = $server_service_type;
+      $sort = $_POST['sort_by'];
+      if($sort == "alph" || $sort == '')
+          $sort_by = "custom_service_name";
+      if($sort == "rating")
+          $sort_by = "service_rating";
        if($lower_service_type != "")
-            $result_query = mysqli_query($db, "SELECT * FROM provided_services WHERE service_type_ID='$service_ID'");
+            $result_query = mysqli_query($db, "SELECT * FROM provided_services WHERE (service_starting_date BETWEEN '$start' AND '$end')
+                                                                    AND service_rating >='$minrating' 
+                                                                    AND service_type_ID='$service_ID' 
+                                                                    AND custom_service_name LIKE '%$search_keyword%' 
+                                                                    ORDER BY $sort_by DESC");
        else
-           $result_query = mysqli_query($db, "SELECT * FROM provided_services");
+           $result_query = mysqli_query($db, "SELECT * FROM provided_services WHERE (service_starting_date BETWEEN '$start' AND '$end')
+                                                                                      AND service_rating >= '$minrating' 
+                                                                                      AND custom_service_name LIKE '%$search_keyword%'
+                                                                                      ORDER BY $sort_by DESC");
        echo "<div class=\"container\"> 
              <table style=\"background-color:#181818; color:#FFF\" class=\"table\">
              <thead class=\"thead-dark\"> 
@@ -154,7 +183,7 @@ include ('config.php');
                 </tr>";
        }
        echo "</tbody>
-                </table> </div>";
+                </table> </div> <br><br><br>";
 
       /*
 
