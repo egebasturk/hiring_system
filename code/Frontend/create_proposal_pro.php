@@ -126,18 +126,6 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<style>
-    input[class=form-control]{
-        width:100%;
-        background-color:#FFF;
-        color:#000;
-        border:2px solid #FFF;
-        font-size:20px;
-        cursor:pointer;
-        border-radius:5px;
-        margin-bottom:15px;
-    }
-</style>
 <body>
 
 <nav class="navbar navbar-inverse">
@@ -146,6 +134,21 @@ INSERT INTO `proposals` (`professional_ID`, `proposal_ID`) VALUES ('2', @autoInc
             <a class="navbar-brand" href="homepage.php">Portakal</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="manage_pro.php"><span class="glyphicon glyphicon-user"></span><?php
+                    if (!empty($_SESSION))
+                    {
+                        $username = $_SESSION["username"];
+                        $id = $_SESSION["user_ID"];
+                        echo " $username";
+                    }
+                    else
+                    {
+                        echo " Currently not logged in!";
+                    }
+                    ?>
+                </a>
+            </li>
             <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
     </div>

@@ -15,29 +15,31 @@ include ('config.php');
 </head>
 <body>
 
+
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
-      <ul class="nav navbar-nav">
-          <li class="active"><a><?php
-            if(!empty($_SESSION["user_ID"])) {
-                $id = $_SESSION["user_ID"];
-                $username = $_SESSION["username"];
-                echo "User ID: $id, Username: $username";
-            }
-            else{
-                echo "Currently not logged in!";
-            }
-                  ?></a></li>
-
-      </ul>
     <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href=""><span class="glyphicon glyphicon-user"></span><?php
+                if (!empty($_SESSION))
+                {
+                    $username = $_SESSION["username"];
+                    $id = $_SESSION["user_ID"];
+                    echo " $username";
+                }
+                else
+                {
+                    echo " Currently not logged in!";
+                }
+                ?>
+            </a>
+        </li>
         <?php
                 if(empty($_SESSION["user_ID"])) {
                     echo "<li><a href=\"signup_reg.php\"><span class=\"glyphicon glyphicon-user\"></span> Sign Up</a></li>";
                     echo "<li><a href=\"login.php\"><span class=\"glyphicon glyphicon-log-in\"></span> Login</a></li>";
                 }
                 else{
-                    echo "<li><a href=\"login.php\"><span class=\"glyphicon glyphicon-log-out\"></span> Logout</a></li>";
                     $sql = "SELECT user_ID
                             FROM users us NATURAL JOIN regular_users rus
                             WHERE rus.user_ID='$id'";
@@ -45,6 +47,7 @@ include ('config.php');
                         echo "<li><a href=\"logon_reg.php\"><span class=\"glyphicon glyphicon-home\"></span> My Home</a></li>";
                     else
                         echo "<li><a href=\"logon_pro.php\"><span class=\"glyphicon glyphicon-home\"></span> My Home</a></li>";
+                    echo "<li><a href=\"login.php\"><span class=\"glyphicon glyphicon-log-out\"></span> Logout</a></li>";
                 }
       ?>
 

@@ -97,11 +97,13 @@
 
 <body>
 <nav class="navbar navbar-inverse">
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="signup_reg.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-    </ul>
-  </div>
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="signup_reg.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        </ul>
+    </div>
 </nav>
+
 <form action="" method="post"">
 <div class="container">
     <form action="" method="post" style="text-align:center;">
