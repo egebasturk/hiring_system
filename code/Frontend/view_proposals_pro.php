@@ -8,12 +8,26 @@ $user_ID= $_SESSION["user_ID"];
 if($db->connect_error){
     die("Connection failed: " . $db->connect_error);
 }
-
+if(isset($_GET['from_id']))
+{
+    $from_id = $_GET['from_id'];
+    if($from_id == 1)
+    {
+        echo "<div class=\"alert alert-danger alert-dismissible\">
+                  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+                  <strong>Proposal Added!</strong></div>";
+    }
+    elseif($from_id == 2)
+    {
+        echo "<div class=\"alert alert-danger alert-dismissible\">
+                  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+                  <strong>Proposal Canceled!</strong></div>";
+    }
+}
 if (isset($_POST['cancel']))
 {
     //echo "sth";DEBUG
     $oid = $_POST['var'];
-    echo $oid; // Can take this but cannot delete
     $sql = "DELETE FROM proposed_services 
             WHERE proposed_services.proposal_ID=$oid";
     $result = mysqli_query($db, "$sql");
@@ -125,7 +139,7 @@ if ($result == false) {
                         </form>
                     </th>
                     <th>
-                        <form action=\"view_proposals_pro.php\" method=\"post\">
+                        <form action=\"view_proposals_pro.php?from_id=2\" method=\"post\">
                             <div class=\"form-group\">
                                 <div class=\"col-sm-offset-0 col-sm-0\">
                                     <button type=\"submit\" class=\"btn btn-danger\" name='cancel' value='Cancel'>Cancel</button>
