@@ -11,7 +11,6 @@
         $originalServiceType = $_GET['order_type'];
         $originalStart = $_GET['start_date'];
         $originalEnd = $_GET['end_date'];
-        echo $orderID;
         $serviceType = 1; //default
         $orderDetails = ""; //default
         $start_date = "";
@@ -53,19 +52,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<style>
-    body {background-color: rgb(256, 256, 256);}
-    input[class=form-control]{
-        width:100%;
-        background-color:#FFF;
-        color:#000;
-        border:2px solid #FFF;
-        font-size:20px;
-        cursor:pointer;
-        border-radius:5px;
-        margin-bottom:15px;
-    }
-</style>
 <body>
 
 <nav class="navbar navbar-inverse">
