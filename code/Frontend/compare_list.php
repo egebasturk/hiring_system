@@ -29,14 +29,29 @@
             <a class="navbar-brand" href="homepage.php">Portakal</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="manage_reg.php"><span class="glyphicon glyphicon-user"></span><?php
+                    include('config.php');
+                    session_start();
+                    if (!empty($_SESSION))
+                    {
+                        $username = $_SESSION["username"];
+                        $id = $_SESSION["user_ID"];
+                        echo " $username";
+                    }
+                    else
+                    {
+                        echo " Currently not logged in!";
+                    }
+                    ?>
+                </a>
+            </li>
             <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
     </div>
 </nav>
 
 <?php
-include('config.php');
-session_start();
 $error = "";
 if (isset($_POST['add']))
 {

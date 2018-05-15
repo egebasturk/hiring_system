@@ -19,7 +19,7 @@
     input[class=form-control]{
         width:100%;
         background-color:#FFF;
-        color:#000;
+        color: #ef863d;
         border:2px solid #FFF;
         font-size:20px;
         cursor:pointer;
@@ -31,34 +31,24 @@
 
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-        <ul class="nav navbar-nav">
-            <li class="active"><a><?php
-                    if(!empty($_SESSION["user_ID"])) {
-                        $id = $_SESSION["user_ID"];
-                        $username = $_SESSION["username"];
-                        echo "User ID: $id, Username: $username";
-                    }
-                    else{
-                        echo "Currently not logged in!";
-                    }
-                    ?></a></li>
-
-        </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="manage_reg.php"><span class="glyphicon glyphicon-user"></span><?php
+            <li> <a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-bullhorn"></span> Notifications</a></li>
+            <li>
+                <a href="manage_reg.php"><span class="glyphicon glyphicon-user"></span><?php
                     if (!empty($_SESSION))
                     {
                         $username = $_SESSION["username"];
                         $id = $_SESSION["user_ID"];
                         echo " $username";
                     }
+                    else
+                    {
+                        echo " Currently not logged in!";
+                    }
                     ?>
                 </a>
             </li>
             <li><a href="login.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li> <a data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-bullhorn"> Notifications</span></a></li>
         </ul>
     </div>
 </nav>
