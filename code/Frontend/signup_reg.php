@@ -69,46 +69,27 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
-<style>
-    body {background-color: rgb(256, 256, 256);}
-    input[class=form-control]{
-        width:100%;
-        background-color:#FFF;
-        color:#000;
-        border:2px solid #FFF;
-        font-size:20px;
-        cursor:pointer;
-        border-radius:5px;
-        margin-bottom:15px;
-    }
-    input[class=form-control]:focus {
-        border: 3px solid #555;
-    }
-</style>
 <body>
 
-<nav class="navbar navbar-inverse">
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    </ul>
-  </div>
-</nav>
 
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+</nav>
 
 <div class="container">
     <h1>
-        <form action="" method="post">
-            <div class=""form-group">
-            <div class="col-sm-10">
                 <a href="homepage.php">
                     <img src="logo.png"
                          alt="Portakal logo"
                          style="width:271px;height:47px;border:0;">
                 </a>
-            </div>
-</div>
-</h1>
-    <form action="" method="post" style="text-align:center;">
+
+    </h1>
+    <form action="" method="post" style="text-align:left;">
     <div class="btn-group btn-group-justified">
       <div class="btn-group">
         <button type="submit" name="pro" class="btn btn-warning">Professional User</button>
@@ -165,17 +146,17 @@
     <div class="form-group">
       <label for="zip">Zip code:</label>
       <input type="number" min="0" class="form-control" id="zip" name="zip">
-    </div>   
-	<div class="form-group">
-		<div class="col-sm-10">
-			<span><?php echo $error; ?></span>
-		</div>
-	</div>
+    </div>
     <div class="form-group">        
       <div class="col-sm-offset-0 col-sm-0">
         <button type="submit" name="submit" class="btn btn-warning">Submit</button>
       </div>
     </div>
+        <div class="form-group">
+            <div class="col-sm-10">
+                <span><?php echo $error; ?></span>
+            </div>
+        </div>
   </form>
   </div>
 </body>
