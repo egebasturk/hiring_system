@@ -175,7 +175,7 @@ include ('config.php');
              </thead>
              <tbody id=\"myTable\">";
        while($row = mysqli_fetch_array($result_query)) {
-           echo "<tr> 
+           echo "<tr onclick=\"window.location='professional_info.php?profID=$row[0]';\"> 
                 <td> $row[1] </td>
                 <td> $row[2] </td>
                 <td> $row[3] </td>

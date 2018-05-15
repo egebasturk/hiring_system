@@ -43,7 +43,7 @@
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Username</th>
                         <th>Address</th>
                         <th>Experience</th>
                         <th>Expertise Field</th>
@@ -56,13 +56,12 @@
                     include('config.php');
                     $error = '';
                     session_start();
-                    $user_ID = $_SESSION['user_ID'];
-                    $results = array();
-                    $result_query = mysqli_query($db, "SELECT provider_ID FROM regular_users NATURAL JOIN has_taken WHERE user_ID = $user_ID");
-                    while($row = mysqli_fetch_array($result_query))
-                    {
-                        $provider_query = mysqli_query($db, "SELECT email, city_name, experience, expertise_field FROM professional_users NATURAL JOIN users WHERE user_ID = $row[0]");
-                        $rating_query = mysqli_query($db, "SELECT rating, evaluation FROM service_ratings_evaluations WHERE user_ID = $user_ID AND provider_ID = $row[0]");
+                    if(isset($_GET['profID'])) {
+                        $id = $_GET['profID'];
+
+                        $results = array();
+                        $provider_query = mysqli_query($db, "SELECT username, city_name, street_number, apt_name, zip_code, experience, expertise_field FROM professional_users NATURAL JOIN users WHERE user_ID = '$id'");
+                        $rating_query = mysqli_query($db, "SELECT rating, evaluation FROM service_ratings_evaluations WHERE provider_ID = '$id'");
                         $email = "";
                         $city = "";
                         $exp = "";
@@ -70,21 +69,14 @@
                         $rating = "";
                         $eval = "";
                         echo "<tr>";
-                        while($print_row = mysqli_fetch_array($provider_query))
-                        {
-                            $email = $print_row[0];
-                            $city = $print_row[1];
-                            $exp = $print_row[2];
-                            $expertise = $print_row[3];
+                        while ($print_row = mysqli_fetch_array($provider_query)) {
                             echo "<td>$print_row[0]</td>";
-                            echo "<td>$print_row[1]</td>";
-                            echo "<td>$print_row[2]</td>";
-                            echo "<td>$print_row[3]</td>";
+                            echo "<td>$print_row[1], $print_row[2], $print_row[3], $print_row[4]</td>";
+                            echo "<td>$print_row[5]</td>";
+                            echo "<td>$print_row[6]</td>";
                         }
-                        while($rating_print = mysqli_fetch_array($rating_query))
-                        {
-                            $rating = $rating_print[0];
-                            $eval = $rating_print[1];
+
+                        while ($rating_print = mysqli_fetch_array($rating_query)) {
                             echo "<td>$rating_print[0]</td>";
                             echo "<td>$rating_print[1]</td>";
                         }
